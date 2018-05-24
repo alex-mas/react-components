@@ -1,0 +1,40 @@
+{
+  "name": "axc",
+  "version": "0.0.1",
+  "description": "react components created and used by me",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "node_modules/.bin/tsc",
+    "test": "jest",
+    "build": "webpack --config=tasks/build/webpack.mdl.config.js"
+  },
+  "homepage": "https://github.com/alex-mas/axc",
+  "url": "TODO",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex-mas/axc.git"
+  },
+  "email": "alex.mas.dev@gmail.com",
+  "engines": {
+    "node": ">= 6.4.0"
+  },
+  "author": "alex_mas",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.3.14",
+    "@types/react-dom": "^16.0.5",
+    "@types/uuid": "^3.4.3",
+    "awesome-typescript-loader": "^5.0.0",
+    "jest": "^22.1.4",
+    "jsdoc": "^3.5.5",
+    "jsdoc-template": "^1.2.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.4.0",
+    "uuid": "^3.2.1"
+  }
+}
