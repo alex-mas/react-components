@@ -4,9 +4,8 @@
   "description": "react components created and used by me",
   "main": "dist/index.js",
   "scripts": {
-    "tsc": "node_modules/.bin/tsc",
-    "test": "jest",
-    "build": "webpack --config=tasks/build/webpack.mdl.config.js"
+    "build": "node_modules/.bin/tsc && node tasks/build.js",
+    "test": "jest"
   },
   "homepage": "https://github.com/alex-mas/axc",
   "url": "TODO",

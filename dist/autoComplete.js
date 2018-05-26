@@ -1,95 +1,194 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(require("react"));
-var v4_1 = __importDefault(require("uuid/v4"));
-var defaultPredictionData = ['hello', 'world'];
-var AutoComplete = /** @class */ (function (_super) {
-    __extends(AutoComplete, _super);
-    function AutoComplete(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            id: _this.props.id ? _this.props.id : v4_1.default(),
+const react_1 = __importDefault(require("react"));
+const v4_1 = __importDefault(require("uuid/v4"));
+const defaultPredictionData = ['hello', 'world', 'hello world', 'hey there', 'hello world program in c++', 'hello world program', 'stupidly long text stupidly long text stupidly long text stupidly long text'];
+let defaultStyles = {
+    autoComplete: {
+        position: 'relative',
+        width: '173px'
+    },
+    autoComplete__input: {
+        maxWidth: 'inherit',
+        width: 'inherit'
+    },
+    autoComplete__suggestions: {
+        width: '100%',
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: 'white',
+        border: '0.5px solid black'
+    },
+    autoComplete__suggestion: {
+        border: '0.25px solid grey'
+    },
+    autoComplete__suggestion_selected: {
+        border: '0.5px solid black',
+        fontWeight: 'bold'
+    }
+};
+class AutoComplete extends react_1.default.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: this.props.id ? this.props.id : v4_1.default(),
             userHistory: [],
             predictionData: props.predictionData ? props.predictionData : defaultPredictionData,
             suggestions: [],
-            selectedSuggestion: -1
+            selectedSuggestion: -1,
+            focused: false,
+            styles: {
+                autoComplete: {},
+                autoComplete__input: {},
+                autoComplete__suggestions: {},
+                autoComplete__suggestion: {},
+                autoComplete__suggestion_selected: {}
+            }
         };
-        return _this;
+        //style initialization 
+        if (props.useInlineStyles) {
+            if (props.styles) {
+                for (let key in this.state.styles) {
+                    if (this.state.styles.hasOwnProperty(key)) {
+                        this.state.styles[key] = Object.assign({}, defaultStyles[key], props.styles[key]);
+                    }
+                }
+            }
+            else {
+                for (let key in this.state.styles) {
+                    if (this.state.styles.hasOwnProperty(key)) {
+                        this.state.styles[key] = Object.assign({}, defaultStyles[key]);
+                    }
+                }
+            }
+        }
+        this.onChange = this.onChange.bind(this);
+        this.computeSuggestions = this.computeSuggestions.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onFocus = this.onFocus.bind(this);
     }
-    AutoComplete.prototype.onChange = function (inputValue) {
-        var _this = this;
-        this.props.onChange(inputValue);
-        this.setState(function () {
+    onChange(event) {
+        let inputValue = '';
+        if (typeof event === 'object') {
+            inputValue = event.target.value;
+        }
+        else {
+            inputValue = event;
+        }
+        this.setState(() => {
+            let suggestions;
+            if (this.props.getSuggestions) {
+                suggestions = this.props.getSuggestions();
+            }
+            else {
+                suggestions = this.computeSuggestions(inputValue);
+            }
             return {
-                suggestions: _this.computeSuggestions(inputValue)
+                suggestions,
+                selectedSuggestion: -1
             };
         });
-    };
-    AutoComplete.prototype.computeSuggestions = function (value) {
-        var suggestions = [];
-        for (var i = 0; i < this.state.userHistory.length; i++) {
-            if (this.state.userHistory[i].substring(0, value.length - 1) === value) {
+        this.props.onChange(inputValue);
+    }
+    shouldAddSuggestion(value, suggestion, suggestions) {
+        return (suggestion.substring(0, value.length) === value &&
+            suggestions.indexOf(suggestion) === -1 &&
+            value !== suggestion);
+    }
+    computeSuggestions(value) {
+        const suggestions = [];
+        for (let i = 0; i < this.state.userHistory.length; i++) {
+            if (this.shouldAddSuggestion(value, this.state.userHistory[i], suggestions)) {
                 suggestions.push(this.state.userHistory[i]);
             }
         }
+        for (let i = 0; i < this.state.predictionData.length; i++) {
+            if (this.shouldAddSuggestion(value, this.state.predictionData[i], suggestions)) {
+                suggestions.push(this.state.predictionData[i]);
+            }
+        }
         return suggestions;
-    };
-    AutoComplete.prototype.onSubmit = function (value) {
-        this.setState(function (prevState) {
+    }
+    onSubmit(value) {
+        this.setState((prevState) => {
             return {
-                userHistory: prevState.userHistory.concat([value])
+                userHistory: [...prevState.userHistory, value]
             };
         });
-    };
-    AutoComplete.prototype.isActive = function () {
-        return document.activeElement.id === this.state.id;
-    };
-    AutoComplete.prototype.onKeyUp = function (event) {
-        if (this.isActive()) {
-            if (event.keyCode === 38 && this.state.selectedSuggestion < this.state.suggestions.length - 1) {
-                this.setState(function (prevState) { return ({
+    }
+    onKeyDown(event) {
+        if (this.state.focused) {
+            if (event.keyCode === 40 && this.state.selectedSuggestion < this.state.suggestions.length - 1) {
+                this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion + 1
-                }); });
+                }));
             }
-            else if (event.keyCode === 40 && this.state.selectedSuggestion >= 0) {
-                this.setState(function (prevState) { return ({
+            else if (event.keyCode === 38 && this.state.selectedSuggestion > -1) {
+                this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion - 1
-                }); });
+                }));
             }
             else if (event.keyCode === 13 && this.state.selectedSuggestion > -1) {
                 this.onChange(this.state.suggestions[this.state.selectedSuggestion]);
             }
+            else if (event.keyCode === 27) {
+                this.setState((prevState) => ({
+                    selectedSuggestion: -1
+                }));
+            }
+            else if (event.keyCode === 9 && this.state.selectedSuggestion > -1) {
+                event.preventDefault();
+                if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
+                    this.setState((prevState) => ({
+                        selectedSuggestion: prevState.selectedSuggestion + 1
+                    }));
+                }
+                else {
+                    this.setState(() => ({
+                        selectedSuggestion: 0
+                    }));
+                }
+            }
         }
-    };
-    AutoComplete.prototype.render = function () {
-        var _this = this;
-        return (react_1.default.createElement("div", { id: this.state.id, className: "auto-complete " + this.props.className, onKeyUp: this.onKeyUp },
-            react_1.default.createElement("input", { className: 'auto-complete__input', placeholder: this.props.placeholder, type: 'text', value: this.props.value }),
-            this.isActive() ?
-                react_1.default.createElement("div", { className: 'auto-complete__suggestions' }, this.state.suggestions.map(function (suggestion, index) {
-                    var className = 'auto-complete__suggestion';
-                    if (index === _this.state.selectedSuggestion) {
-                        className += ' selected';
-                    }
-                    return (react_1.default.createElement("div", { key: suggestion, className: className }, suggestion));
-                }))
-                :
-                    undefined));
-    };
-    return AutoComplete;
-}(react_1.default.Component));
+    }
+    onFocus(event) {
+        this.setState(() => ({
+            focused: true
+        }));
+    }
+    onBlur(event) {
+        this.setState(() => ({
+            focused: false
+        }));
+    }
+    render() {
+        let value = this.props.value;
+        if (this.state.selectedSuggestion > -1) {
+            value = this.state.suggestions[this.state.selectedSuggestion];
+        }
+        return (react_1.default.createElement("div", { className: this.props.className ? this.props.className : undefined, onKeyDown: this.onKeyDown },
+            react_1.default.createElement("div", { className: 'auto-complete', style: this.state.styles.autoComplete },
+                react_1.default.createElement("input", { id: this.state.id, className: 'auto-complete__input', placeholder: this.props.placeholder, type: 'text', value: value, onChange: this.onChange, onBlur: this.onBlur, onFocus: this.onFocus, style: this.state.styles.autoComplete__input }),
+                this.state.focused ?
+                    react_1.default.createElement("div", { className: 'auto-complete__suggestions', style: this.state.styles.autoComplete__suggestions }, this.state.suggestions.map((suggestion, index) => {
+                        const selected = index === this.state.selectedSuggestion;
+                        let className = 'auto-complete__suggestion';
+                        if (selected) {
+                            className += '--selected';
+                        }
+                        return (react_1.default.createElement("div", { key: suggestion, className: className, style: selected ?
+                                this.state.styles.autoComplete__suggestion_selected
+                                :
+                                    this.state.styles.autoComplete__suggestion }, suggestion));
+                    }))
+                    :
+                        undefined)));
+    }
+}
 exports.AutoComplete = AutoComplete;
 exports.default = AutoComplete;

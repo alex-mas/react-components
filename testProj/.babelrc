@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": "last 2 Chrome versions",
+          "node": "current"
+        }
+      }
+    ],
+    ["react"]
+  ],
+  "plugins": [
+    ["babel-plugin-transform-class-properties"],
+    ["babel-plugin-transform-object-rest-spread"]
+  ]
+}
