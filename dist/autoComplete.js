@@ -172,12 +172,12 @@ class AutoComplete extends react_1.default.Component {
             value = this.state.suggestions[this.state.selectedSuggestion];
         }
         return (react_1.default.createElement("div", { className: this.props.className ? this.props.className : undefined, onKeyDown: this.onKeyDown },
-            react_1.default.createElement("div", { className: 'auto-complete', style: this.state.styles.autoComplete },
-                react_1.default.createElement("input", { id: this.state.id, className: 'auto-complete__input', placeholder: this.props.placeholder, type: 'text', value: value, onChange: this.onChange, onBlur: this.onBlur, onFocus: this.onFocus, style: this.state.styles.autoComplete__input }),
+            react_1.default.createElement("div", { className: 'axc-auto-complete', style: this.state.styles.autoComplete },
+                react_1.default.createElement("input", { id: this.state.id, className: 'axc-auto-complete__input', placeholder: this.props.placeholder, type: 'text', value: value, onChange: this.onChange, onBlur: this.onBlur, onFocus: this.onFocus, style: this.state.styles.autoComplete__input }),
                 this.state.focused ?
-                    react_1.default.createElement("div", { className: 'auto-complete__suggestions', style: this.state.styles.autoComplete__suggestions }, this.state.suggestions.map((suggestion, index) => {
+                    react_1.default.createElement("div", { className: 'axc-auto-complete__suggestions', style: this.state.styles.autoComplete__suggestions }, this.state.suggestions.map((suggestion, index) => {
                         const selected = index === this.state.selectedSuggestion;
-                        let className = 'auto-complete__suggestion';
+                        let className = 'axc-auto-complete__suggestion';
                         if (selected) {
                             className += '--selected';
                         }

@@ -206,10 +206,10 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                 className={this.props.className ? this.props.className : undefined}
                 onKeyDown={this.onKeyDown}
             >
-                <div className='auto-complete' style={this.state.styles.autoComplete}>
+                <div className='axc-auto-complete' style={this.state.styles.autoComplete}>
                     <input
                         id={this.state.id}
-                        className='auto-complete__input'
+                        className='axc-auto-complete__input'
                         placeholder={this.props.placeholder}
                         type='text'
                         value={value}
@@ -219,10 +219,10 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                         style={this.state.styles.autoComplete__input}
                     />
                     {this.state.focused ?
-                        <div className='auto-complete__suggestions' style={this.state.styles.autoComplete__suggestions}>
+                        <div className='axc-auto-complete__suggestions' style={this.state.styles.autoComplete__suggestions}>
                             {this.state.suggestions.map((suggestion, index) => {
                                 const selected = index === this.state.selectedSuggestion
-                                let className = 'auto-complete__suggestion';
+                                let className = 'axc-auto-complete__suggestion';
                                 if (selected) {
                                     className += '--selected';
                                 }

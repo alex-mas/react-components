@@ -1,22 +1,22 @@
-.autoComplete{
+.axc-auto-complete{
     position: relative;
     width: 173px;
 }
-.autoComplete__input {
+.axc-auto-complete__input {
     max-width: inherit;
     width: inherit;
 }
-.autoComplete__suggestions{
+.axc-auto-complete__suggestions{
     width: 100%;
     position: absolute;
     z-index: 1;
     background-color: white;
     border: 0.5px solid black;
 }
-.autoComplete__suggestion {
+.axc-auto-complete__suggestion {
     border: 0.25px solid grey;
 }
-.autoComplete__suggestion_selected {
+.axc-auto-complete__suggestion--selected {
     border: 0.5px solid black;
     font-weight: bold;
 }
