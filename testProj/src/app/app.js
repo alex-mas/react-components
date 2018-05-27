@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
-
+import Modal from '../../../dist/modal';
 
 
 const myStyles = {
@@ -36,7 +36,8 @@ class App extends React.Component {
             formData: {
                 name: 'Alex',
                 surname: 'Mas'
-            }
+            },
+            isModalOpen: true
         };
     }
     onNameChange = (name) => {
@@ -55,25 +56,56 @@ class App extends React.Component {
             }
         }), () => console.log('changed surname state theoretically'));
     }
+    toggleModal = ()=>{
+        console.log('before toggling:',this.state);
+        this.setState((prevState)=>({
+            isModalOpen: !prevState.isModalOpen
+        }));
+    }
+    closeModal = ()=>{
+        this.setState((prevState)=>({
+            isModalOpen: false
+        }));
+    }
     render() {
         console.log(this.state);
         return (
-            <form className='testForm'>
-                <AutoComplete
-                    id='nameInput'
-                    value={this.state.formData.name}
-                    onChange={this.onNameChange}
-                    useInlineStyles={true}
-                    styles={myStyles}
-                />
-                <AutoComplete
-                    id='surnameInput'
-                    value={this.state.formData.surname}
-                    onChange={this.onSurnameChange}
-                    useInlineStyles={true}
-                    styles={myOtherStyles}
-                />
-            </form>
+            <div>
+                <form className='testForm'>
+                    <AutoComplete
+                        id='nameInput'
+                        value={this.state.formData.name}
+                        onChange={this.onNameChange}
+                        useInlineStyles={true}
+                        styles={myStyles}
+                    />
+                    <AutoComplete
+                        id='surnameInput'
+                        value={this.state.formData.surname}
+                        onChange={this.onSurnameChange}
+                        useInlineStyles={true}
+                        styles={myOtherStyles}
+                    />
+                </form>
+                <button type='button' onClick={this.toggleModal}>
+                    Toggle modal
+                </button>
+                <Modal
+                    className='myModal'
+                    delay={true}
+                    isOpen={this.state.isModalOpen}
+                    onClose={this.closeModal}
+                    
+                >
+                    <div>
+                        {this.state.formData.name} - {this.state.formData.surname}
+                    </div>
+                    <div>
+                        Body!
+                    </div>
+                    <button type='button' onClick={this.toggleModal}>Close!</button>
+                </Modal>
+            </div>
         )
     }
 }
