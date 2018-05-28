@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
+import Carousel from '../../../dist/carousel';
 
 
 const myStyles = {
@@ -90,12 +91,27 @@ class App extends React.Component {
                 <button type='button' onClick={this.toggleModal}>
                     Toggle modal
                 </button>
+                <Carousel
+                    startingElement={-15}
+                    onElementChange={(currentIndex)=>{
+                        console.log('Changing of element, current one is: ',currentIndex);
+                    }}
+                >
+                   <div>
+                       First element
+                   </div>
+                   <div>
+                       Second element
+                   </div>
+                   <div>
+                       Third element
+                   </div>
+                </Carousel>
                 <Modal
                     className='myModal'
                     delay={true}
                     isOpen={this.state.isModalOpen}
-                    onClose={this.closeModal}
-                    
+                    onClose={this.closeModal}    
                 >
                     <div>
                         {this.state.formData.name} - {this.state.formData.surname}
