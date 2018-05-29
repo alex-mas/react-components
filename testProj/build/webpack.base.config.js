@@ -8,6 +8,7 @@ const webpack = require('webpack');
 
 //fs.copyFileSync('../src/autoComplete.css','../testProj/dist/autoComplete.css');
 fs.copyFileSync('../dist/styles/modal.css','../testProj/dist/modal.css');
+fs.copyFileSync('../dist/styles/carousel.css','../testProj/dist/carousel.css');
 fs.copyFileSync('../testProj/src/app/app.html', '../testProj/dist/app.html');
 fs.copyFileSync('../testProj/src/app/testApp.css', '../testProj/dist/testApp.css');
 

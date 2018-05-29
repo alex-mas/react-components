@@ -86,16 +86,18 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
     }
     render() {
         return (
-            <div className="axc-carousel">
-                <button className="axc-carousel__previous" onClick={this.previous}>previous</button>
-                <div className="axc-carousel__element-container">
-                    {React.Children.map(this.props.children, (child: ReactElement<any> | any, i: number) => {
-                        if (i === this.state.activeElement) {
-                            return child;
-                        }
-                    })}
+            <div>
+                <div className="axc-carousel">
+                    <button className="axc-carousel__previous" onClick={this.previous}>previous</button>
+                    <div className="axc-carousel__element-container">
+                        {React.Children.map(this.props.children, (child: ReactElement<any> | any, i: number) => {
+                            if (i === this.state.activeElement) {
+                                return child;
+                            }
+                        })}
+                    </div>
+                    <button className="axc-carousel__next" onClick={this.next}>next</button>
                 </div>
-                <button className="axc-carousel__next" onClick={this.next}>next</button>
             </div>
         )
     }

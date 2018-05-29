@@ -68,14 +68,15 @@ class Carousel extends react_1.default.Component {
         }
     }
     render() {
-        return (react_1.default.createElement("div", { className: "axc-carousel" },
-            react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous }, "previous"),
-            react_1.default.createElement("div", { className: "axc-carousel__element-container" }, react_1.default.Children.map(this.props.children, (child, i) => {
-                if (i === this.state.activeElement) {
-                    return child;
-                }
-            })),
-            react_1.default.createElement("button", { className: "axc-carousel__next", onClick: this.next }, "next")));
+        return (react_1.default.createElement("div", null,
+            react_1.default.createElement("div", { className: "axc-carousel" },
+                react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous }, "previous"),
+                react_1.default.createElement("div", { className: "axc-carousel__element-container" }, react_1.default.Children.map(this.props.children, (child, i) => {
+                    if (i === this.state.activeElement) {
+                        return child;
+                    }
+                })),
+                react_1.default.createElement("button", { className: "axc-carousel__next", onClick: this.next }, "next"))));
     }
 }
 exports.Carousel = Carousel;
