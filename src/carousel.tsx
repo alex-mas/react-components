@@ -1,5 +1,11 @@
-import React, { ReactChild, ReactElement } from 'react';
-
+import React, { ReactChild, ReactElement, } from 'react';
+import ReactDOM from 'react-dom';
+import * as fontawesome from '@fortawesome/fontawesome';
+import * as test from '@fortawesome/fontawesome-svg-core';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
+import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
+import Router,{RouterState} from './router';
 
 export interface CarouselState {
     activeElement: number,
@@ -17,6 +23,11 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
     state: CarouselState
     constructor(props: CarouselProps) {
         super(props);
+        
+        this.onElementChange = this.onElementChange.bind(this);
+        this.stopAutoPlay = this.stopAutoPlay.bind(this);
+        this.next = this.next.bind(this);
+        this.previous = this.previous.bind(this);
 
         let intervalHandle;
         if (this.props.autoPlay !== undefined && this.props.autoPlay > 0) {
@@ -40,11 +51,6 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
             activeElement,
             intervalHandle
         };
-
-        this.onElementChange = this.onElementChange.bind(this);
-        this.next = this.next.bind(this);
-        this.previous = this.previous.bind(this);
-        this.stopAutoPlay = this.stopAutoPlay.bind(this);
 
 
     }
@@ -86,22 +92,30 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
     }
     render() {
         return (
-            <div>
-                <div className="axc-carousel">
-                    <button className="axc-carousel__previous" onClick={this.previous}>previous</button>
-                    <div className="axc-carousel__element-container">
-                        {React.Children.map(this.props.children, (child: ReactElement<any> | any, i: number) => {
-                            if (i === this.state.activeElement) {
-                                return child;
-                            }
-                        })}
-                    </div>
-                    <button className="axc-carousel__next" onClick={this.next}>next</button>
-                </div>
+            <div className="axc-carousel">
+                <button className="axc-carousel__previous" onClick={this.previous}>
+                    <FontAwesomeIcon icon={angleLeft} />
+                </button>
+                <Router
+                    strategy={(childProps: any, routerState: RouterState, index: number) => {
+                        if (index === this.state.activeElement) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }}
+                    className='axc-carousel__element-container'
+                >
+                    {this.props.children}
+                </Router>
+                <button className="axc-carousel__next" onClick={this.next}>
+                    <FontAwesomeIcon icon={angleRight} />
+                </button>
             </div>
         )
     }
 }
+
 
 
 export default Carousel;

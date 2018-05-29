@@ -4,9 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+const react_fontawesome_1 = __importDefault(require("@fortawesome/react-fontawesome"));
+const faAngleRight_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleRight"));
+const faAngleLeft_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleLeft"));
+const router_1 = __importDefault(require("./router"));
 class Carousel extends react_1.default.Component {
     constructor(props) {
         super(props);
+        this.onElementChange = this.onElementChange.bind(this);
+        this.stopAutoPlay = this.stopAutoPlay.bind(this);
+        this.next = this.next.bind(this);
+        this.previous = this.previous.bind(this);
         let intervalHandle;
         if (this.props.autoPlay !== undefined && this.props.autoPlay > 0) {
             intervalHandle = setInterval(this.next, this.props.autoPlay);
@@ -26,10 +34,6 @@ class Carousel extends react_1.default.Component {
             activeElement,
             intervalHandle
         };
-        this.onElementChange = this.onElementChange.bind(this);
-        this.next = this.next.bind(this);
-        this.previous = this.previous.bind(this);
-        this.stopAutoPlay = this.stopAutoPlay.bind(this);
     }
     onElementChange() {
         if (this.props.onElementChange) {
@@ -68,15 +72,19 @@ class Carousel extends react_1.default.Component {
         }
     }
     render() {
-        return (react_1.default.createElement("div", null,
-            react_1.default.createElement("div", { className: "axc-carousel" },
-                react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous }, "previous"),
-                react_1.default.createElement("div", { className: "axc-carousel__element-container" }, react_1.default.Children.map(this.props.children, (child, i) => {
-                    if (i === this.state.activeElement) {
-                        return child;
+        return (react_1.default.createElement("div", { className: "axc-carousel" },
+            react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous },
+                react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleLeft_1.default })),
+            react_1.default.createElement(router_1.default, { strategy: (childProps, routerState, index) => {
+                    if (index === this.state.activeElement) {
+                        return true;
                     }
-                })),
-                react_1.default.createElement("button", { className: "axc-carousel__next", onClick: this.next }, "next"))));
+                    else {
+                        return false;
+                    }
+                }, className: 'axc-carousel__element-container' }, this.props.children),
+            react_1.default.createElement("button", { className: "axc-carousel__next", onClick: this.next },
+                react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleRight_1.default }))));
     }
 }
 exports.Carousel = Carousel;

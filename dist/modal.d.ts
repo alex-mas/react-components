@@ -18,6 +18,6 @@ export declare class Modal extends React.Component<ModalProps, ModalState> {
     handleClickInsideModal(event: React.MouseEvent<any>): void;
     transition(delay: number): void;
     componentWillReceiveProps(nextProps: ModalProps): void;
-    render(): JSX.Element | null;
+    render(): JSX.Element;
 }
 export default Modal;

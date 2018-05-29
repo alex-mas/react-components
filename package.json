@@ -22,6 +22,7 @@
   "devDependencies": {
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
+    "@types/react-fontawesome": "^1.6.3",
     "@types/uuid": "^3.4.3",
     "awesome-typescript-loader": "^5.0.0",
     "jest": "^22.1.4",
@@ -32,6 +33,10 @@
     "webpack": "^4.8.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.0-11",
+    "@fortawesome/react-fontawesome": "0.0.20",
     "react": "^16.3.2",
     "react-dom": "^16.4.0",
     "uuid": "^3.2.1"

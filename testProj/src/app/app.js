@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
 import Carousel from '../../../dist/carousel';
+import Router from '../../../dist/router';
 
 
 const myStyles = {
@@ -38,7 +39,7 @@ class App extends React.Component {
                 name: 'Alex',
                 surname: 'Mas'
             },
-            isModalOpen: true
+            isModalOpen: false
         };
     }
     onNameChange = (name) => {
@@ -57,14 +58,14 @@ class App extends React.Component {
             }
         }), () => console.log('changed surname state theoretically'));
     }
-    toggleModal = ()=>{
-        console.log('before toggling:',this.state);
-        this.setState((prevState)=>({
+    toggleModal = () => {
+        console.log('before toggling:', this.state);
+        this.setState((prevState) => ({
             isModalOpen: !prevState.isModalOpen
         }));
     }
-    closeModal = ()=>{
-        this.setState((prevState)=>({
+    closeModal = () => {
+        this.setState((prevState) => ({
             isModalOpen: false
         }));
     }
@@ -91,27 +92,59 @@ class App extends React.Component {
                 <button type='button' onClick={this.toggleModal}>
                     Toggle modal
                 </button>
-                <Carousel
-                    startingElement={-15}
-                    onElementChange={(currentIndex)=>{
-                        console.log('Changing of element, current one is: ',currentIndex);
-                    }}
+                {window.location.hash ?
+                    null
+                    :
+                    <button type='button' onClick={()=>{window.location.hash = '/home'}}>
+                        Go to landing page
+                    </button>
+                }
+                <Router
+                    activeRoute={window.location.hash}
                 >
-                   <div>
-                       First element
-                   </div>
-                   <div>
-                       Second element
-                   </div>
-                   <div>
-                       Third element
-                   </div>
-                </Carousel>
+                    <div match='#/home'>
+                        Hello, this is the landing page!
+                        <div>
+                            <button onClick={() => { window.location.hash = '#/carousel' }}>Go to carousel</button>
+                        </div>
+                        <div>
+                            <button onClick={() => { window.location.hash = '#/notFound' }}>Return to landing page</button>
+                        </div>
+                    </div>
+                    <div match='#/notFound'>
+                        Sorry, the content you asked for was not found
+                        <div>
+                            <button onClick={() => { window.location.hash = '' }}>Return to landing page</button>
+                        </div>
+                    </div>
+                    <div match='#/carousel'>
+                        <Carousel
+                            startingElement={-15}
+                            onElementChange={(currentIndex) => {
+                                console.log('Changing of element, current one is: ', currentIndex);
+                            }}
+                            autoPlay={2000}
+                        >
+                            <div>
+                                First element
+                            </div>
+                            <div>
+                                Second element
+                            </div>
+                            <div>
+                                Third element
+                            </div>
+                            <div>
+                                <button onClick={() => { window.location.hash = '' }}>Return to landing page</button>
+                            </div>
+                        </Carousel>
+                    </div>
+                </Router>
                 <Modal
                     className='myModal'
                     delay={true}
                     isOpen={this.state.isModalOpen}
-                    onClose={this.closeModal}    
+                    onClose={this.closeModal}
                 >
                     <div>
                         {this.state.formData.name} - {this.state.formData.surname}
