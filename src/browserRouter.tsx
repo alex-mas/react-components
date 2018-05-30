@@ -3,7 +3,7 @@ import Router, { RouterContext } from './router';
 import cloneDeep from 'lodash.clonedeep';
 
 
-export interface LinkProps {
+export interface BrowserLinkProps {
     children: React.ReactNode,
     to: string,
     text?: string
@@ -18,7 +18,7 @@ export interface BrowserHistory {
 }
 export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext(undefined);
 
-export class BrowserLink extends React.Component<LinkProps, any>{
+export class BrowserLink extends React.Component<BrowserLinkProps, any>{
     render() {
         return (
             <BrowserHistoryContext.Consumer>
@@ -158,12 +158,38 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 }
 
 
-export const WithHistoryContext: React.SFC<any> = (Component)=>{
-    return(
+export interface WithHistoryContextFunction {
+    (params: any): React.SFC<any>
+}
+
+export const WithHistoryContext: WithHistoryContextFunction = (Component) => {
+    return (props)=>(
         <BrowserHistoryContext.Consumer>
-            {history=><Component history={history}/>}
+            {history => <Component history={history} {...props} />}
         </BrowserHistoryContext.Consumer>
     )
 }
+
+export interface BrowserRouteProps {
+    history: BrowserHistory,
+    path: string,
+    exact: boolean,
+    component?: React.ComponentClass<any> | React.SFCFactory<any> | any,
+    children?: any
+
+}
+
+const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
+    if(props.component){
+        return <props.component/>;
+    }else if(props.children){
+        return (
+            <div>
+                {props.children}
+            </div>
+        )
+    }
+}
+export const BrowserRoute = WithHistoryContext(_BrowserRoute) ;
 
 export default BrowserRouter;

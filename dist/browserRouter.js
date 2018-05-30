@@ -34,14 +34,12 @@ class BrowserRouter extends react_1.default.Component {
             }
         };
         this.pushState = (newNode) => {
-            console.log('pushing new state');
             if (newNode !== this.location()) {
                 this.setState((prevState) => ({
                     currentPosition: prevState.history.length,
                     history: [...prevState.history, newNode]
                 }));
             }
-            console.log(this.location());
         };
         this.location = () => {
             return this.state.history[this.state.currentPosition];
@@ -102,7 +100,6 @@ class BrowserRouter extends react_1.default.Component {
             currentPosition: 0
         };
         this.history = react_1.default.createContext(this.getBrowserHistory());
-        console.log(this.state);
     }
     componentWillReceiveProps(nextProps) {
         console.log('browser router is getting new props: ', nextProps);
@@ -115,4 +112,16 @@ class BrowserRouter extends react_1.default.Component {
     }
 }
 exports.BrowserRouter = BrowserRouter;
+exports.WithHistoryContext = (Component) => {
+    return (props) => (react_1.default.createElement(exports.BrowserHistoryContext.Consumer, null, history => react_1.default.createElement(Component, Object.assign({ history: history }, props))));
+};
+const _BrowserRoute = (props) => {
+    if (props.component) {
+        return react_1.default.createElement(props.component, null);
+    }
+    else if (props.children) {
+        return (react_1.default.createElement("div", null, props.children));
+    }
+};
+exports.BrowserRoute = exports.WithHistoryContext(_BrowserRoute);
 exports.default = BrowserRouter;

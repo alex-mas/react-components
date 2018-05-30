@@ -1,7 +1,7 @@
 /// <reference types="react" />
 import React from 'react';
 import { RouterContext } from './router';
-export interface LinkProps {
+export interface BrowserLinkProps {
     children: React.ReactNode;
     to: string;
     text?: string;
@@ -14,7 +14,7 @@ export interface BrowserHistory {
     editState(editedState: string): void;
 }
 export declare const BrowserHistoryContext: React.Context<BrowserHistory>;
-export declare class BrowserLink extends React.Component<LinkProps, any> {
+export declare class BrowserLink extends React.Component<BrowserLinkProps, any> {
     render(): JSX.Element;
 }
 export interface BrowserRouterProps {
@@ -38,4 +38,16 @@ export declare class BrowserRouter extends React.Component<BrowserRouterProps, B
     strategy: (childProps: any, routerContext: RouterContext, index: number) => boolean;
     render(): JSX.Element;
 }
+export interface WithHistoryContextFunction {
+    (params: any): React.SFC<any>;
+}
+export declare const WithHistoryContext: WithHistoryContextFunction;
+export interface BrowserRouteProps {
+    history: BrowserHistory;
+    path: string;
+    exact: boolean;
+    component?: React.ComponentClass<any> | React.SFCFactory<any> | any;
+    children?: any;
+}
+export declare const BrowserRoute: React.StatelessComponent<any>;
 export default BrowserRouter;
