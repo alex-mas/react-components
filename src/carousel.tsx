@@ -5,7 +5,7 @@ import * as test from '@fortawesome/fontawesome-svg-core';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
-import Router,{RouterState} from './router';
+import Router,{RouterContext} from './router';
 
 export interface CarouselState {
     activeElement: number,
@@ -97,7 +97,7 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
                     <FontAwesomeIcon icon={angleLeft} />
                 </button>
                 <Router
-                    strategy={(childProps: any, routerState: RouterState, index: number) => {
+                    strategy={(childProps: any, routerContext: RouterContext, index: number) => {
                         if (index === this.state.activeElement) {
                             return true;
                         } else {

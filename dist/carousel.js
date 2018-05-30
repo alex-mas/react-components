@@ -75,7 +75,7 @@ class Carousel extends react_1.default.Component {
         return (react_1.default.createElement("div", { className: "axc-carousel" },
             react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous },
                 react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleLeft_1.default })),
-            react_1.default.createElement(router_1.default, { strategy: (childProps, routerState, index) => {
+            react_1.default.createElement(router_1.default, { strategy: (childProps, routerContext, index) => {
                     if (index === this.state.activeElement) {
                         return true;
                     }

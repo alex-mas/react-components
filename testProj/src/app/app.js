@@ -4,6 +4,9 @@ import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
 import Carousel from '../../../dist/carousel';
 import Router from '../../../dist/router';
+import BrowserRouter, {BrowserLink}from '../../../dist/browserRouter';
+import BrowserHistory from '../../../dist/browserHistory';
+
 
 
 const myStyles = {
@@ -29,6 +32,59 @@ const myOtherStyles = {
         fontWeight: 'bold',
         color: 'lightskyblue'
     }
+}
+
+
+const myHistory = new BrowserHistory({ path: '/', title: document.title });
+
+
+const MyRouter = (props) => {
+    return (
+        <BrowserRouter
+            history={['/','/notFound']}
+            startingRoute={'/notFound'}
+        >
+            <div path='/' exact={true}>
+                Hello, this is the landing page!
+                <BrowserLink
+                    to='/carousel'
+                    text='Go to carousel'
+                />
+            </div>
+            <div path='/notFound'>
+                Sorry, the content you asked for was not found
+                <BrowserLink
+                    to='/'
+                    text='Return to landing page'
+                />
+            </div>
+            <div path='/carousel'>
+                <Carousel
+                    startingElement={-15}
+                    onElementChange={(currentIndex) => {
+                        console.log('Changing of element, current one is: ', currentIndex);
+                    }}
+                    autoPlay={2000}
+                >
+                    <div>
+                        First element
+                    </div>
+                    <div>
+                        Second element
+                    </div>
+                    <div>
+                        Third element
+                    </div>
+                    <BrowserLink
+                        to='/'
+                        text='Return to landing page'
+                    />
+
+                </Carousel>
+            </div>
+        </BrowserRouter>
+    )
+
 }
 
 class App extends React.Component {
@@ -71,8 +127,10 @@ class App extends React.Component {
     }
     render() {
         console.log(this.state);
+
         return (
             <div>
+                <div> Current location: {myHistory.location().path}</div>
                 <form className='testForm'>
                     <AutoComplete
                         id='nameInput'
@@ -95,51 +153,11 @@ class App extends React.Component {
                 {window.location.hash ?
                     null
                     :
-                    <button type='button' onClick={()=>{window.location.hash = '/home'}}>
+                    <button type='button' onClick={() => { window.location.hash = '/home' }}>
                         Go to landing page
                     </button>
                 }
-                <Router
-                    activeRoute={window.location.hash}
-                >
-                    <div match='#/home'>
-                        Hello, this is the landing page!
-                        <div>
-                            <button onClick={() => { window.location.hash = '#/carousel' }}>Go to carousel</button>
-                        </div>
-                        <div>
-                            <button onClick={() => { window.location.hash = '#/notFound' }}>Return to landing page</button>
-                        </div>
-                    </div>
-                    <div match='#/notFound'>
-                        Sorry, the content you asked for was not found
-                        <div>
-                            <button onClick={() => { window.location.hash = '' }}>Return to landing page</button>
-                        </div>
-                    </div>
-                    <div match='#/carousel'>
-                        <Carousel
-                            startingElement={-15}
-                            onElementChange={(currentIndex) => {
-                                console.log('Changing of element, current one is: ', currentIndex);
-                            }}
-                            autoPlay={2000}
-                        >
-                            <div>
-                                First element
-                            </div>
-                            <div>
-                                Second element
-                            </div>
-                            <div>
-                                Third element
-                            </div>
-                            <div>
-                                <button onClick={() => { window.location.hash = '' }}>Return to landing page</button>
-                            </div>
-                        </Carousel>
-                    </div>
-                </Router>
+                <MyRouter/>
                 <Modal
                     className='myModal'
                     delay={true}
