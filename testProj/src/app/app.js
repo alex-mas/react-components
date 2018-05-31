@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
-import Carousel from '../../../dist/carousel';
+import Carousel, { LabeledCarousel } from '../../../dist/carousel';
 import Router from '../../../dist/router';
 import BrowserRouter, {BrowserLink}from '../../../dist/browserRouter';
 import BrowserHistory from '../../../dist/browserHistory';
@@ -42,7 +42,7 @@ const MyRouter = (props) => {
     return (
         <BrowserRouter
             history={['/','/notFound']}
-            startingRoute={'/notFound'}
+            startingRoute={'/'}
         >
             <div path='/' exact={true}>
                 Hello, this is the landing page!
@@ -59,12 +59,11 @@ const MyRouter = (props) => {
                 />
             </div>
             <div path='/carousel'>
-                <Carousel
+                <LabeledCarousel
                     startingElement={-15}
                     onElementChange={(currentIndex) => {
                         console.log('Changing of element, current one is: ', currentIndex);
                     }}
-                    autoPlay={2000}
                 >
                     <div>
                         First element
@@ -80,7 +79,7 @@ const MyRouter = (props) => {
                         text='Return to landing page'
                     />
 
-                </Carousel>
+                </LabeledCarousel>
             </div>
         </BrowserRouter>
     )

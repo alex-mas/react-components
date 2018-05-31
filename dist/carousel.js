@@ -7,6 +7,7 @@ const react_1 = __importDefault(require("react"));
 const react_fontawesome_1 = __importDefault(require("@fortawesome/react-fontawesome"));
 const faAngleRight_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleRight"));
 const faAngleLeft_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleLeft"));
+const faCircle_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faCircle"));
 const router_1 = __importDefault(require("./router"));
 class Carousel extends react_1.default.Component {
     constructor(props) {
@@ -66,6 +67,26 @@ class Carousel extends react_1.default.Component {
             this.onElementChange();
         });
     }
+    setElement(element) {
+        if (this.state.activeElement !== element) {
+            this.setState((prevState) => {
+                let newElement = element;
+                //bound checking
+                //TODO: abstract into its own function
+                if (newElement < 0) {
+                    newElement = react_1.default.Children.count(this.props.children) - 1;
+                }
+                else if (newElement > react_1.default.Children.count(this.props.children) - 1) {
+                    newElement = 0;
+                }
+                return {
+                    activeElement: newElement
+                };
+            }, () => {
+                this.onElementChange();
+            });
+        }
+    }
     stopAutoPlay() {
         if (this.state.intervalHandle) {
             clearInterval(this.state.intervalHandle);
@@ -88,4 +109,21 @@ class Carousel extends react_1.default.Component {
     }
 }
 exports.Carousel = Carousel;
+const withLabels = () => {
+    return (props) => {
+        const ref = react_1.default.createRef();
+        return (react_1.default.createElement(Carousel, { onElementChange: props.onElementChange, autoPlay: props.autoPlay, startingElement: props.startingElement, ref: ref }, react_1.default.Children.map(props.children, (child, i) => {
+            return (react_1.default.createElement("div", null,
+                child,
+                react_1.default.Children.map(props.children, (child, i) => {
+                    return react_1.default.createElement("a", { href: '', onClick: (e) => {
+                            e.preventDefault();
+                            ref.current.setElement(i);
+                        }, className: 'axc-labeled-carousel__link' },
+                        react_1.default.createElement(react_fontawesome_1.default, { icon: faCircle_1.default }));
+                })));
+        })));
+    };
+};
+exports.LabeledCarousel = withLabels();
 exports.default = Carousel;

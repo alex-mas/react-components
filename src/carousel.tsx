@@ -5,7 +5,9 @@ import * as test from '@fortawesome/fontawesome-svg-core';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
-import Router,{RouterContext} from './router';
+import circleSolid from '@fortawesome/fontawesome-free-solid/faCircle';
+import circleRegular from '@fortawesome/fontawesome-free-regular/faCircle';
+import Router, { RouterContext } from './router';
 
 export interface CarouselState {
     activeElement: number,
@@ -23,7 +25,7 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
     state: CarouselState
     constructor(props: CarouselProps) {
         super(props);
-        
+
         this.onElementChange = this.onElementChange.bind(this);
         this.stopAutoPlay = this.stopAutoPlay.bind(this);
         this.next = this.next.bind(this);
@@ -85,6 +87,26 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
             this.onElementChange();
         });
     }
+    setElement(element) {
+        if (this.state.activeElement !== element) {
+            this.setState((prevState) => {
+                let newElement: number = element;
+                //bound checking
+                //TODO: abstract into its own function
+                if (newElement < 0) {
+                    newElement = React.Children.count(this.props.children) - 1;
+                } else if (newElement > React.Children.count(this.props.children) - 1) {
+                    newElement = 0;
+                }
+                return {
+                    activeElement: newElement
+                }
+            }, () => {
+                this.onElementChange();
+            });
+        }
+
+    }
     stopAutoPlay() {
         if (this.state.intervalHandle) {
             clearInterval(this.state.intervalHandle);
@@ -115,6 +137,43 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
         )
     }
 }
+
+
+const withLabels = () => {
+    return (props) => {
+        const ref: React.RefObject<Carousel> = React.createRef();
+        return (
+            <Carousel
+                onElementChange={props.onElementChange}
+                autoPlay={props.autoPlay}
+                startingElement={props.startingElement}
+                ref={ref}
+            >
+                {React.Children.map(props.children, (child: any, i) => {
+                    return (
+                        <div>
+                            {child}
+                            {React.Children.map(props.children, (child: any, i) => {
+                                return <a
+                                    href=''
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        ref.current.setElement(i);
+                                    }}
+                                    className='axc-labeled-carousel__link'
+                                >
+                                    <FontAwesomeIcon icon={circleSolid} />
+                                </a>;
+                            })}
+                        </div>
+                    );
+                })}
+            </Carousel>
+        )
+    }
+}
+
+export const LabeledCarousel = withLabels();
 
 
 

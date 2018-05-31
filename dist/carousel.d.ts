@@ -17,7 +17,9 @@ export declare class Carousel extends React.Component<CarouselProps, CarouselSta
     onElementChange(): void;
     next(): void;
     previous(): void;
+    setElement(element: any): void;
     stopAutoPlay(): void;
     render(): JSX.Element;
 }
+export declare const LabeledCarousel: (props: any) => JSX.Element;
 export default Carousel;
