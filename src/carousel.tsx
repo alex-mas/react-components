@@ -1,4 +1,4 @@
-import React, { ReactChild, ReactElement, } from 'react';
+import React, { ReactChild, ReactElement, ReactNode, } from 'react';
 import ReactDOM from 'react-dom';
 import * as fontawesome from '@fortawesome/fontawesome';
 import * as test from '@fortawesome/fontawesome-svg-core';
@@ -18,7 +18,8 @@ export interface CarouselProps {
     children?: any,
     startingElement?: number,
     autoPlay?: number,
-    onElementChange?(currentElement: number): any
+    onElementChange?(currentElement: number): any,
+    captions?: React.ComponentClass | React.SFCFactory<any>
 }
 
 export class Carousel extends React.Component<CarouselProps, CarouselState>{
@@ -56,19 +57,25 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
 
 
     }
+
     onElementChange() {
         if (this.props.onElementChange) {
             this.props.onElementChange(this.state.activeElement);
         }
     }
+    boundsChecked(num: number): number {
+        if (num < 0) {
+            num = React.Children.count(this.props.children) - 1;
+        } else if (num > React.Children.count(this.props.children) - 1) {
+            num = 0;
+        }
+        return num;
+    }
     next() {
         this.setState((prevState) => {
             let newElement: number = prevState.activeElement + 1;
-            if (newElement > React.Children.count(this.props.children) - 1) {
-                newElement = 0;
-            }
             return {
-                activeElement: newElement
+                activeElement: this.boundsChecked(newElement)
             }
         }, () => {
             this.onElementChange();
@@ -77,35 +84,12 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
     previous() {
         this.setState((prevState) => {
             let newElement: number = prevState.activeElement - 1;
-            if (newElement < 0) {
-                newElement = React.Children.count(this.props.children) - 1;
-            }
             return {
-                activeElement: newElement
+                activeElement: this.boundsChecked(newElement)
             }
         }, () => {
             this.onElementChange();
         });
-    }
-    setElement(element) {
-        if (this.state.activeElement !== element) {
-            this.setState((prevState) => {
-                let newElement: number = element;
-                //bound checking
-                //TODO: abstract into its own function
-                if (newElement < 0) {
-                    newElement = React.Children.count(this.props.children) - 1;
-                } else if (newElement > React.Children.count(this.props.children) - 1) {
-                    newElement = 0;
-                }
-                return {
-                    activeElement: newElement
-                }
-            }, () => {
-                this.onElementChange();
-            });
-        }
-
     }
     stopAutoPlay() {
         if (this.state.intervalHandle) {
@@ -118,6 +102,12 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
                 <button className="axc-carousel__previous" onClick={this.previous}>
                     <FontAwesomeIcon icon={angleLeft} />
                 </button>
+                {this.props.captions ?
+                    <div className='axc-carousel__captions'>
+                        {this.props.captions}
+                    </div>
+                    :
+                    null}
                 <Router
                     strategy={(childProps: any, routerContext: RouterContext, index: number) => {
                         if (index === this.state.activeElement) {
@@ -139,42 +129,72 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
 }
 
 
-const withLabels = () => {
-    return (props) => {
-        const ref: React.RefObject<Carousel> = React.createRef();
+export class LinkedCarousel extends Carousel {
+    setElement(element) {
+        if (this.state.activeElement !== element) {
+            this.setState((prevState) => {
+                return {
+                    activeElement: this.boundsChecked(element)
+                }
+            }, () => {
+                this.onElementChange();
+            });
+        }
+    }
+    render() {
         return (
-            <Carousel
-                onElementChange={props.onElementChange}
-                autoPlay={props.autoPlay}
-                startingElement={props.startingElement}
-                ref={ref}
-            >
-                {React.Children.map(props.children, (child: any, i) => {
-                    return (
-                        <div>
-                            {child}
-                            {React.Children.map(props.children, (child: any, i) => {
-                                return <a
-                                    href=''
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        ref.current.setElement(i);
-                                    }}
-                                    className='axc-labeled-carousel__link'
-                                >
-                                    <FontAwesomeIcon icon={circleSolid} />
-                                </a>;
-                            })}
-                        </div>
-                    );
-                })}
-            </Carousel>
+            <div className='axc-linked-carousel'>
+                <button className='axc-linked-carousel__previous' onClick={this.previous}>
+                    <FontAwesomeIcon icon={angleLeft} />
+                </button>
+                {this.props.captions ?
+                    <div className='axc-linked-carousel__captions'>
+                        {<this.props.captions/>}
+                    </div>
+                    :
+                    null}
+                <div className='axc-linked-carousel__links'>
+                    {Array.apply(null, { length: React.Children.count(this.props.children) }).map((elmt, i) => {
+                        let iconType = circleRegular;
+                        if (i === this.state.activeElement) {
+                            iconType = circleSolid;
+                        }
+                        return (
+                            <a
+                                href=''
+                                className='axc-linked-carousel__link'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setElement(i)
+                                }}
+                            >
+                                <FontAwesomeIcon icon={iconType} />
+                            </a>
+                        )
+                    })}
+
+                </div>
+                <Router
+                    strategy={(childProps: any, routerContext: RouterContext, index: number) => {
+                        if (index === this.state.activeElement) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }}
+                    className='axc-linked-carousel__element-container'
+                >
+                    {this.props.children}
+                </Router>
+                <button className='axc-linked-carousel__next' onClick={this.next}>
+                    <FontAwesomeIcon icon={angleRight} />
+                </button>
+            </div>
         )
     }
 }
 
-export const LabeledCarousel = withLabels();
-
-
-
-export default Carousel;
+export default {
+    Carousel,
+    LinkedCarousel
+};

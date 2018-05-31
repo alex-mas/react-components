@@ -8,6 +8,7 @@ const react_fontawesome_1 = __importDefault(require("@fortawesome/react-fontawes
 const faAngleRight_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleRight"));
 const faAngleLeft_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faAngleLeft"));
 const faCircle_1 = __importDefault(require("@fortawesome/fontawesome-free-solid/faCircle"));
+const faCircle_2 = __importDefault(require("@fortawesome/fontawesome-free-regular/faCircle"));
 const router_1 = __importDefault(require("./router"));
 class Carousel extends react_1.default.Component {
     constructor(props) {
@@ -41,14 +42,20 @@ class Carousel extends react_1.default.Component {
             this.props.onElementChange(this.state.activeElement);
         }
     }
+    boundsChecked(num) {
+        if (num < 0) {
+            num = react_1.default.Children.count(this.props.children) - 1;
+        }
+        else if (num > react_1.default.Children.count(this.props.children) - 1) {
+            num = 0;
+        }
+        return num;
+    }
     next() {
         this.setState((prevState) => {
             let newElement = prevState.activeElement + 1;
-            if (newElement > react_1.default.Children.count(this.props.children) - 1) {
-                newElement = 0;
-            }
             return {
-                activeElement: newElement
+                activeElement: this.boundsChecked(newElement)
             };
         }, () => {
             this.onElementChange();
@@ -57,35 +64,12 @@ class Carousel extends react_1.default.Component {
     previous() {
         this.setState((prevState) => {
             let newElement = prevState.activeElement - 1;
-            if (newElement < 0) {
-                newElement = react_1.default.Children.count(this.props.children) - 1;
-            }
             return {
-                activeElement: newElement
+                activeElement: this.boundsChecked(newElement)
             };
         }, () => {
             this.onElementChange();
         });
-    }
-    setElement(element) {
-        if (this.state.activeElement !== element) {
-            this.setState((prevState) => {
-                let newElement = element;
-                //bound checking
-                //TODO: abstract into its own function
-                if (newElement < 0) {
-                    newElement = react_1.default.Children.count(this.props.children) - 1;
-                }
-                else if (newElement > react_1.default.Children.count(this.props.children) - 1) {
-                    newElement = 0;
-                }
-                return {
-                    activeElement: newElement
-                };
-            }, () => {
-                this.onElementChange();
-            });
-        }
     }
     stopAutoPlay() {
         if (this.state.intervalHandle) {
@@ -96,6 +80,10 @@ class Carousel extends react_1.default.Component {
         return (react_1.default.createElement("div", { className: "axc-carousel" },
             react_1.default.createElement("button", { className: "axc-carousel__previous", onClick: this.previous },
                 react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleLeft_1.default })),
+            this.props.captions ?
+                react_1.default.createElement("div", { className: 'axc-carousel__captions' }, this.props.captions)
+                :
+                    null,
             react_1.default.createElement(router_1.default, { strategy: (childProps, routerContext, index) => {
                     if (index === this.state.activeElement) {
                         return true;
@@ -109,21 +97,51 @@ class Carousel extends react_1.default.Component {
     }
 }
 exports.Carousel = Carousel;
-const withLabels = () => {
-    return (props) => {
-        const ref = react_1.default.createRef();
-        return (react_1.default.createElement(Carousel, { onElementChange: props.onElementChange, autoPlay: props.autoPlay, startingElement: props.startingElement, ref: ref }, react_1.default.Children.map(props.children, (child, i) => {
-            return (react_1.default.createElement("div", null,
-                child,
-                react_1.default.Children.map(props.children, (child, i) => {
-                    return react_1.default.createElement("a", { href: '', onClick: (e) => {
-                            e.preventDefault();
-                            ref.current.setElement(i);
-                        }, className: 'axc-labeled-carousel__link' },
-                        react_1.default.createElement(react_fontawesome_1.default, { icon: faCircle_1.default }));
-                })));
-        })));
-    };
+class LinkedCarousel extends Carousel {
+    setElement(element) {
+        if (this.state.activeElement !== element) {
+            this.setState((prevState) => {
+                return {
+                    activeElement: this.boundsChecked(element)
+                };
+            }, () => {
+                this.onElementChange();
+            });
+        }
+    }
+    render() {
+        return (react_1.default.createElement("div", { className: 'axc-linked-carousel' },
+            react_1.default.createElement("button", { className: 'axc-linked-carousel__previous', onClick: this.previous },
+                react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleLeft_1.default })),
+            this.props.captions ?
+                react_1.default.createElement("div", { className: 'axc-linked-carousel__captions' }, react_1.default.createElement(this.props.captions, null))
+                :
+                    null,
+            react_1.default.createElement("div", { className: 'axc-linked-carousel__links' }, Array.apply(null, { length: react_1.default.Children.count(this.props.children) }).map((elmt, i) => {
+                let iconType = faCircle_2.default;
+                if (i === this.state.activeElement) {
+                    iconType = faCircle_1.default;
+                }
+                return (react_1.default.createElement("a", { href: '', className: 'axc-linked-carousel__link', onClick: (e) => {
+                        e.preventDefault();
+                        this.setElement(i);
+                    } },
+                    react_1.default.createElement(react_fontawesome_1.default, { icon: iconType })));
+            })),
+            react_1.default.createElement(router_1.default, { strategy: (childProps, routerContext, index) => {
+                    if (index === this.state.activeElement) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                }, className: 'axc-linked-carousel__element-container' }, this.props.children),
+            react_1.default.createElement("button", { className: 'axc-linked-carousel__next', onClick: this.next },
+                react_1.default.createElement(react_fontawesome_1.default, { icon: faAngleRight_1.default }))));
+    }
+}
+exports.LinkedCarousel = LinkedCarousel;
+exports.default = {
+    Carousel,
+    LinkedCarousel
 };
-exports.LabeledCarousel = withLabels();
-exports.default = Carousel;

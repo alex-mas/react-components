@@ -10,16 +10,24 @@ export interface CarouselProps {
     startingElement?: number;
     autoPlay?: number;
     onElementChange?(currentElement: number): any;
+    captions?: React.ComponentClass | React.SFCFactory<any>;
 }
 export declare class Carousel extends React.Component<CarouselProps, CarouselState> {
     state: CarouselState;
     constructor(props: CarouselProps);
     onElementChange(): void;
+    boundsChecked(num: number): number;
     next(): void;
     previous(): void;
-    setElement(element: any): void;
     stopAutoPlay(): void;
     render(): JSX.Element;
 }
-export declare const LabeledCarousel: (props: any) => JSX.Element;
-export default Carousel;
+export declare class LinkedCarousel extends Carousel {
+    setElement(element: any): void;
+    render(): JSX.Element;
+}
+declare const _default: {
+    Carousel: typeof Carousel;
+    LinkedCarousel: typeof LinkedCarousel;
+};
+export default _default;

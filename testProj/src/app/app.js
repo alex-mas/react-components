@@ -2,10 +2,14 @@ import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
-import Carousel, { LabeledCarousel } from '../../../dist/carousel';
+import Carousel, { LinkedCarousel } from '../../../dist/carousel';
 import Router from '../../../dist/router';
-import BrowserRouter, {BrowserLink}from '../../../dist/browserRouter';
-import BrowserHistory from '../../../dist/browserHistory';
+import BrowserRouter, { BrowserLink } from '../../../dist/browserRouter';
+import TypeWritter from '../../../dist/typeWriter';
+import AlexComponents from '../../../dist/index';
+
+console.log(AlexComponents);
+console.log(typeof AlexComponents);
 
 
 
@@ -35,13 +39,12 @@ const myOtherStyles = {
 }
 
 
-const myHistory = new BrowserHistory({ path: '/', title: document.title });
 
 
 const MyRouter = (props) => {
     return (
         <BrowserRouter
-            history={['/','/notFound']}
+            history={['/', '/notFound']}
             startingRoute={'/'}
         >
             <div path='/' exact={true}>
@@ -59,14 +62,21 @@ const MyRouter = (props) => {
                 />
             </div>
             <div path='/carousel'>
-                <LabeledCarousel
+                <LinkedCarousel
                     startingElement={-15}
                     onElementChange={(currentIndex) => {
                         console.log('Changing of element, current one is: ', currentIndex);
                     }}
                 >
                     <div>
-                        First element
+                        <TypeWritter
+                            string='first element, the duration should equal to roughly 350*length'
+                            timePerCharacter={200}
+                            variance={125}
+                            preserve={true}
+                            savedState={props.myStringState}
+                            saveState={props.saveStringState}
+                        />
                     </div>
                     <div>
                         Second element
@@ -79,7 +89,7 @@ const MyRouter = (props) => {
                         text='Return to landing page'
                     />
 
-                </LabeledCarousel>
+                </LinkedCarousel>
             </div>
         </BrowserRouter>
     )
@@ -94,7 +104,8 @@ class App extends React.Component {
                 name: 'Alex',
                 surname: 'Mas'
             },
-            isModalOpen: false
+            isModalOpen: false,
+            myStringState: undefined
         };
     }
     onNameChange = (name) => {
@@ -124,12 +135,17 @@ class App extends React.Component {
             isModalOpen: false
         }));
     }
+    saveStringState = (state)=>{
+        console.log('saving state',state);
+        this.setState({
+            myStringState: state
+        });
+    }
     render() {
         console.log(this.state);
 
         return (
             <div>
-                <div> Current location: {myHistory.location().path}</div>
                 <form className='testForm'>
                     <AutoComplete
                         id='nameInput'
@@ -156,7 +172,7 @@ class App extends React.Component {
                         Go to landing page
                     </button>
                 }
-                <MyRouter/>
+                <MyRouter myStringState={this.state.myStringState} saveStringState={this.saveStringState} />
                 <Modal
                     className='myModal'
                     delay={true}
