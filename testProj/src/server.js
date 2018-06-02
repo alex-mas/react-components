@@ -6,7 +6,10 @@ const app = express();
 app.use(express.static('./dist'));
 
 app.get('*',(req,res)=>{
-    res.status(400).sendFile(path.join(__dirname,'../dist/app.html'));
+    res.status(200).sendFile(path.join(__dirname,'../dist/app.html'));
+});
+app.get('/space',(req,res)=>{
+    res.status(200).sendFile(path.join(__dirname,'../dist/space.jpg'));
 });
 
 

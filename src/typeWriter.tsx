@@ -2,8 +2,8 @@ import React from 'react';
 
 export interface TypeWriterProps {
     string: string,
-    timePerCharacter?: number,
-    variance?: number,
+    timePerCharacter: number,
+    variance: number,
     preserve?: boolean,
     saveState?(state: TypeWriterState): void
     savedState?: TypeWriterState
@@ -11,7 +11,7 @@ export interface TypeWriterProps {
 export interface TypeWriterState {
     currentCharacter: number
     displayString: string
-    timer: NodeJS.Timer
+    timer?: NodeJS.Timer
 }
 
 export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState>{
@@ -21,7 +21,8 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         variance: 35,
         preserve: false
     }
-    constructor(props) {
+    public state: TypeWriterState
+    constructor(props: TypeWriterProps) {
         super(props);
         if (this.props.savedState) {
             this.state = this.props.savedState;
@@ -33,7 +34,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
             }
         }
     }
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps: TypeWriterProps, nextState: TypeWriterState) {
         if (
             this.props.string !== nextProps.string ||
             this.state.displayString !== nextState.displayString
@@ -50,7 +51,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         }));
     }
     componentWillUnmount() {
-        if (this.props.preserve) {
+        if (this.props.preserve && this.props.saveState) {
             this.props.saveState(this.state);
         }
         clearTimeout(this.state.timer);

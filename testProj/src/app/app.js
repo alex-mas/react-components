@@ -1,8 +1,10 @@
+
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
 import Carousel, { LinkedCarousel } from '../../../dist/carousels/carousel';
+import CarouselImage from '../../../dist/carousels/carouselImage';
 import Router from '../../../dist/router';
 import BrowserRouter, { BrowserLink } from '../../../dist/browserRouter';
 import TypeWritter from '../../../dist/typeWriter';
@@ -40,6 +42,7 @@ const myOtherStyles = {
 }
 
 
+
 const MyRouter = (props) => {
     return (
         <BrowserRouter
@@ -66,7 +69,6 @@ const MyRouter = (props) => {
                     onElementChange={(currentIndex) => {
                         console.log('Changing of element, current one is: ', currentIndex);
                     }}
-                    autoPlay={1500}
                 >
                     <div>
                         <TypeWritter
@@ -77,17 +79,102 @@ const MyRouter = (props) => {
                         />
                     </div>
                     <div>
-                    <TypeWritter
+                        <TypeWritter
                             string='Second element'
                             timePerCharacter={30}
                             variance={25}
                             preserve={false}
                         />
-                        
+
+                    </div>
+                    <CarouselImage
+                        src="space.jpg"
+                        title='The milky way'
+                        subtitle='there are a lot of stars there'
+                    />
+                    <CarouselImage
+                        src="lake.jpg"
+                        title='A lake'
+                        subtitle='it looks cold'
+                    />
+                    <BrowserLink
+                        to='/'
+                        text='Return to landing page'
+                    />
+
+                </LinkedCarousel>
+                <LinkedCarousel
+                    startingElement={-15}
+                    onElementChange={(currentIndex) => {
+                        console.log('Changing of element, current one is: ', currentIndex);
+                    }}
+                >
+                    <div>
+                        <TypeWritter
+                            string='first element, the duration should equal to roughly 350*length'
+                            timePerCharacter={5}
+                            variance={0}
+                            preserve={false}
+                        />
                     </div>
                     <div>
-                        Third element
+                        <TypeWritter
+                            string='Second element'
+                            timePerCharacter={30}
+                            variance={25}
+                            preserve={false}
+                        />
+
                     </div>
+                    <CarouselImage
+                        src="space.jpg"
+                        title='The milky way'
+                        subtitle='there are a lot of stars there'
+                    />
+                    <CarouselImage
+                        src="lake.jpg"
+                        title='A lake'
+                        subtitle='it looks cold'
+                    />
+                    <BrowserLink
+                        to='/'
+                        text='Return to landing page'
+                    />
+
+                </LinkedCarousel>
+                <LinkedCarousel
+                    startingElement={-15}
+                    onElementChange={(currentIndex) => {
+                        console.log('Changing of element, current one is: ', currentIndex);
+                    }}
+                >
+                    <div>
+                        <TypeWritter
+                            string='first element, the duration should equal to roughly 350*length'
+                            timePerCharacter={5}
+                            variance={0}
+                            preserve={false}
+                        />
+                    </div>
+                    <div>
+                        <TypeWritter
+                            string='Second element'
+                            timePerCharacter={30}
+                            variance={25}
+                            preserve={false}
+                        />
+
+                    </div>
+                    <CarouselImage
+                        src="space.jpg"
+                        title='The milky way'
+                        subtitle='there are a lot of stars there'
+                    />
+                    <CarouselImage
+                        src="lake.jpg"
+                        title='A lake'
+                        subtitle='it looks cold'
+                    />
                     <BrowserLink
                         to='/'
                         text='Return to landing page'
@@ -139,15 +226,14 @@ class App extends React.Component {
             isModalOpen: false
         }));
     }
-    saveStringState = (state)=>{
-        console.log('saving state',state);
+    saveStringState = (state) => {
+        console.log('saving state', state);
         this.setState({
             myStringState: state
         });
     }
     render() {
         console.log(this.state);
-
         return (
             <div>
                 <form className='testForm'>
@@ -200,7 +286,6 @@ class App extends React.Component {
 
 const appRoot = document.getElementById('app');
 ReactDOM.render(<App />, appRoot);
-
 
 
 

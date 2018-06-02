@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import uuid from 'uuid/v4';
 
-const defaultPredictionData = [];
+const defaultPredictionData: string[] = [];
 
 
 export interface AutoCompleteProps {
@@ -64,17 +64,17 @@ let defaultStyles: AutoCompleteStyles = {
 interface SuggestionProps {
     value: string,
     index: number,
-    style: CSSProperties,
+    style?: CSSProperties,
     onClick(suggestionIndex: number): any,
     onHover(suggestionIndex: number): any,
     className: string
 }
 
 class Suggestion extends React.PureComponent<SuggestionProps, any>{
-    onClick = (event)=>{
+    onClick = (event: React.MouseEvent<any>)=>{
         this.props.onClick(this.props.index);
     }
-    onMouseEnter = (event)=>{
+    onMouseEnter = (event: React.MouseEvent<any>)=>{
         this.props.onHover(this.props.index);
     }
     render() {
@@ -189,11 +189,11 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         }
         return suggestions;
     }
-    onClickSuggestion = (suggestionIndex) => {
+    onClickSuggestion = (suggestionIndex: number) => {
         console.log('clicked a suggestion, changing the value');
         this.onChange(this.state.suggestions[suggestionIndex]);
     }
-    onHoverSuggestion = (suggestionIndex)=>{
+    onHoverSuggestion = (suggestionIndex: number)=>{
         console.log('hovered over a suggestion, changing the selected suggestion');
         this.setState((prevState) => ({
             selectedSuggestion: suggestionIndex
@@ -241,7 +241,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         }))
     }
     render() {
-        let value = this.props.value;
+        let value: string = this.props.value;
         if (this.state.selectedSuggestion > -1) {
             value = this.state.suggestions[this.state.selectedSuggestion];
         }
@@ -264,9 +264,9 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                     />
                     {this.state.focused ?
                         <div className='axc-auto-complete__suggestions' style={this.state.styles.autoComplete__suggestions}>
-                            {this.state.suggestions.map((suggestion, index) => {
-                                const selected = index === this.state.selectedSuggestion
-                                let className = 'axc-auto-complete__suggestion';
+                            {this.state.suggestions.map((suggestion: string, index: number) => {
+                                const selected: boolean = index === this.state.selectedSuggestion
+                                let className: string = 'axc-auto-complete__suggestion';
                                 if (selected) {
                                     className += '--selected';
                                 }

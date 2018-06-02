@@ -40,8 +40,8 @@ export class BrowserLink extends React.Component<BrowserLinkProps, any>{
 }
 
 export interface BrowserRouterProps {
-    history: BrowserHistory,
-    startingRoute: string
+    history: string[],
+    startingRoute?: string
 }
 
 export interface BrowserRouterState {
@@ -52,7 +52,7 @@ export interface BrowserRouterState {
 
 export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRouterState>{
     history: React.Context<any>
-    constructor(props) {
+    constructor(props: BrowserRouterProps) {
         super(props);
 
         let startingRoute = '/';
@@ -84,7 +84,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     }
     forward = () => {
         if (this.state.currentPosition < this.state.history.length - 1) {
-            this.setState((prevState) => ({
+            this.setState((prevState: BrowserRouterState) => ({
                 currentPosition: prevState.currentPosition + 1
             }));
         }
@@ -103,7 +103,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     editState = (editedNode: string) => {
         console.log('editing current state');
         if (editedNode !== this.location()) {
-            this.setState((prevState) => {
+            this.setState((prevState: BrowserRouterState) => {
                 const newState = cloneDeep(prevState);
                 newState.history[prevState.currentPosition] = editedNode;
                 return newState;
@@ -120,7 +120,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             editState: this.editState
         }
     }
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: BrowserRouterProps) {
         console.log('browser router is getting new props: ', nextProps);
     }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
@@ -162,8 +162,8 @@ export interface WithHistoryContextFunction {
     (params: any): React.SFC<any>
 }
 
-export const WithHistoryContext: WithHistoryContextFunction = (Component) => {
-    return (props)=>(
+export const WithHistoryContext: WithHistoryContextFunction = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {
+    return (props: any)=>(
         <BrowserHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
         </BrowserHistoryContext.Consumer>
@@ -181,7 +181,7 @@ export interface BrowserRouteProps {
 
 const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
     if(props.component){
-        return <props.component/>;
+        return <props.component {...props} component={null}/>;
     }else if(props.children){
         return (
             <div>
