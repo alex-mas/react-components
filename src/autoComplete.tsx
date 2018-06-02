@@ -16,7 +16,6 @@ export interface AutoCompleteProps {
 
 
 export interface AutoCompleteState {
-    userHistory: string[],
     predictionData: string[],
     suggestions: string[],
     selectedSuggestion: number,
@@ -60,12 +59,44 @@ let defaultStyles: AutoCompleteStyles = {
 }
 
 
+interface SuggestionProps {
+    value: string,
+    index: number,
+    style: CSSProperties,
+    onClick(suggestionIndex: number): any,
+    onHover(suggestionIndex: number): any,
+    className: string
+}
+
+class Suggestion extends React.PureComponent<SuggestionProps, any>{
+    onClick = (event)=>{
+        this.props.onClick(this.props.index);
+    }
+    onMouseEnter = (event)=>{
+        this.props.onHover(this.props.index);
+    }
+    render() {
+        return (
+            <div
+                className={this.props.className}
+                style={this.props.style}
+                onClick={this.onClick}
+                onMouseEnter={this.onMouseEnter}
+            >
+                {this.props.value}
+            </div>
+        )
+
+    }
+
+}
+
+
 export class AutoComplete extends React.Component<AutoCompleteProps, AutoCompleteState>{
     constructor(props: AutoCompleteProps) {
         super(props);
         this.state = {
             id: this.props.id ? this.props.id : uuid(),
-            userHistory: [],
             predictionData: props.predictionData ? props.predictionData : defaultPredictionData,
             suggestions: [],
             selectedSuggestion: -1,
@@ -101,10 +132,22 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         }
         this.onChange = this.onChange.bind(this);
         this.computeSuggestions = this.computeSuggestions.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onFocus = this.onFocus.bind(this);
+    }
+
+    shouldComponentUpdate(nextProps: AutoCompleteProps, nextState: AutoCompleteState) {
+        if (
+            nextProps.value !== this.props.value ||
+            nextState.focused !== this.state.focused ||
+            nextState.selectedSuggestion !== this.state.selectedSuggestion ||
+            nextState.suggestions.length || this.state.suggestions.length
+        ) {
+            return true;
+        } else {
+            return false;
+        }
     }
     onChange(event: React.ChangeEvent<any> | string) {
         let inputValue = '';
@@ -137,11 +180,6 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
     }
     computeSuggestions(value: string): string[] {
         const suggestions: string[] = [];
-        for (let i = 0; i < this.state.userHistory.length; i++) {
-            if (this.shouldAddSuggestion(value, this.state.userHistory[i], suggestions)) {
-                suggestions.push(this.state.userHistory[i]);
-            }
-        }
         for (let i = 0; i < this.state.predictionData.length; i++) {
             if (this.shouldAddSuggestion(value, this.state.predictionData[i], suggestions)) {
                 suggestions.push(this.state.predictionData[i]);
@@ -149,14 +187,18 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         }
         return suggestions;
     }
-    onSubmit(value: string) {
-        this.setState((prevState) => {
-            return {
-                userHistory: [...prevState.userHistory, value]
-            }
-        });
+    onClickSuggestion = (suggestionIndex) => {
+        console.log('clicked a suggestion, changing the value');
+        this.onChange(this.state.suggestions[suggestionIndex]);
+    }
+    onHoverSuggestion = (suggestionIndex)=>{
+        console.log('hovered over a suggestion, changing the selected suggestion');
+        this.setState((prevState) => ({
+            selectedSuggestion: suggestionIndex
+        }));
     }
     onKeyDown(event: React.KeyboardEvent<any>): void {
+        console.log('handling key down events', event);
         if (this.state.focused) {
             if (event.keyCode === 40 && this.state.selectedSuggestion < this.state.suggestions.length - 1) {
                 this.setState((prevState) => ({
@@ -227,17 +269,19 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                                     className += '--selected';
                                 }
                                 return (
-                                    <div
+                                    <Suggestion
                                         key={suggestion}
+                                        value={suggestion}
                                         className={className}
+                                        index={index}
                                         style={selected ?
                                             this.state.styles.autoComplete__suggestion_selected
                                             :
                                             this.state.styles.autoComplete__suggestion
                                         }
-                                    >
-                                        {suggestion}
-                                    </div>
+                                        onClick={this.onClickSuggestion}
+                                        onHover={this.onHoverSuggestion}
+                                    />
                                 )
 
                             })}

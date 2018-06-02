@@ -1,6 +1,6 @@
 //Here we import and export all components
 import AutoComplete from './autoComplete';
-import Carousel from './carousel';
+import Carousel from './carousels/carousel';
 import Modal from './modal';
 import BrowserRouter from './browserRouter';
 import TypeWritter from './typeWriter';

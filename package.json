@@ -4,7 +4,9 @@
   "description": "react components created and used by me",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/.bin/tsc && node tasks/build.js",
+    "build": "npm run preBuild && npm run compile",
+    "preBuild": "node tasks/preBuild.js",
+    "compile": "node_modules/.bin/tsc",
     "test": "jest"
   },
   "homepage": "https://github.com/alex-mas/axc",

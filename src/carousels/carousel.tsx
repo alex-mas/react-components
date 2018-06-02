@@ -7,7 +7,7 @@ import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
 import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
 import circleSolid from '@fortawesome/fontawesome-free-solid/faCircle';
 import circleRegular from '@fortawesome/fontawesome-free-regular/faCircle';
-import Router, { RouterContext } from './router';
+import Router, { RouterContext } from '../router';
 
 export interface CarouselState {
     activeElement: number,

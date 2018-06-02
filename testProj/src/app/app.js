@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
 import AutoComplete from '../../../dist/autoComplete';
 import Modal from '../../../dist/modal';
-import Carousel, { LinkedCarousel } from '../../../dist/carousel';
+import Carousel, { LinkedCarousel } from '../../../dist/carousels/carousel';
 import Router from '../../../dist/router';
 import BrowserRouter, { BrowserLink } from '../../../dist/browserRouter';
 import TypeWritter from '../../../dist/typeWriter';
@@ -39,8 +39,6 @@ const myOtherStyles = {
 }
 
 
-
-
 const MyRouter = (props) => {
     return (
         <BrowserRouter
@@ -67,19 +65,24 @@ const MyRouter = (props) => {
                     onElementChange={(currentIndex) => {
                         console.log('Changing of element, current one is: ', currentIndex);
                     }}
+                    autoPlay={1500}
                 >
                     <div>
                         <TypeWritter
                             string='first element, the duration should equal to roughly 350*length'
-                            timePerCharacter={200}
-                            variance={125}
-                            preserve={true}
-                            savedState={props.myStringState}
-                            saveState={props.saveStringState}
+                            timePerCharacter={5}
+                            variance={0}
+                            preserve={false}
                         />
                     </div>
                     <div>
-                        Second element
+                    <TypeWritter
+                            string='Second element'
+                            timePerCharacter={30}
+                            variance={25}
+                            preserve={false}
+                        />
+                        
                     </div>
                     <div>
                         Third element
