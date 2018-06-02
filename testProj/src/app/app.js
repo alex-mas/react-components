@@ -12,6 +12,7 @@ console.log(AlexComponents);
 console.log(typeof AlexComponents);
 
 
+const defaultPredictionData = ['hello', 'world', 'hello world', 'hey there', 'hello world program in c++', 'hello world program', 'stupidly long text stupidly long text stupidly long text stupidly long text'];
 
 const myStyles = {
     autoComplete: {
@@ -156,6 +157,7 @@ class App extends React.Component {
                         onChange={this.onNameChange}
                         useInlineStyles={true}
                         styles={myStyles}
+                        predictionData={defaultPredictionData}
                     />
                     <AutoComplete
                         id='surnameInput'
@@ -163,6 +165,7 @@ class App extends React.Component {
                         onChange={this.onSurnameChange}
                         useInlineStyles={true}
                         styles={myOtherStyles}
+                        predictionData={defaultPredictionData}
                     />
                 </form>
                 <button type='button' onClick={this.toggleModal}>

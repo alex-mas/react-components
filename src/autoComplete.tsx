@@ -1,6 +1,8 @@
 import React, { CSSProperties } from 'react';
 import uuid from 'uuid/v4';
-const defaultPredictionData = ['hello', 'world', 'hello world', 'hey there', 'hello world program in c++', 'hello world program', 'stupidly long text stupidly long text stupidly long text stupidly long text'];
+
+const defaultPredictionData = [];
+
 
 export interface AutoCompleteProps {
     value: string,
