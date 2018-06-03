@@ -1,14 +1,14 @@
 
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
-import AutoComplete from '../../../dist/autoComplete';
-import Modal from '../../../dist/modal';
-import Carousel, { LinkedCarousel } from '../../../dist/carousels/carousel';
-import CarouselImage from '../../../dist/carousels/carouselImage';
-import Router from '../../../dist/router';
-import BrowserRouter, { BrowserLink } from '../../../dist/browserRouter';
-import TypeWritter from '../../../dist/typeWriter';
+import AutoComplete from '../../../dist/interactive/autoComplete';
+import Modal from '../../../dist/layout/modal';
+import Carousel, { LinkedCarousel, CarouselImage } from '../../../dist/navigation/carousel';
+import Router from '../../../dist/navigation/router';
+import BrowserRouter, { BrowserLink } from '../../../dist/navigation/browserRouter';
 import AlexComponents from '../../../dist/index';
+import { Tab, TabContainer } from '../../../dist/navigation/tabContainer';
+const TypeWritter = AlexComponents.TypeWritter;
 
 console.log(AlexComponents);
 console.log(typeof AlexComponents);
@@ -54,6 +54,10 @@ const MyRouter = (props) => {
                 <BrowserLink
                     to='/carousel'
                     text='Go to carousel'
+                />
+                <BrowserLink
+                    to='/tabs'
+                    text='Go to tabs'
                 />
             </div>
             <div path='/notFound'>
@@ -181,6 +185,40 @@ const MyRouter = (props) => {
                     />
 
                 </LinkedCarousel>
+            </div>
+            <div path='/tabs'>
+                <TabContainer
+                    initialTab='starting'
+                >
+                    <Tab
+                        title='starting'
+                    >
+                        <div>
+                            inside the tab
+                        </div>
+                    </Tab>
+                    <Tab
+                        title='another'
+                    >
+                        <div>
+                            inside the other tab
+                        </div>
+                    </Tab>
+                    <Tab
+                        title='third tab'
+                    >
+                        <div>
+                            inside the third tab
+                        </div>
+                    </Tab>
+                    <Tab
+                        title='fourth tab'
+                    >
+                        <div>
+                            inside the fourth tab
+                        </div>
+                    </Tab>
+                </TabContainer>
             </div>
         </BrowserRouter>
     )

@@ -1,19 +1,19 @@
 //Here we import and export all components
-import AutoComplete from './autoComplete';
-import Carousel from './carousels/carousel';
-import CarouselImage from './carousels/carouselImage';
-import Modal from './modal';
-import BrowserRouter from './browserRouter';
-import TypeWritter from './typeWriter';
-import Router from './router';
-
+import AutoComplete from './interactive/autoComplete';
+import Carousel from './navigation/carousel';
+import Modal from './layout/modal';
+import BrowserRouter from './navigation/browserRouter';
+import TypeWritter from './animated/typeWriter';
+import Router from './navigation/router';
+import Tabs from './navigation/tabContainer';
 const AlexComponents: any = {
     AutoComplete,
     Carousels: Carousel,
     Modal,
     Router,
     TypeWritter,
-    BrowserRouter
+    BrowserRouter,
+    tabs: Tabs
 }
 
 export default AlexComponents;
