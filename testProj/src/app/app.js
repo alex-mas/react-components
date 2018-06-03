@@ -8,6 +8,8 @@ import Router from '../../../dist/navigation/router';
 import BrowserRouter, { BrowserLink } from '../../../dist/navigation/browserRouter';
 import AlexComponents from '../../../dist/index';
 import { Tab, TabContainer } from '../../../dist/navigation/tabContainer';
+import Dropdown from '../../../dist/layout/dropdown';
+
 const TypeWritter = AlexComponents.TypeWritter;
 
 console.log(AlexComponents);
@@ -51,14 +53,22 @@ const MyRouter = (props) => {
         >
             <div path='/' exact={true}>
                 Hello, this is the landing page!
-                <BrowserLink
-                    to='/carousel'
-                    text='Go to carousel'
-                />
-                <BrowserLink
-                    to='/tabs'
-                    text='Go to tabs'
-                />
+                <Dropdown
+                    value='Routes'
+                    onSelect={(index, value)=>console.log(index,value)}
+                >
+                    <BrowserLink
+                        value='carousel'
+                        to='/carousel'
+                        text='Go to carousel'
+                    />
+                    <BrowserLink
+                        value='tabs'
+                        to='/tabs'
+                        text='Go to tabs'
+                    />
+                </Dropdown>
+
             </div>
             <div path='/notFound'>
                 Sorry, the content you asked for was not found
@@ -189,6 +199,7 @@ const MyRouter = (props) => {
             <div path='/tabs'>
                 <TabContainer
                     initialTab='starting'
+                    className='dark-tab'
                 >
                     <Tab
                         title='starting'

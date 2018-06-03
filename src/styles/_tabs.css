@@ -1,0 +1,21 @@
+.axc-tab-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.axc-tab-container__links{
+    width: 20%;
+}
+
+.axc-tab-link{
+    color: red;
+}
+
+.axc-tab-link--active{
+    background-color: grey;
+    font-weight: bold;
+}
+
+.axc-tab-container__tab{
+    width: 80%;
+}

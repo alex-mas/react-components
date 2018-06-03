@@ -17,7 +17,8 @@ export class Tab extends React.Component<TabProps, any>{
 interface TabLinkProps {
     title: string,
     component?: React.ComponentClass<any> | React.SFCFactory<any>,
-    onClick(title: string): any
+    onClick(title: string): any,
+    className: string
 }
 class TabLink extends React.Component<TabLinkProps, any>{
     onClick = (event) => {
@@ -25,7 +26,7 @@ class TabLink extends React.Component<TabLinkProps, any>{
     }
     render() {
         return (
-            <div className='tab-link' onClick={this.onClick}>
+            <div className={this.props.className} onClick={this.onClick}>
                 {this.props.component ?
                     <this.props.component />
                     :
@@ -38,7 +39,8 @@ class TabLink extends React.Component<TabLinkProps, any>{
 
 export interface TabContainerProps {
     children?: Tab[] | Tab,
-    initialTab: string
+    initialTab: string,
+    className?: string
 }
 export interface TabContainerState {
     activeTab: string
@@ -64,19 +66,24 @@ export class TabContainer extends React.Component<TabContainerProps, TabContaine
     }
     render() {
         return (
-            <div className='tab-container'>
-                <div className='tab-container__links'>
+            <div className={'axc-tab-container'+ (this.props.className ? ' '+this.props.className : '')}>
+                <div className='axc-tab-container__links'>
                     {React.Children.map(this.props.children, (child: any, index: number) => {
+                        let className: string = 'axc-tab-link';    
+                        if(child.props.title === this.state.activeTab){
+                            className = 'axc-tab-link--active'
+                        }
                         return (
                             <TabLink
                                 title={child.props.title}
                                 component={child.props.titleComponent}
                                 onClick={this.onTabLinkClick}
+                                className={className}
                             />
                         )
                     })}
                 </div>
-                <div className='tab-container__active-tab'>
+                <div className='tab-container__tab'>
                     <Router
                         strategy={this.shouldRenderTab}
                     >
