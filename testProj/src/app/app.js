@@ -9,7 +9,7 @@ import BrowserRouter, { BrowserLink } from '../../../dist/navigation/browserRout
 import AlexComponents from '../../../dist/index';
 import { Tab, TabContainer } from '../../../dist/navigation/tabContainer';
 import Dropdown from '../../../dist/layout/dropdown';
-
+import Dialog from '../../../dist/layout/dialog';
 const TypeWritter = AlexComponents.TypeWritter;
 
 console.log(AlexComponents);
@@ -53,22 +53,16 @@ const MyRouter = (props) => {
         >
             <div path='/' exact={true}>
                 Hello, this is the landing page!
-                <Dropdown
-                    value='Routes'
-                    onSelect={(index, value)=>console.log(index,value)}
-                >
-                    <BrowserLink
-                        value='carousel'
-                        to='/carousel'
-                        text='Go to carousel'
-                    />
-                    <BrowserLink
-                        value='tabs'
-                        to='/tabs'
-                        text='Go to tabs'
-                    />
-                </Dropdown>
-
+                <BrowserLink
+                    value='carousel'
+                    to='/carousel'
+                    text='Go to carousel'
+                />
+                <BrowserLink
+                    value='tabs'
+                    to='/tabs'
+                    text='Go to tabs'
+                />
             </div>
             <div path='/notFound'>
                 Sorry, the content you asked for was not found
@@ -304,7 +298,7 @@ class App extends React.Component {
                     />
                 </form>
                 <button type='button' onClick={this.toggleModal}>
-                    Toggle modal
+                    Toggle dialog
                 </button>
                 {window.location.hash ?
                     null
@@ -314,20 +308,19 @@ class App extends React.Component {
                     </button>
                 }
                 <MyRouter myStringState={this.state.myStringState} saveStringState={this.saveStringState} />
-                <Modal
+                <Dialog
                     className='myModal'
-                    delay={true}
                     isOpen={this.state.isModalOpen}
                     onClose={this.closeModal}
+                    onClickOption={(option) => {
+                        console.warn(`an option was clicked: ${option}`);
+                        this.closeModal();
+                    }}
+                    options={['attack', 'heal', 'cast fireball', 'flee']}
+                    title='What action will you take?'
+                    description='remember, you can only select one, so choose wisely!'
                 >
-                    <div>
-                        {this.state.formData.name} - {this.state.formData.surname}
-                    </div>
-                    <div>
-                        Body!
-                    </div>
-                    <button type='button' onClick={this.toggleModal}>Close!</button>
-                </Modal>
+                </Dialog>
             </div>
         )
     }

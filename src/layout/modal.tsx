@@ -66,7 +66,7 @@ export class Modal extends React.Component<ModalProps, ModalState>{
             }
             let bodyClassName = 'axc-modal__body';
             if (this.props.className) {
-                bodyClassName += " " + this.props.className;
+                bodyClassName = this.props.className;
             }
             return (
                 <div className={overlayClassName} onClick={this.handleClickOutsideModal}>

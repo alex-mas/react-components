@@ -30,6 +30,7 @@
     "jest": "^22.1.4",
     "jsdoc": "^3.5.5",
     "jsdoc-template": "^1.2.0",
+    "node-sass": "^4.9.0",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.8.3",
     "webpack": "^4.8.3"

@@ -12,6 +12,8 @@
     color: royalblue;
     width: 30vw;
     height: 35vh;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 25vh;
     text-align: center;
 }
