@@ -7,7 +7,7 @@
     "build": "npm run preBuild && npm run compile",
     "preBuild": "node tasks/preBuild.js",
     "compile": "node_modules/.bin/tsc",
-    "test": "jest"
+    "test": "jest --config=jest.config.json"
   },
   "homepage": "https://github.com/alex-mas/axc",
   "url": "TODO",
@@ -20,20 +20,32 @@
     "node": ">= 6.4.0"
   },
   "author": "alex_mas",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "@types/react-fontawesome": "^1.6.3",
     "@types/uuid": "^3.4.3",
     "awesome-typescript-loader": "^5.0.0",
+    "babel-polyfill": "^6.26.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.4",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",
     "jsdoc": "^3.5.5",
     "jsdoc-template": "^1.2.0",
     "node-sass": "^4.9.0",
+    "raf": "^3.4.0",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.8.3",
-    "webpack": "^4.8.3"
+    "webpack": "^4.8.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
