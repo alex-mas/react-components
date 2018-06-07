@@ -16,11 +16,11 @@ const TypeWritter = AlexComponents.TypeWritter;
 
 
 const defaultPredictionData = [
-    'hello', 
-    'world', 
-    'hello world', 
-    'hey there', 
-    'hello world program', 
+    'hello',
+    'world',
+    'hello world',
+    'hey there',
+    'hello world program',
     'stupidly long text stupidly long text stupidly long text stupidly long text',
     'intellisense rocks',
     'auto-complete this'
@@ -316,19 +316,19 @@ class App extends React.Component {
                     </button>
                 }
                 <MyRouter myStringState={this.state.myStringState} saveStringState={this.saveStringState} />
-                <Dialog
+                <Modal
                     className='myModal'
                     isOpen={this.state.isModalOpen}
                     onClose={this.closeModal}
-                    onClickOption={(option) => {
-                        console.warn(`an option was clicked: ${option}`);
-                        this.closeModal();
-                    }}
-                    options={['attack', 'heal', 'cast fireball', 'flee']}
-                    title='What action will you take?'
-                    description='remember, you can only select one, so choose wisely!'
                 >
-                </Dialog>
+                    <div>
+                        inside the modal
+                    </div>
+                    <div>
+                        another div inside the modal
+                    </div>
+                </Modal>
+
             </div>
         )
     }
@@ -339,3 +339,18 @@ ReactDOM.render(<App />, appRoot);
 
 
 
+
+/*
+<Dialog
+className='myModal'
+isOpen={this.state.isModalOpen}
+onClose={this.closeModal}
+onClickOption={(option) => {
+    console.warn(`an option was clicked: ${option}`);
+    this.closeModal();
+}}
+options={['attack', 'heal', 'cast fireball', 'flee']}
+title='What action will you take?'
+description='remember, you can only select one, so choose wisely!'
+>
+</Dialog>*/

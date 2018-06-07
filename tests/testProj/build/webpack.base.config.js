@@ -6,9 +6,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 
-fs.copyFileSync('../dist/styles/axc-styles.css','../tests/testProj/dist/axc-styles.css');
-fs.copyFileSync('../tests/testProj/src/app/app.html', '../tests/testProj/dist/app.html');
-fs.copyFileSync('../test/stestProj/src/app/testApp.css', '../tests/testProj/dist/testApp.css');
+fs.copyFileSync('../../dist/styles/axc-styles.css','../testProj/dist/axc-styles.css');
+fs.copyFileSync('../testProj/src/app/app.html', '../testProj/dist/app.html');
+fs.copyFileSync('../testProj/src/app/testApp.css', '../testProj/dist/testApp.css');
 
 module.exports = env => {
   return {

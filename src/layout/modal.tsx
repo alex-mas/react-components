@@ -29,7 +29,9 @@ export class Modal extends React.Component<ModalProps, ModalState>{
         this.transition = this.transition.bind(this);
     }
     handleClickOutsideModal(event: React.MouseEvent<any>) {
-        this.props.onClose();
+        if(!event.isPropagationStopped()){
+            this.props.onClose();
+        }
     }
     handleClickInsideModal(event: React.MouseEvent<any>) {
         event.stopPropagation();
