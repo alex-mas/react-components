@@ -1,13 +1,14 @@
 {
   "name": "axc",
   "version": "0.0.1",
-  "description": "react components created and used by me",
+  "description": "react components created for personal use",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run preBuild && npm run compile",
     "preBuild": "node tasks/preBuild.js",
     "compile": "node_modules/.bin/tsc",
-    "test": "jest --config=jest.config.json"
+    "test": "jest --config=jest.config.json",
+    "preRelease": "npm run build && npm run test"
   },
   "homepage": "https://github.com/alex-mas/axc",
   "url": "TODO",

@@ -11,7 +11,7 @@ export interface AutoCompleteProps {
     className?: string,
     placeholder?: string,
     id?: string,
-    getSuggestions?(): string[],
+    getSuggestions?(inputVal: string): string[],
     styles?: AutoCompleteStyles,
     useInlineStyles?: boolean
 }
@@ -161,7 +161,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         this.setState(() => {
             let suggestions: string[];
             if (this.props.getSuggestions) {
-                suggestions = this.props.getSuggestions();
+                suggestions = this.props.getSuggestions(inputValue);
             } else {
                 suggestions = this.computeSuggestions(inputValue);
             }

@@ -126,13 +126,13 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
         const location = this.location();
         if (childProps.exact) {
-            if (childProps.path === location) {
+            if (childProps.route === location) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (location.includes(childProps.path)) {
+            if (location.includes(childProps.route)) {
                 return true;
             } else {
                 return false;
@@ -163,7 +163,7 @@ export interface WithHistoryContextFunction {
 }
 
 export const WithHistoryContext: WithHistoryContextFunction = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {
-    return (props: any)=>(
+    return (props: any) => (
         <BrowserHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
         </BrowserHistoryContext.Consumer>
@@ -172,7 +172,7 @@ export const WithHistoryContext: WithHistoryContextFunction = (Component: React.
 
 export interface BrowserRouteProps {
     history: BrowserHistory,
-    path: string,
+    route: string,
     exact: boolean,
     component?: React.ComponentClass<any> | React.SFCFactory<any> | any,
     children?: any
@@ -180,16 +180,21 @@ export interface BrowserRouteProps {
 }
 
 const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
-    if(props.component){
-        return <props.component {...props} component={null}/>;
-    }else if(props.children){
-        return (
-            <div>
-                {props.children}
-            </div>
-        )
+    if (props.children) {
+        return _BrowserRoute({
+            history: props.history,
+            route: props.route,
+            exact: props.exact,
+            component: (
+                <div>
+                    {props.children}
+                </div>
+            )
+        })
+    } else if (props.component) {
+        return <props.component history={props.history} route={props.route} exact={props.exact} />;
     }
 }
-export const BrowserRoute = WithHistoryContext(_BrowserRoute) ;
+export const BrowserRoute = WithHistoryContext(_BrowserRoute);
 
 export default BrowserRouter;
