@@ -5,8 +5,8 @@ The scope of this project is not to provide something like bootstrap, but to cre
 
 ## Current components
 - The api is not currently stable, so use at your own risk.
-- Provided components have some basic styling for the element, such as dropdown floating elements, etc. 
-- The rest of the styles remain undone for the moment, some non-required ugly stylings are provided because its easier to test the components. 
+- Provided components have some basic styles required for the element, such as dropdown floating elements, etc. 
+- The rest of the styles remain undone for the moment, some non-required ugly styles are provided because its easier to test the components. 
 
 ### Modal 
 When open it renders the contents above an overlay, it has harcoded fade transitions between open and closed states
@@ -70,10 +70,10 @@ Costumizable input tag that implements the logic to display suggestions and the 
 
 ## Usage
 
-1- clone this repository locally
-2- cd to the directory where the package.json lies
-3- type 'npm run build'
-4- require the desired files from the dist directory into your project (assuming you're using build tools such as webpack), otherwise just include a script tag in your html pointint to the files 
+- clone this repository locally
+- cd to the directory where the package.json lies
+- type 'npm run build'
+- require the desired files from the dist directory into your project (assuming you're using build tools such as webpack), otherwise just include a script tag in your html pointint to the files 
 
 
 ## TODO
