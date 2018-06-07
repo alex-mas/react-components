@@ -21,7 +21,7 @@
     "node": ">= 6.4.0"
   },
   "author": "alex_mas",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
