@@ -1,11 +1,12 @@
 # axc
+A library that offers a variety of react components written in typescript.
 
-axc is a project i've started to learn typescript and learn react further, api of components is not currently stable, so use at your own risk.
+The scope of this project is not to provide something like bootstrap, but to create a suite of components that behave as they should, leaving the styling to the specific project in which they are deployed.
 
 ## Current components
+- The api is not currently stable, so use at your own risk.
 - Provided components have some basic styling for the element, such as dropdown floating elements, etc. 
-- The rest of the styles remain undone for the moment, some non-required ugly stylings are provided because its easier to test the components. The scope of this project is not to provide something like bootstrap but to create a suite of components that behave as they should, leaving the styling to the specific project in which they are deployed.
-
+- The rest of the styles remain undone for the moment, some non-required ugly stylings are provided because its easier to test the components. 
 
 ### Modal 
 When open it renders the contents above an overlay, it has harcoded fade transitions between open and closed states
@@ -43,10 +44,10 @@ Via react api:
 They are intended to be used inside a BrowserRouter, as they are history context consumers
 
 #### BrowserRoute
-Auxiliary component that renders the provided component/children and bootstraps history and route properties into it
+Renders the provided component/children and bootstraps history and route properties into it
 
 #### BrowserLink 
-Auxiliary component that consumes the context provided by BrowserRouter and on click pushes the provided location into BrowserRouter's history.
+On click pushes the provided location into BrowserRouter's history.
 
 ### Carousel
 Renders a container with the provided children and with two buttons to switch the active child
