@@ -67,6 +67,9 @@ Renders the text as if was being typed by a human
 ### AutoComplete
 Costumizable input tag that implements the logic to display suggestions and the hooks to customize how those are obtained/managed
 
+### Countdown
+Component that has two modes, in one you set the time and in the other it counts down to 0 from the specified time, when it ends it calls provided function(if any)
+
 
 ## Usage
 

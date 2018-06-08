@@ -5,11 +5,12 @@ import AutoComplete from '../../../../dist/interactive/autoComplete';
 import Modal from '../../../../dist/layout/modal';
 import Carousel, { LinkedCarousel, CarouselImage } from '../../../../dist/navigation/carousel';
 import Router from '../../../../dist/navigation/router';
-import BrowserRouter, { BrowserLink } from '../../../../dist/navigation/browserRouter';
+import BrowserRouter, { BrowserLink, BrowserRoute } from '../../../../dist/navigation/browserRouter';
 import AlexComponents from '../../../../dist/index';
 import { Tab, TabContainer } from '../../../../dist/navigation/tabContainer';
 import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
+import Countdown from '../../../../dist/interactive/countdown';
 const TypeWritter = AlexComponents.TypeWritter;
 
 
@@ -56,12 +57,11 @@ const myOtherStyles = {
 const MyRouter = (props) => {
     return (
         <BrowserRouter
-            history={['/', '/notFound']}
             startingRoute={'/'}
         >
             <div path='/' exact={true}>
                 This is the landing page!
-                <BrowserLink
+                    <BrowserLink
                     value='carousel'
                     to='/carousel'
                     text='Go to carousel'
@@ -70,6 +70,11 @@ const MyRouter = (props) => {
                     value='tabs'
                     to='/tabs'
                     text='Go to tabs'
+                />
+                <BrowserLink
+                    value='countdown'
+                    to='/countdown'
+                    text='Go to countdown'
                 />
             </div>
             <div path='/notFound'>
@@ -233,6 +238,9 @@ const MyRouter = (props) => {
                     </Tab>
                 </TabContainer>
             </div>
+            <div path='/countdown'>
+                <Countdown onFinishCountdown={() => console.log('countdown finished!')} />
+            </div>
         </BrowserRouter>
     )
 
@@ -308,13 +316,6 @@ class App extends React.Component {
                 <button type='button' onClick={this.toggleModal}>
                     Toggle dialog
                 </button>
-                {window.location.hash ?
-                    null
-                    :
-                    <button type='button' onClick={() => { window.location.hash = '/home' }}>
-                        Go to landing page
-                    </button>
-                }
                 <MyRouter myStringState={this.state.myStringState} saveStringState={this.saveStringState} />
                 <Modal
                     className='myModal'

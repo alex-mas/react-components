@@ -126,13 +126,13 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
         const location = this.location();
         if (childProps.exact) {
-            if (childProps.route === location) {
+            if (childProps.path === location) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (location.includes(childProps.route)) {
+            if (location.includes(childProps.path)) {
                 return true;
             } else {
                 return false;
@@ -172,7 +172,7 @@ export const WithHistoryContext: WithHistoryContextFunction = (Component: React.
 
 export interface BrowserRouteProps {
     history: BrowserHistory,
-    route: string,
+    path: string,
     exact: boolean,
     component?: React.ComponentClass<any> | React.SFCFactory<any> | any,
     children?: any
@@ -180,10 +180,11 @@ export interface BrowserRouteProps {
 }
 
 const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
+    console.log(props);
     if (props.children) {
         return _BrowserRoute({
             history: props.history,
-            route: props.route,
+            path: props.path,
             exact: props.exact,
             component: (
                 <div>
@@ -192,7 +193,7 @@ const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) =
             )
         })
     } else if (props.component) {
-        return <props.component history={props.history} route={props.route} exact={props.exact} />;
+        return <props.component history={props.history} path={props.path} exact={props.exact} />;
     }
 }
 export const BrowserRoute = WithHistoryContext(_BrowserRoute);
