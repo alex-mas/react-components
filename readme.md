@@ -15,7 +15,7 @@ When open it renders the contents above an overlay, it has harcoded fade transit
 Basic router to be extended, it implements a default strategy and the hooks for custom routing strategies.
 
 ### BrowserRouter
-Router that implements a strategy based on a data structure similar to browser history and renders the children who's "route" prop matches partially/totally the active route.
+Router that implements a strategy based on a data structure similar to browser history and renders the children who's "path" prop matches partially/totally the active route.
 
 - Uses react context api, to provide the browser history to children that require it.
 Usage of history context:
@@ -76,8 +76,12 @@ Component that has two modes, in one you set the time and in the other it counts
 - clone this repository locally
 - cd to the directory where the package.json lies
 - type 'npm run build'
-- require the desired files from the dist directory into your project (assuming you're using build tools such as webpack), otherwise just include a script tag in your html pointint to the files 
+- require the desired files from the dist directory into your project (assuming you're using build tools such as webpack or other tools that make commonjs module syntax available in the browser), otherwise just include a script tag in your html pointint to the files 
 
+
+## Styling components
+To style the components i've set up the css classes in most of the elements, so you can just require the component styles and build up on that
+I might switch to css in js in the future to make it simpler to use the components.
 
 ## TODO
 List of components that I will probably implement
@@ -101,3 +105,16 @@ List of components that I will probably implement
 - Loading bars
 
 
+## Folder structure
+
+- dist: where the compiled/transpile code goes
+- src: where the source of the components and styles live
+- tasks: folder where task scripts are located
+- tests: where unit/e2e tests live, also there's a test project to play around with the componentss
+
+
+## Stack used
+- React
+- Typescript
+- node-sass to build the styles
+- Jest/enzyme to test the components
