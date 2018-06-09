@@ -114,8 +114,8 @@ export class Stopwatch extends React.Component<StopwatchProps, StopwatchState> {
             <div>
                 <this.renderTime />
                 <div className='axc-stopwatch__actions'>
-                    <button onClick={this.onToggle}>{this.state.status === StopwatchStatus.ACTIVE ? 'Pause' : 'Start'}</button>
-                    <button onClick={this.onReset}>Reset</button>
+                    <button className='axc-stopwatch__action--toggle' onClick={this.onToggle}>{this.state.status === StopwatchStatus.ACTIVE ? 'Pause' : 'Start'}</button>
+                    <button className='axc-stopwatch__action--reset' onClick={this.onReset}>Reset</button>
                 </div>
             </div>
         )

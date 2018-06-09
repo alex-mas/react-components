@@ -213,8 +213,8 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
                     <this.renderCountdown />
                 }
                 <div className='axc-countdown__actions'>
-                    <button onClick={this.onToggle}>{this.state.status === CountdownStatus.ACTIVE ? 'Pause' : 'Start'}</button>
-                    <button onClick={this.onReset}>Reset</button>
+                    <button  className='axc-countdown__action--toggle' onClick={this.onToggle}>{this.state.status === CountdownStatus.ACTIVE ? 'Pause' : 'Start'}</button>
+                    <button className='axc-countdown__action--reset' onClick={this.onReset}>Reset</button>
                 </div>
             </div>
         )
