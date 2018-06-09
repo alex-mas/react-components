@@ -11,6 +11,7 @@ import { Tab, TabContainer } from '../../../../dist/navigation/tabContainer';
 import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
 import Countdown from '../../../../dist/interactive/countdown';
+import Stopwatch from '../../../../dist/interactive/stopwatch';
 const TypeWritter = AlexComponents.TypeWritter;
 
 
@@ -240,6 +241,9 @@ const MyRouter = (props) => {
             </div>
             <div path='/countdown'>
                 <Countdown onFinishCountdown={() => console.log('countdown finished!')} />
+                <Stopwatch 
+                    start={0}
+                />
             </div>
         </BrowserRouter>
     )
