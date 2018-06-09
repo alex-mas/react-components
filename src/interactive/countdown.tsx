@@ -25,7 +25,7 @@ export interface CountdownState {
 export interface TimePoint {
     hours: number,
     minutes: number,
-    seconds: number 
+    seconds: number
 }
 
 export class Countdown extends React.Component<CountdownProps, CountdownState> {
@@ -115,7 +115,7 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
             }));
         } else if (this.state.status !== CountdownStatus.FINISHED) {
             let remainingTime = this.state.remainingTime;
-            if(remainingTime <= 0){
+            if (remainingTime <= 0) {
                 remainingTime = 3600 * Number(this.state.hours) + 60 * Number(this.state.minutes) + Number(this.state.seconds);
             }
             this.setState(() => ({
@@ -168,14 +168,14 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
         let minutes = 0;
         let seconds = 0;
 
-        hours = Math.floor(value /3600);
-        value -= hours*3600;
+        hours = Math.floor(value / 3600);
+        value -= hours * 3600;
 
-        minutes = Math.floor(value/60);
-        value -= 60*minutes;
+        minutes = Math.floor(value / 60);
+        value -= 60 * minutes;
 
         seconds = value;
-        
+
         return {
             hours,
             minutes,
@@ -189,13 +189,17 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
                 <span className='axc-countdown__number'>
                     {time.hours}
                 </span>
-                :
-                <span className='axc-countdown__number'>
-                    {time.minutes < 10 ? '0'+time.minutes : time.minutes}
+                <span className='axc-countdown__separator'>
+                    :
                 </span>
-                :
                 <span className='axc-countdown__number'>
-                    {time.seconds < 10 ? '0'+time.seconds : time.seconds}
+                    {time.minutes < 10 ? '0' + time.minutes : time.minutes}
+                </span>
+                <span className='axc-countdown__separator'>
+                    :
+                </span>
+                <span className='axc-countdown__number'>
+                    {time.seconds < 10 ? '0' + time.seconds : time.seconds}
                 </span>
             </div>
         )

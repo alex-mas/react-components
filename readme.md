@@ -70,6 +70,8 @@ Costumizable input tag that implements the logic to display suggestions and the 
 ### Countdown
 Component that has two modes, in one you set the time and in the other it counts down to 0 from the specified time, when it ends it calls provided function(if any)
 
+### Stopwatch
+Component that renders a stopwatch and two buttons to pause/start and reset it, by default starts counting from 0 but a custom starting amount can be specified via the start prop(numeric value in seconds)
 
 ## Usage
 
