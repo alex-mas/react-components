@@ -88,7 +88,7 @@ I might switch to css in js in the future to make it simpler to use the componen
 ## TODO
 List of components that I will probably implement
 
-- Toggable icons (think google/facebook widgets like)
+- Toggable icons (like google/facebook widgets)
 - Tooltips
 - I18string
 - Forms with less boilerplate
