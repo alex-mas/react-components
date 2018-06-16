@@ -65,7 +65,7 @@ export class Dialog extends React.Component<DialogProps, {}> {
                     {this.props.description}
                 </div>
                 <div className='axc-dialog__options'>
-                    {this.props.options.map((option, index) => {
+                    {this.props.options ? this.props.options.map((option, index) => {
                         return (
                             <DialogOption
                                 key={option}
@@ -74,7 +74,10 @@ export class Dialog extends React.Component<DialogProps, {}> {
                                 className={this.props.buttonClass}
                             />
                         )
-                    })}
+                    })
+                    : 
+                    <button onClick={this.props.onClose}>Exit</button>
+                    }
                 </div>
 
             </Modal>

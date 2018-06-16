@@ -3,7 +3,7 @@ import { shallow, render, mount } from 'enzyme'
 import Modal from '../../dist/layout/modal'
 
 
-test('Modal should return null when passed false to isOpen prop', () => {
+test('Modal shouldn\'t render anything when passed false to isOpen prop', () => {
     let wrapper = shallow(
         <Modal
             isOpen={false}
