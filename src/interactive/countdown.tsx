@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
-
+import {getTimeValues, TimePoint} from  '../utils/time';
 
 export enum CountdownStatus {
     ACTIVE = 'ACTIVE',
@@ -22,11 +22,6 @@ export interface CountdownState {
     interval?: NodeJS.Timer
 }
 
-export interface TimePoint {
-    hours: number,
-    minutes: number,
-    seconds: number
-}
 
 export class Countdown extends React.Component<CountdownProps, CountdownState> {
     constructor(props) {
@@ -163,27 +158,8 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
             </div>
         );
     }
-    getTimeValues = (value: number): TimePoint => {
-        let hours = 0;
-        let minutes = 0;
-        let seconds = 0;
-
-        hours = Math.floor(value / 3600);
-        value -= hours * 3600;
-
-        minutes = Math.floor(value / 60);
-        value -= 60 * minutes;
-
-        seconds = value;
-
-        return {
-            hours,
-            minutes,
-            seconds
-        };
-    }
     renderCountdown: React.SFC<any> = () => {
-        const time: TimePoint = this.getTimeValues(this.state.remainingTime);
+        const time: TimePoint = getTimeValues(this.state.remainingTime);
         return (
             <div className='axc-countdown__container'>
                 <span className='axc-countdown__number'>
