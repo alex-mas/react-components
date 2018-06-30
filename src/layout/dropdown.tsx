@@ -56,6 +56,7 @@ let defaultStyles: DropdownStyles = {
     }
 }
 
+//TODO: right now the element vanishes once the user attempts to select the options, need to detect that the focus is in fact not leaving the element
 
 interface DropdownOptionProps {
     value?: string,
