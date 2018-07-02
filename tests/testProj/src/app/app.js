@@ -12,6 +12,7 @@ import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
 import Countdown from '../../../../dist/interactive/countdown';
 import Stopwatch from '../../../../dist/interactive/stopwatch';
+import TimeAgo from   '../../../../dist/display/timeago';
 const TypeWritter = AlexComponents.TypeWritter;
 
 
@@ -333,6 +334,9 @@ class App extends React.Component {
                         another div inside the modal
                     </div>
                 </Modal>
+                <div>
+                    RNG decided that it was: <TimeAgo time={Date.now()-(Date.now()-(Math.random()*1200))}/>
+                </div>
 
             </div>
         )

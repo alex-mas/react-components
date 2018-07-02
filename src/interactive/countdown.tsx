@@ -159,7 +159,7 @@ export class Countdown extends React.Component<CountdownProps, CountdownState> {
         );
     }
     renderCountdown: React.SFC<any> = () => {
-        const time: TimePoint = getTimeValues(this.state.remainingTime);
+        const time: TimePoint = getTimeValues(this.state.remainingTime, false);
         return (
             <div className='axc-countdown__container'>
                 <span className='axc-countdown__number'>
