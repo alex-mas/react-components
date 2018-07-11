@@ -3,19 +3,54 @@ import { getTimeValues, TimePoint, getTimeAgo, TimeAgoPoint } from '../utils/tim
 
 export interface TimeAgoProps {
     time: number,
-    ms: boolean
+    ms: boolean,
+    isTimePoint: boolean
 }
+export interface TimeAgoState {
+    interval?: any,
+    timeP: number
+};
+
 export class TimeAgo extends React.Component<TimeAgoProps, any> {
+    constructor(props){
+        super(props);
+        let timeP: TimeAgoPoint;
+        if (this.props.isTimePoint) {
+            timeP = getTimeAgo(Date.now() - this.props.time, true);
+        } else {
+            timeP = getTimeAgo(this.props.time, this.props.ms);
+        }
+        this.state = {
+            timeP
+        };
+    }
+    componentDidMount (){
+        if(this.props.isTimePoint){
+            const interval = setInterval(()=>{
+                this.setState(()=>({
+                    timeP: getTimeAgo(Date.now() - this.props.time, true)
+                }));
+            }, 1000);
+            this.setState(()=>({
+                interval
+            }));
+        }
+    }
+    componentWillUnmount (){
+        if(this.state.interval){
+            clearInterval(this.state.interval);
+        }
+    } 
     render() {
-        const timeP: TimeAgoPoint = getTimeAgo(this.props.time, this.props.ms);
         return (
-            <div className='axc-timeago'>
-                <span className='axc-timeago__time'>{timeP.time} </span>
-                <span className='axc-timeago__text'>{timeP.text} ago</span>
-            </div>
+            <span className='axc-timeago'>
+                <span className='axc-timeago__time'>{this.state.timeP.time} </span>
+                <span className='axc-timeago__text'>{this.state.timeP.text} ago</span>
+            </span>
         );
     }
-}
+};
+
 
 
 export default TimeAgo

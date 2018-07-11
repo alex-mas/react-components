@@ -78,6 +78,13 @@ const MyRouter = (props) => {
                     to='/countdown'
                     text='Go to countdown'
                 />
+                <Dropdown
+                    value='Dropdown Here'
+                    options={['first','second','third','fourth']}
+                    useInlineStyles={true}
+                >
+
+                </Dropdown>
             </div>
             <div path='/notFound'>
                 Sorry, the content you asked for was not found
@@ -109,7 +116,7 @@ const MyRouter = (props) => {
                             preserve={false}
                         />
 
-                    </div>
+                    </div> 
                     <CarouselImage
                         src="space.jpg"
                         title='The milky way'
@@ -335,7 +342,7 @@ class App extends React.Component {
                     </div>
                 </Modal>
                 <div>
-                    RNG decided that it was: <TimeAgo time={Date.now()-(Date.now()-(Math.random()*1200))}/>
+                    This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true}/>
                 </div>
 
             </div>

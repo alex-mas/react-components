@@ -60,6 +60,7 @@ export const getTimeAgo =(num: number, ms: boolean): TimeAgoPoint=>{
             text = 'second';
         }
     }
+    time = Math.floor(time);
     return  {
         time,
         text
