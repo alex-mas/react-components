@@ -12,7 +12,8 @@ export interface CountUpProps {
 
 export interface CountUpState {
     currentNumber: number,
-    difference: number
+    difference: number,
+    stepInterval: any
 }
 
 export class CountUp extends React.Component<CountUpProps, CountUpState>{
@@ -20,15 +21,20 @@ export class CountUp extends React.Component<CountUpProps, CountUpState>{
         super(props);
         this.state = {
             currentNumber: this.props.start,
-            difference: this.props.end-this.props.start
-        }
+            difference: this.props.end-this.props.start,
+            stepInterval: setInterval(this.timeStep, this.props.timeStepDuration)
+        };
     }
     timeStep = ()=>{
         this.setState((prevState)=>{
             if(this.props.end > this.props.start){
                 return{
+                    ...prevState,
                     currentNumber: prevState.currentNumber+this.state.difference/this.props.timeSteps
                 }
+            }else{
+                clearInterval(this.state.stepInterval);
+                return prevState;
             }
 
         })
