@@ -5,8 +5,9 @@ export interface TypeWriterProps {
     timePerCharacter: number,
     variance: number,
     preserve?: boolean,
-    saveState?(state: TypeWriterState): void
-    savedState?: TypeWriterState
+    saveState?(state: TypeWriterState): void,
+    savedState?: TypeWriterState,
+    onFinishAnimation?: Function
 }
 export interface TypeWriterState {
     currentCharacter: number
@@ -17,8 +18,8 @@ export interface TypeWriterState {
 export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState>{
     public static defaultProps: TypeWriterProps = {
         string: '',
-        timePerCharacter: 150,
-        variance: 35,
+        timePerCharacter: 65,
+        variance: 25,
         preserve: false
     }
     public state: TypeWriterState
@@ -32,6 +33,12 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
                 displayString: '',
                 timer: undefined
             }
+        }
+    }
+    componentWillReceiveProps(nextProps,nextContext){
+        if(nextProps.string !== this.props.string){
+            this.resetState();
+            this.renderString();
         }
     }
     shouldComponentUpdate(nextProps: TypeWriterProps, nextState: TypeWriterState) {
@@ -70,6 +77,10 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
                 displayString: prevState.displayString + this.props.string.charAt(this.state.currentCharacter),
                 currentCharacter: prevState.currentCharacter + 1
             }));
+        }else{
+            if(this.props.onFinishAnimation){
+                this.props.onFinishAnimation();
+            }
         }
     }
     renderString = () => {

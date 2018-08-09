@@ -3,11 +3,10 @@ import AutoComplete from './interactive/autoComplete';
 import Carousel from './navigation/carousel';
 import Modal from './layout/modal';
 import BrowserRouter from './navigation/browserRouter';
-import TypeWritter from './animated/typeWriter';
+import TypeWriter from './animated/typeWriter';
 import Router from './navigation/router';
 import Tabs from './navigation/tabContainer';
 import Stopwatch from './interactive/stopwatch';
-import TypeWritter from './animated/typeWriter';
 import CountUp from './animated/countUp';
 import I18String from './display/i18string';
 const AlexComponents: any = {
@@ -15,7 +14,7 @@ const AlexComponents: any = {
     Carousels: Carousel,
     Modal,
     Router,
-    TypeWritter,
+    TypeWriter,
     BrowserRouter,
     Tabs,
     Stopwatch,

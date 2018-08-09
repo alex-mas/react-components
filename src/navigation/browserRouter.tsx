@@ -12,9 +12,10 @@ export interface BrowserLinkProps {
 export interface BrowserHistory {
     back(): void;
     forward(): void;
+    go(delta: number): void;
     pushState(newNode: string): void;
     location(): void;
-    editState(editedState: string): void;
+    replaceState(replacedNode: string): void;
 }
 export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext(undefined);
 
@@ -55,8 +56,8 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     constructor(props: BrowserRouterProps) {
         super(props);
 
-        let startingRoute = '/';
-        if (props.startingRoute !== undefined) {
+        let startingRoute = window.location.pathname;
+        if (props.startingRoute) {
             startingRoute = props.startingRoute;
         }
 
@@ -74,6 +75,17 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             currentPosition: 0
         };
         this.history = React.createContext(this.getBrowserHistory());
+    }
+    go = (delta: number) =>{
+        if(delta > 0){
+            this.setState((prevState)=>({
+                currentPosition: Math.min(prevState.currentPosition+delta, prevState.history.length)
+            }));
+        }else if(delta < 0){
+            this.setState((prevState)=>({
+                currentPosition: Math.max(prevState.currentPosition-delta, 0)
+            }));
+        }
     }
     back = () => {
         if (this.state.currentPosition > 0) {
@@ -100,7 +112,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     location = () => {
         return this.state.history[this.state.currentPosition];
     }
-    editState = (editedNode: string) => {
+    replaceState = (editedNode: string) => {
         console.log('editing current state');
         if (editedNode !== this.location()) {
             this.setState((prevState: BrowserRouterState) => {
@@ -115,9 +127,10 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
         return {
             back: this.back,
             forward: this.forward,
+            go: this.go,
             pushState: this.pushState,
             location: this.location,
-            editState: this.editState
+            replaceState: this.replaceState
         }
     }
     componentWillReceiveProps(nextProps: BrowserRouterProps) {
