@@ -172,7 +172,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 
 
 export interface WithHistoryContextFunction {
-    (params: any): React.SFC<any>
+    (props: any): React.SFC<any>
 }
 
 export const WithHistoryContext: WithHistoryContextFunction = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {

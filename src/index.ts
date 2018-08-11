@@ -9,6 +9,8 @@ import Tabs from './navigation/tabContainer';
 import Stopwatch from './interactive/stopwatch';
 import CountUp from './animated/countUp';
 import I18String from './display/i18string';
+import {Notification, NotificationComponent, NotificationSystem, WithNotifications} from './interactive/notifications';
+
 const AlexComponents: any = {
     AutoComplete,
     Carousels: Carousel,
@@ -19,7 +21,13 @@ const AlexComponents: any = {
     Tabs,
     Stopwatch,
     CountUp,
-    I18String
+    I18String,
+    Notifications: {
+        Notification,
+        NotificationComponent,
+        NotificationSystem,
+        WithNotifications
+    }
 }
 
 export default AlexComponents;
