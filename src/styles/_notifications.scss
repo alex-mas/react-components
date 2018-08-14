@@ -1,0 +1,15 @@
+.axc__notification{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 10%;
+    height: 8%;
+    min-width: 150px;
+    min-height: 50px;
+    background-color: grey;
+    color: white;
+}
+.axc__notification__message{
+    text-align: center;
+    font-weight: bold;
+}

@@ -55,7 +55,6 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     history: React.Context<any>
     constructor(props: BrowserRouterProps) {
         super(props);
-
         let startingRoute = window.location.pathname;
         if (props.startingRoute) {
             startingRoute = props.startingRoute;
@@ -112,7 +111,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     location = () => {
         return this.state.history[this.state.currentPosition];
     }
-    replaceState = (editedNode: string) => {
+    _replaceState = (editedNode: string) => {
         console.log('editing current state');
         if (editedNode !== this.location()) {
             this.setState((prevState: BrowserRouterState) => {
@@ -130,7 +129,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             go: this.go,
             pushState: this.pushState,
             location: this.location,
-            replaceState: this.replaceState
+            replaceState: this._replaceState
         }
     }
     componentWillReceiveProps(nextProps: BrowserRouterProps) {

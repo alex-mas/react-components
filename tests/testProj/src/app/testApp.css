@@ -34,3 +34,20 @@
 .axc-tab-container.dark-tab .axc-tab-container__links{
     background-color: white;
 }
+
+
+.testApp__notification{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 10%;
+    height: 8%;
+    min-width: 150px;
+    min-height: 50px;
+    background-color: grey;
+    color: white;
+}
+.testApp__notification__message{
+    text-align: center;
+    font-weight: bold;
+}

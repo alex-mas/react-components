@@ -68,7 +68,11 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         this.renderString();
     }
     getNextTimeDelay = () => {
-        return this.props.timePerCharacter + (this.props.variance * (Math.random() * 2 - 1));
+        if(this.props.variance === 0){
+            return this.props.timePerCharacter;
+        }else{
+            return this.props.timePerCharacter + (this.props.variance * (Math.random() * 2 - 1));
+        }
     }
     renderCharacter = () => {
         if (this.state.currentCharacter <= this.props.string.length - 1) {
@@ -87,7 +91,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         setTimeout(this.renderCharacter, this.getNextTimeDelay());
     }
     render() {
-        return this.state.displayString;
+        return this.state.displayString ? this.state.displayString : null;
     }
 }
 

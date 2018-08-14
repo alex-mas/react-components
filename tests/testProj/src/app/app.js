@@ -12,8 +12,9 @@ import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
 import Countdown from '../../../../dist/interactive/countdown';
 import Stopwatch from '../../../../dist/interactive/stopwatch';
-import TimeAgo from   '../../../../dist/display/timeago';
+import TimeAgo from '../../../../dist/display/timeago';
 const TypeWritter = AlexComponents.TypeWritter;
+import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
 
 
 
@@ -55,6 +56,16 @@ const myOtherStyles = {
 }
 
 
+const _Notificator = (props)=>{
+    const notify = ()=>{
+        props.notify('Hey there has ben an error', 'testApp__notification');
+    }
+    return(
+        <button onClick={notify}>Notify of error</button>
+    )
+}
+const Notificator = WithNotifications(_Notificator);
+
 
 const MyRouter = (props) => {
     return (
@@ -80,7 +91,7 @@ const MyRouter = (props) => {
                 />
                 <Dropdown
                     value='Dropdown Here'
-                    options={['first','second','third','fourth']}
+                    options={['first', 'second', 'third', 'fourth']}
                     useInlineStyles={true}
                 >
 
@@ -116,7 +127,7 @@ const MyRouter = (props) => {
                             preserve={false}
                         />
 
-                    </div> 
+                    </div>
                     <CarouselImage
                         src="space.jpg"
                         title='The milky way'
@@ -249,7 +260,7 @@ const MyRouter = (props) => {
             </div>
             <div path='/countdown'>
                 <Countdown onFinishCountdown={() => console.log('countdown finished!')} />
-                <Stopwatch 
+                <Stopwatch
                     start={0}
                 />
             </div>
@@ -342,16 +353,23 @@ class App extends React.Component {
                     </div>
                 </Modal>
                 <div>
-                    This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true}/>
+                    This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true} />
                 </div>
-
+                <Notificator/>
             </div>
         )
     }
 }
 
+
+//    
+const connectedApp = (
+    <NotificationSystem>
+        <App />
+    </NotificationSystem>
+)
 const appRoot = document.getElementById('app');
-ReactDOM.render(<App />, appRoot);
+ReactDOM.render(connectedApp, appRoot);
 
 
 

@@ -60,7 +60,7 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
             currentNotifications: []
         };
     }
-    onDismissNotification(id: string):(evt: React.SyntheticEvent<HTMLElement>)=>void{
+    onDismissNotification = (id:string): (evt: any)=>void=> {
         return (evt: SyntheticEvent<HTMLButtonElement>)=>{
             this.setState((prevState)=>{
                 return{
@@ -71,7 +71,7 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
             });
         }
     }
-    onNotify(message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps, any>){
+    onNotify = (message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps, any>):void =>{
         this.setState((prevState)=>{
             return{
                 currentNotifications: [...prevState.currentNotifications, {
