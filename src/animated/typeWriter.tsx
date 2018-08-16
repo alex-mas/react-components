@@ -37,7 +37,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
     }
     componentWillReceiveProps(nextProps,nextContext){
         if(nextProps.string !== this.props.string){
-            this.resetState();
+            this._resetState();
             this.renderString();
         }
     }
@@ -51,7 +51,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
             return false;
         }
     }
-    resetState = () => {
+    _resetState = () => {
         this.setState(() => ({
             currentCharacter: 0,
             displayString: ''

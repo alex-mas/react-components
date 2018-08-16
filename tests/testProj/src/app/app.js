@@ -13,7 +13,8 @@ import Dialog from '../../../../dist/layout/dialog';
 import Countdown from '../../../../dist/interactive/countdown';
 import Stopwatch from '../../../../dist/interactive/stopwatch';
 import TimeAgo from '../../../../dist/display/timeago';
-const TypeWritter = AlexComponents.TypeWritter;
+import TypeWriter from '../../../../dist/animated/typeWriter';
+import CountUp from '../../../../dist/animated/countUp';
 import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
 
 
@@ -112,7 +113,7 @@ const MyRouter = (props) => {
                     }}
                 >
                     <div>
-                        <TypeWritter
+                        <TypeWriter
                             string='first element, the duration should equal to roughly 350*length'
                             timePerCharacter={35}
                             variance={15}
@@ -120,87 +121,9 @@ const MyRouter = (props) => {
                         />
                     </div>
                     <div>
-                        <TypeWritter
+                        <TypeWriter
                             string='Second element'
                             timePerCharacter={75}
-                            variance={25}
-                            preserve={false}
-                        />
-
-                    </div>
-                    <CarouselImage
-                        src="space.jpg"
-                        title='The milky way'
-                        subtitle='there are a lot of stars there'
-                    />
-                    <CarouselImage
-                        src="lake.jpg"
-                        title='A lake'
-                        subtitle='it looks cold'
-                    />
-                    <BrowserLink
-                        to='/'
-                        text='Return to landing page'
-                    />
-
-                </LinkedCarousel>
-                <LinkedCarousel
-                    startingElement={-15}
-                    onElementChange={(currentIndex) => {
-                        console.log('Changing of element, current one is: ', currentIndex);
-                    }}
-                >
-                    <div>
-                        <TypeWritter
-                            string='first element, the duration should equal to roughly 350*length'
-                            timePerCharacter={5}
-                            variance={0}
-                            preserve={false}
-                        />
-                    </div>
-                    <div>
-                        <TypeWritter
-                            string='Second element'
-                            timePerCharacter={30}
-                            variance={25}
-                            preserve={false}
-                        />
-
-                    </div>
-                    <CarouselImage
-                        src="space.jpg"
-                        title='The milky way'
-                        subtitle='there are a lot of stars there'
-                    />
-                    <CarouselImage
-                        src="lake.jpg"
-                        title='A lake'
-                        subtitle='it looks cold'
-                    />
-                    <BrowserLink
-                        to='/'
-                        text='Return to landing page'
-                    />
-
-                </LinkedCarousel>
-                <LinkedCarousel
-                    startingElement={-15}
-                    onElementChange={(currentIndex) => {
-                        console.log('Changing of element, current one is: ', currentIndex);
-                    }}
-                >
-                    <div>
-                        <TypeWritter
-                            string='first element, the duration should equal to roughly 350*length'
-                            timePerCharacter={5}
-                            variance={0}
-                            preserve={false}
-                        />
-                    </div>
-                    <div>
-                        <TypeWritter
-                            string='Second element'
-                            timePerCharacter={30}
                             variance={25}
                             preserve={false}
                         />
@@ -356,6 +279,7 @@ class App extends React.Component {
                     This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true} />
                 </div>
                 <Notificator/>
+                <CountUp start={0} end={2000} timeSteps={2000} timeStepDuration={1}/>
             </div>
         )
     }
