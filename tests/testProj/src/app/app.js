@@ -16,6 +16,7 @@ import TimeAgo from '../../../../dist/display/timeago';
 import TypeWriter from '../../../../dist/animated/typeWriter';
 import CountUp from '../../../../dist/animated/countUp';
 import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
+import PhoneNumber from '../../../../dist/display/phoneNumber';
 
 
 
@@ -57,11 +58,11 @@ const myOtherStyles = {
 }
 
 
-const _Notificator = (props)=>{
-    const notify = ()=>{
+const _Notificator = (props) => {
+    const notify = () => {
         props.notify('Hey there has ben an error', 'testApp__notification');
     }
-    return(
+    return (
         <button onClick={notify}>Notify of error</button>
     )
 }
@@ -278,8 +279,15 @@ class App extends React.Component {
                 <div>
                     This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true} />
                 </div>
-                <Notificator/>
-                <CountUp start={0} end={2000} timeSteps={2000} timeStepDuration={1}/>
+                <Notificator />
+                <CountUp start={0} end={2000} timeSteps={2000} timeStepDuration={1} />
+                <div>
+                    <PhoneNumber number={639999999} method='spaces' />
+                </div>
+                <div>
+                    <PhoneNumber number={639999999} method='dashes' />
+                </div>
+
             </div>
         )
     }
