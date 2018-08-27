@@ -30,12 +30,13 @@ export const NotificationComponent = (props: NotificationComponentProps) => {
     if (props.notification.component) {
         return <props.notification.component message={props.notification.message} className={props.notification.className} />;
     } else {
+        const baseClass = props.notification.className ? props.notification.className : 'axc__notification';
         return (
-            <div className={props.notification.className ? props.notification.className : 'axc__notification'}>
-                <span className={props.notification.className? props.notification.className + '__message' : 'axc__notification__message'}>
+            <div className={baseClass}>
+                <div className={baseClass + '__message'}>
                     {props.notification.message}
-                </span>
-                <button onClick={props.dismiss(props.notification.id)}>dismiss</button>
+                </div>
+                <button className={baseClass +'__button'} onClick={props.dismiss(props.notification.id)}>dismiss</button>
             </div>
         );
     }
@@ -64,8 +65,8 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
         return (evt: SyntheticEvent<HTMLButtonElement>)=>{
             this.setState((prevState)=>{
                 return{
-                    currentNotifications:prevState.currentNotifications.filter((not: _Notification)=>{
-                        not.id !== id;
+                    currentNotifications:prevState.currentNotifications.filter((notification: _Notification)=>{
+                        notification.id !== id;
                     })
                 }
             });
