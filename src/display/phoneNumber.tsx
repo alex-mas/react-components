@@ -19,14 +19,14 @@ export class PhoneNumber extends React.PureComponent<PhoneNumberProps> {
             return (
                 <span className='axc__phone'>
                     {
-                        this.props.number.toString().match(/.{3}/g).map((numbers) => {
+                        this.props.number.toString().match(/.{3}/g).map((numbers, index) => {
                             if (first) {
                                 first = false;
-                                return <span className='axc__phone__numbers'>{numbers}</span>;
+                                return <span className='axc__phone__numbers' key={`phoneNumKey_${index}`}>{numbers}</span>;
                             } else {
                                 return [
-                                    <span className={customSeparator? customSeparator :'axc__phone__separator'}>{customSeparator ? undefined : separator}</span>,
-                                    <span className='axc__phone__numbers'>{numbers}</span>
+                                    <span className={customSeparator? customSeparator :'axc__phone__separator'} key={`phoneNumKey_${index}`}>{customSeparator ? undefined : separator}</span>,
+                                    <span className='axc__phone__numbers' key={`phoneNumKey_${index}b`}>{numbers}</span>
                                 ]
                             }
                         })

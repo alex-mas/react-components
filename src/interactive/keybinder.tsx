@@ -1,4 +1,4 @@
-import React, {KeyboardEvent} from 'react';
+import React, { KeyboardEvent, EventHandler } from 'react';
 
 
 
@@ -10,7 +10,7 @@ export interface KeyBinderProps {
     className?: string
 }
 
-export interface KeyBinderState{
+export interface KeyBinderState {
 
 }
 
@@ -24,19 +24,34 @@ export interface KeyBinderState{
  * 
  */
 export class KeyBinder extends React.Component<KeyBinderProps, KeyBinderState> {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
-    onKeyUp = (event: KeyboardEvent): any=>{
-        for(let i = 0; i < this.props.keys.length; i++){
-            if(this.props.keys.includes(event.key)){
+    componentDidMount() {
+        window.addEventListener('keyup', this.onKeyUp, false);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('keyup', this.onKeyUp);
+    }
+    onKeyUp: EventListener = (event: any): any => {
+        for (let i = 0; i < this.props.keys.length; i++) {
+            if (this.props.keys.includes(event.key)) {
                 return this.props.onTrigger();
             }
         }
 
     }
-    render(){
-        return(<div className={this.props.className || ''} onKeyUp={this.onKeyUp}>{this.props.children}</div>);
+    render() {
+        if (!this.props.children) {
+             return null;
+        }else {
+            return (
+                <div className={this.props.className || null}>
+                    {this.props.children}
+                </div>
+            );
+        }
+
     }
 }
 
