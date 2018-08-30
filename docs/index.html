@@ -78,16 +78,36 @@
 				<h3 id="router">Router</h3>
 				<p>Basic router to be extended, it implements a default strategy and the hooks for custom routing strategies.</p>
 				<h3 id="browserrouter">BrowserRouter</h3>
-				<p>Router that implements a strategy based on a data structure similar to browser history and renders the children who&#39;s &quot;path&quot; prop matches partially/totally the active route.</p>
-				<ul>
-					<li>Uses react context api, to provide the browser history to children that require it.
-						Usage of history context:
-						Via HOC:<pre><code class="lang-javascript">  <span class="hljs-keyword">const</span> Component <span class="hljs-comment">// your component, defined elsewhere</span>
-  <span class="hljs-keyword">const</span> {WithHistoryContext} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path/to/browserRouter.js'</span>);
-  <span class="hljs-keyword">const</span> ConnectedComponent = WithHistoryContext(Component);
-  <span class="hljs-comment">//Now ConnectedComponent has history passed as a prop.</span>
+				<p>Router that implements a strategy based on a data structure similar to browser history(IMPORTANT: it doesn&#39;t edit or use the actual window location) and renders the children who&#39;s &quot;path&quot; prop matches partially/totally the active route.</p>
+				<h4 id="example-usage-">Example usage:</h4>
+				<pre><code class="lang-jsx">    <span class="hljs-comment">//Without parameters</span>
+    <span class="hljs-keyword">const</span> AppRouter = (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserRouter</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">path</span>=<span class="hljs-string">'/notFound'</span>&gt;</span>Content not found<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">BrowserRouter</span>&gt;</span></span>
+    );
+
+    <span class="hljs-comment">//With initial configuration</span>
+    <span class="hljs-keyword">const</span> AppRouterWithHistory = (
+        &lt;BrowserRouter history={['/home','/cart', '/cart/yourItem']} startingRoute='/cart'&gt;
+            &lt;HomePage path='/home'&gt;
+            &lt;ShoppingCart path='/cart'&gt;
+            &lt;ItemDetail path='/cart/:item'&gt;
+        &lt;/BrowserRouter&gt;
+
+    )
 </code></pre>
-						Via react api:<pre><code class="lang-javascript">  <span class="hljs-keyword">const</span> {BrowserHistoryContext} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path/to/browserRouter.js'</span>);
+				<ul>
+					<li><p>Uses react context api, to provide the browser history to children that require it.
+							Usage of history context:
+						Via HOC:</p>
+						<pre><code class="lang-javascript">
+  <span class="hljs-keyword">const</span> Component = <span class="hljs-function">(<span class="hljs-params">props</span>)=&gt;</span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>You are here: {props.history.location()}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  <span class="hljs-keyword">const</span> ConnectedComponent = WithHistoryContext(Component);
+  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> ConnectedComponent;
+</code></pre>
+						<p>Via react api:</p>
+						<pre><code class="lang-javascript">  <span class="hljs-keyword">import</span> {BrowserHistoryContext} <span class="hljs-keyword">from</span> <span class="hljs-string">'path/to/browserRouter.js'</span>;
   <span class="hljs-keyword">const</span> ConnectedComponent = <span class="hljs-function">(<span class="hljs-params">props</span>)=&gt;</span>{
       <span class="hljs-keyword">return</span>(
           <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">BrowserHistoryContext.Consumer</span>&gt;</span>
@@ -195,6 +215,9 @@
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_interactive_countdown_.html">"interactive/countdown"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_interactive_keybinder_.html">"interactive/key<wbr>Binder"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_interactive_notifications_.html">"interactive/notifications"</a>
