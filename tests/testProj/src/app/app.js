@@ -6,7 +6,6 @@ import Modal from '../../../../dist/layout/modal';
 import Carousel, { LinkedCarousel, CarouselImage } from '../../../../dist/navigation/carousel';
 import Router from '../../../../dist/navigation/router';
 import BrowserRouter, { BrowserLink, BrowserRoute } from '../../../../dist/navigation/browserRouter';
-import AlexComponents from '../../../../dist/index';
 import { Tab, TabContainer } from '../../../../dist/navigation/tabContainer';
 import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
@@ -198,8 +197,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             formData: {
-                name: 'Alex',
-                surname: 'Mas'
+                name: 'Lerooy',
+                surname: 'Jenkins'
             },
             isModalOpen: false,
             myStringState: undefined

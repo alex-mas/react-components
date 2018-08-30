@@ -50,7 +50,10 @@ export interface BrowserRouterState {
     currentPosition: number;
 }
 
-
+/**
+ * Simple specialization of Router who's route management emulates HTML5 history api. Keep in mind that this router doesn't use or alter the browser history, instead it keeps it state separate from it.
+ * 
+ */
 export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRouterState>{
     history: React.Context<any>
     constructor(props: BrowserRouterProps) {
@@ -60,18 +63,19 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             startingRoute = props.startingRoute;
         }
 
-        let history = [startingRoute];
+        let history: string[];
         let currentPosition = 0;
         if (props.history) {
             history = props.history;
             if (history.indexOf(startingRoute) > -1) {
                 currentPosition = history.indexOf(startingRoute);
             }
-
+        }else{
+            history = [startingRoute];
         }
         this.state = {
-            history: [startingRoute],
-            currentPosition: 0
+            history,
+            currentPosition
         };
         this.history = React.createContext(this.getBrowserHistory());
     }

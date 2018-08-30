@@ -15,20 +15,41 @@ When open it renders the contents above an overlay, it has harcoded fade transit
 Basic router to be extended, it implements a default strategy and the hooks for custom routing strategies.
 
 ### BrowserRouter
-Router that implements a strategy based on a data structure similar to browser history and renders the children who's "path" prop matches partially/totally the active route.
+Router that implements a strategy based on a data structure similar to browser history(IMPORTANT: it doesn't edit or use the actual window location) and renders the children who's "path" prop matches partially/totally the active route.
+
+#### Example usage:
+```jsx
+    //Without parameters
+    const AppRouter = (
+        <BrowserRouter>
+            <div path='/notFound'>Content not found</div>
+        </BrowserRouter>
+    );
+
+    //With initial configuration
+    const AppRouterWithHistory = (
+        <BrowserRouter history={['/home','/cart', '/cart/yourItem']} startingRoute='/cart'>
+            <HomePage path='/home'>
+            <ShoppingCart path='/cart'>
+            <ItemDetail path='/cart/:item'>
+        </BrowserRouter>
+
+    )
+```
+
 
 - Uses react context api, to provide the browser history to children that require it.
 Usage of history context:
 Via HOC:
 ```javascript
-    const Component // your component, defined elsewhere
-    const {WithHistoryContext} = require('path/to/browserRouter.js');
+
+    const Component = (props)=><div>You are here: {props.history.location()}</div>
     const ConnectedComponent = WithHistoryContext(Component);
-    //Now ConnectedComponent has history passed as a prop.
+    export default ConnectedComponent;
 ```
 Via react api:
 ```javascript
-    const {BrowserHistoryContext} = require('path/to/browserRouter.js');
+    import {BrowserHistoryContext} from 'path/to/browserRouter.js';
     const ConnectedComponent = (props)=>{
         return(
             <BrowserHistoryContext.Consumer>
