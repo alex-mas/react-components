@@ -12,10 +12,21 @@ test('Keybinder should render anything if not passed children', () => {
 
 
 test('KeyBinder should properly call the function provided when the key is pressed', () => {
+    //mocking window addEventListener interface with jest functions;
+    const map = {};
+    window.addEventListener = jest.fn((event, cb) => {
+        map[event] = cb;
+    });
     const eHandler = jest.fn();
-    const wrapper = mount(<KeyBinder keys={['Tab']} onTrigger={eHandler} />, {attachTo: document.body});
-    wrapper.simulate('keyup',{ key: 'Tab', keyCode: 9, which: 9 });
-    wrapper.prop
+    const getComp = () => {
+        return (
+            <div>
+                <KeyBinder keys={['Tab']} onTrigger={eHandler} />
+            </div>
+        )
+    }
+    const wrapper = mount(getComp());
+    map.keyup({ key: 'Tab', keyCode: 9, which: 9 });
     expect(eHandler).toHaveBeenCalled();
 });
 
@@ -31,7 +42,7 @@ test('KeyBinder should render a div with the custom class passed', () => {
 
 test('KeyBinder should render a div with the provided children', () => {
     const eHandler = jest.fn();
-    const MyElem = ()=>(
+    const MyElem = () => (
         <div>
             Hello World
         </div>

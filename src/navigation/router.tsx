@@ -23,25 +23,39 @@ export class Router extends React.Component<RouterProps, RouterState>{
     constructor(props: RouterProps) {
         super(props);
     }
+    changeRoute = (newRoute: string): void => {
+        this.setState((prevState: RouterState) => ({
+            activeRoute: newRoute
+        }));
+    }
+    bootstrapProps = (elmnt: ReactElement<any>): ReactElement<any> => {
+        return React.cloneElement(elmnt, { changeRoute: this.changeRoute });
+    }
     render() {
-        //TODO: Pass the utility functions and data to the children so that they can activate changes of routes and such
+        console.log('route re-rendered');
         return (
             <div className={this.props.className ? this.props.className : "axc-router__route"}>
-                {React.Children.map(this.props.children, (child: ReactElement<any> | any, i: number) => {
-                    if (this.props.strategy) {
-                        if (this.props.strategy(child.props, {state:this.state, props: this.props}, i)) {
-                            return React.cloneElement(child, {});
+                {React.Children.map(this.props.children, (child: ReactChild, i: number) => {
+                    if (typeof child === 'object') {
+                        if (this.props.strategy) {
+                            if (this.props.strategy(child.props, { state: this.state, props: this.props }, i)) {
+                                return this.bootstrapProps(child);
+                            }
+
+                        } else if (this.props.activeRoute) {
+                            if (!child.props || !child.props.match) {
+                                return this.bootstrapProps(child);
+                            } else if (child.props.match === this.props.activeRoute) {
+                                return this.bootstrapProps(child);
+                            }
                         }
-                    } else if (this.props.activeRoute) {
-                        if (!child.props || !child.props.match) {
-                            return React.cloneElement(child, {});
-                        } else if (child.props.match === this.props.activeRoute) {
-                            return React.cloneElement(child, {});
+                        else {
+                            React.cloneElement(child, {});
                         }
+                    } else {
+                        return child;
                     }
-                    else {
-                        React.cloneElement(child, {});
-                    }
+
                 })}
             </div>
         )

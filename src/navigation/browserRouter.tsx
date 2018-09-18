@@ -1,4 +1,4 @@
-import React, { Provider, Consumer } from 'react';
+import React, { Provider, Consumer, ReactChild } from 'react';
 import Router, { RouterContext } from './router';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -116,7 +116,6 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
         return this.state.history[this.state.currentPosition];
     }
     _replaceState = (editedNode: string) => {
-        console.log('editing current state');
         if (editedNode !== this.location()) {
             this.setState((prevState: BrowserRouterState) => {
                 const newState = cloneDeep(prevState);
@@ -124,7 +123,6 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
                 return newState;
             });
         }
-        console.log(this.location());
     }
     getBrowserHistory = (): BrowserHistory => {
         return {
@@ -135,9 +133,6 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             location: this.location,
             replaceState: this._replaceState
         }
-    }
-    componentWillReceiveProps(nextProps: BrowserRouterProps) {
-        console.log('browser router is getting new props: ', nextProps);
     }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
         const location = this.location();
@@ -161,11 +156,14 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
                 <Router
                     strategy={this.strategy}
                 >
-                    {React.Children.map(this.props.children, (child: React.Component<any> | any, index: number) => {
-                        return (
-                            React.cloneElement(child, { history: this.history })
-                        );
-
+                    {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
+                        if(typeof child === 'object'){
+                            return (
+                                React.cloneElement(child, { history: this.history })
+                            );
+                        }else{
+                            return child;
+                        }
                     })}
                 </Router>
             </BrowserHistoryContext.Provider>
@@ -196,7 +194,7 @@ export interface BrowserRouteProps {
 }
 
 const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
-    console.log(props);
+    //if route has children recurse and embedd them into the component prop
     if (props.children) {
         return _BrowserRoute({
             history: props.history,
@@ -208,8 +206,13 @@ const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) =
                 </div>
             )
         })
+    //if route has no children and has a component defined render the component with the props bootstrapped to it
     } else if (props.component) {
         return <props.component history={props.history} path={props.path} exact={props.exact} />;
+    //handle incorrect props input
+    }else{
+        console.error('The browser route must be provided a component prop or children, else nothing will be rendered');
+        return null;
     }
 }
 export const BrowserRoute = WithHistoryContext(_BrowserRoute);

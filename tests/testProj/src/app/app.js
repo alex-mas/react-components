@@ -16,7 +16,7 @@ import TypeWriter from '../../../../dist/animated/typeWriter';
 import CountUp from '../../../../dist/animated/countUp';
 import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
 import PhoneNumber from '../../../../dist/display/phoneNumber';
-
+import withTooltip from '../../../../dist/interactive/tooltip';
 
 
 
@@ -67,15 +67,23 @@ const _Notificator = (props) => {
 }
 const Notificator = WithNotifications(_Notificator);
 
+const TooltippedLink = withTooltip(BrowserLink);
 
 const MyRouter = (props) => {
     return (
         <BrowserRouter
-            startingRoute={'/'}
+            startingRoute='/'
         >
             <div path='/' exact={true}>
                 This is the landing page!
-                    <BrowserLink
+                <TooltippedLink
+                    value='carousel'
+                    to='/carousel'
+                    text='Go to carousel'
+                    tooltip='Opens the page with the carousel'
+                    className='my-tooltip'
+                />
+                <BrowserLink
                     value='carousel'
                     to='/carousel'
                     text='Go to carousel'
