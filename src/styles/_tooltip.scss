@@ -1,11 +1,14 @@
 
 .axc-tooltip__wrapper{
     position: relative;
-    height: 0px;
-    width: 0px;
 }
 .axc-tooltip{
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    visibility: initial;
 }
+
+.axc-tooltip--hidden{
+    @extend .axc-tooltip;
+    visibility: hidden;
+}
+

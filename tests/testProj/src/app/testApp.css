@@ -53,8 +53,9 @@
 }
 
 
-.axc-tooltip.my-tooltip{
+.my-tooltip{
     background: red;
-    width: 20%;
-    height: 10%
+    z-index: 10;
+    width: 10rem;
+    height: 5rem;
 }
