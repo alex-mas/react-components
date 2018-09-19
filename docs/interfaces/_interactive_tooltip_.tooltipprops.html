@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CustomNotificationProps | axc</title>
+	<title>TooltipProps | axc</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_interactive_notifications_.html">&quot;interactive/notifications&quot;</a>
+					<a href="../modules/_interactive_tooltip_.html">&quot;interactive/tooltip&quot;</a>
 				</li>
 				<li>
-					<a href="_interactive_notifications_.customnotificationprops.html">CustomNotificationProps</a>
+					<a href="_interactive_tooltip_.tooltipprops.html">TooltipProps</a>
 				</li>
 			</ul>
-			<h1>Interface CustomNotificationProps</h1>
+			<h1>Interface TooltipProps</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CustomNotificationProps</span>
+						<span class="target">TooltipProps</span>
 					</li>
 				</ul>
 			</section>
@@ -84,8 +84,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_notifications_.customnotificationprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_notifications_.customnotificationprops.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_tooltip_.tooltipprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_tooltip_.tooltipprops.html#component" class="tsd-kind-icon">component</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_tooltip_.tooltipprops.html#isvisible" class="tsd-kind-icon">is<wbr>Visible</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_tooltip_.tooltipprops.html#onmouseleave" class="tsd-kind-icon">on<wbr>Mouse<wbr>Leave</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_interactive_tooltip_.tooltipprops.html#text" class="tsd-kind-icon">text</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,21 +98,51 @@
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="classname" class="tsd-anchor"></a>
-					<h3>class<wbr>Name</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> class<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interactive/notifications.tsx:8</li>
+							<li>Defined in interactive/tooltip.tsx:10</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="message" class="tsd-anchor"></a>
-					<h3>message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="component" class="tsd-anchor"></a>
+					<h3>component</h3>
+					<div class="tsd-signature tsd-kind-icon">component<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Text</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interactive/notifications.tsx:7</li>
+							<li>Defined in interactive/tooltip.tsx:9</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="isvisible" class="tsd-anchor"></a>
+					<h3>is<wbr>Visible</h3>
+					<div class="tsd-signature tsd-kind-icon">is<wbr>Visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interactive/tooltip.tsx:8</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="onmouseleave" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Mouse<wbr>Leave</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Mouse<wbr>Leave<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.EventHandler</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MouseEvent</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interactive/tooltip.tsx:11</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="text" class="tsd-anchor"></a>
+					<h3>text</h3>
+					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interactive/tooltip.tsx:7</li>
 						</ul>
 					</aside>
 				</section>
@@ -145,13 +178,13 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_keybinder_.html">"interactive/key<wbr>Binder"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_notifications_.html">"interactive/notifications"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_stopwatch_.html">"interactive/stopwatch"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_interactive_tooltip_.html">"interactive/tooltip"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -186,49 +219,37 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_interactive_notifications_.notificationsystem.html" class="tsd-kind-icon">Notification<wbr>System</a>
+						<a href="../classes/_interactive_tooltip_.tooltip.html" class="tsd-kind-icon">Tooltip</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.customnotificationprops.html" class="tsd-kind-icon">Custom<wbr>Notification<wbr>Props</a>
+						<a href="_interactive_tooltip_.tooltipprops.html" class="tsd-kind-icon">Tooltip<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interactive_notifications_.customnotificationprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
+								<a href="_interactive_tooltip_.tooltipprops.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_interactive_notifications_.customnotificationprops.html#message" class="tsd-kind-icon">message</a>
+								<a href="_interactive_tooltip_.tooltipprops.html#component" class="tsd-kind-icon">component</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interactive_tooltip_.tooltipprops.html#isvisible" class="tsd-kind-icon">is<wbr>Visible</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interactive_tooltip_.tooltipprops.html#onmouseleave" class="tsd-kind-icon">on<wbr>Mouse<wbr>Leave</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_interactive_tooltip_.tooltipprops.html#text" class="tsd-kind-icon">text</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.notificationcomponentprops.html" class="tsd-kind-icon">Notification<wbr>Component<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.notificationsystemprops.html" class="tsd-kind-icon">Notification<wbr>System<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.notificationsystemstate.html" class="tsd-kind-icon">Notification<wbr>System<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.notifications.html" class="tsd-kind-icon">Notifications</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_.withnotificationshoc.html" class="tsd-kind-icon">With<wbr>NotificationsHOC</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_notifications_._notification.html" class="tsd-kind-icon">_<wbr>Notification</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_interactive_notifications_.html#notification" class="tsd-kind-icon">Notification</a>
+						<a href="_interactive_tooltip_.tooltippedcomponentstate.html" class="tsd-kind-icon">Tooltipped<wbr>Component<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_interactive_notifications_.html#notificationcomponent" class="tsd-kind-icon">Notification<wbr>Component</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_interactive_notifications_.html#withnotifications" class="tsd-kind-icon">With<wbr>Notifications</a>
+						<a href="../modules/_interactive_tooltip_.html#withtooltip" class="tsd-kind-icon">with<wbr>Tooltip</a>
 					</li>
 				</ul>
 			</nav>
