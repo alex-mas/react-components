@@ -25,12 +25,9 @@ export class Tooltip extends React.Component<TooltipProps, any> {
         if (this.props.className) {
             tooltip += ' ' + this.props.className;
         }
-        console.log(tooltip, this.props.isVisible, this.props.className);
         return tooltip;
     }
     getTooltipStyles = (): CSSProperties => {
-        console.log('component: ', this.props.component);
-        console.log('tooltip: ', this.tooltip);
         const styles: CSSProperties = {};
         if (
             typeof this.props.component === 'object' &&
@@ -121,7 +118,6 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
         componentDidMount() {
             if (typeof this.component === 'object' && this.component.current) {
                 this.componentDOM = ReactDOM.findDOMNode(this.component.current);
-                console.log(this.component, !!this.component.current, this.component.current, this.componentDOM);
                 //@ts-ignore
                 this.componentDOM.addEventListener('mouseenter', this.onMouseEnter);
                 //@ts-ignore
@@ -143,7 +139,7 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
             return (
                 <React.Fragment>
                     <div style={{ display: 'inlineBlock' }}>
-                        <Component ref={this.component} {...this.props} onMouseLeave={this.onMouseLeave} />
+                        <Component ref={this.component} {...this.props} onMouseLeave={this.onMouseLeave} className={this.props.className} />
                     </div>
                     <Tooltip
                         ref={this.tooltip}
@@ -151,7 +147,7 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
                         text={this.props.tooltip}
                         isVisible={this.state.isTooltipVisible}
                         onMouseLeave={this.onMouseLeave}
-                        className={this.props.className}
+                        className={this.props.tooltipClass}
                     />
                 </React.Fragment>
 
