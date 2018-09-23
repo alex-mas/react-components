@@ -39,7 +39,7 @@ export class Router extends React.Component<RouterProps, RouterState>{
                     if (typeof child === 'object') {
                         if (this.props.strategy) {
                             if (this.props.strategy(child.props, { state: this.state, props: this.props }, i)) {
-                                return this.bootstrapProps(child);
+                                return child;
                             }
 
                         } else if (this.props.activeRoute) {

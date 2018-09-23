@@ -43,12 +43,12 @@ export class KeyBinder extends React.Component<KeyBinderProps, KeyBinderState> {
     }
     render() {
         if (!this.props.children) {
-             return null;
-        }else {
+            return null;
+        } else {
             return (
-                <div className={this.props.className || null}>
+                <React.Fragment>
                     {this.props.children}
-                </div>
+                </React.Fragment>
             );
         }
 

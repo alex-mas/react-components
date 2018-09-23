@@ -9,6 +9,7 @@ export interface BrowserLinkProps {
     text?: string
 }
 
+
 export interface BrowserHistory {
     back(): void;
     forward(): void;
@@ -17,6 +18,9 @@ export interface BrowserHistory {
     location(): void;
     replaceState(replacedNode: string): void;
 }
+
+
+
 export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext(undefined);
 
 export class BrowserLink extends React.Component<BrowserLinkProps, any>{
@@ -41,8 +45,9 @@ export class BrowserLink extends React.Component<BrowserLinkProps, any>{
 }
 
 export interface BrowserRouterProps {
-    history: string[],
+    history?: string[],
     startingRoute?: string
+    children?: any
 }
 
 export interface BrowserRouterState {
@@ -55,7 +60,6 @@ export interface BrowserRouterState {
  * 
  */
 export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRouterState>{
-    history: React.Context<any>
     constructor(props: BrowserRouterProps) {
         super(props);
         let startingRoute = window.location.pathname;
@@ -70,23 +74,22 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             if (history.indexOf(startingRoute) > -1) {
                 currentPosition = history.indexOf(startingRoute);
             }
-        }else{
+        } else {
             history = [startingRoute];
         }
         this.state = {
             history,
             currentPosition
         };
-        this.history = React.createContext(this.getBrowserHistory());
     }
-    go = (delta: number) =>{
-        if(delta > 0){
-            this.setState((prevState)=>({
-                currentPosition: Math.min(prevState.currentPosition+delta, prevState.history.length)
+    go = (delta: number) => {
+        if (delta > 0) {
+            this.setState((prevState) => ({
+                currentPosition: Math.min(prevState.currentPosition + delta, prevState.history.length)
             }));
-        }else if(delta < 0){
-            this.setState((prevState)=>({
-                currentPosition: Math.max(prevState.currentPosition-delta, 0)
+        } else if (delta < 0) {
+            this.setState((prevState) => ({
+                currentPosition: Math.max(prevState.currentPosition - delta, 0)
             }));
         }
     }
@@ -157,11 +160,9 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
                     strategy={this.strategy}
                 >
                     {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
-                        if(typeof child === 'object'){
-                            return (
-                                React.cloneElement(child, { history: this.history })
-                            );
-                        }else{
+                        if (typeof child === 'object') {
+                            return React.cloneElement(child, { history: this.getBrowserHistory() });
+                        } else {
                             return child;
                         }
                     })}
@@ -172,49 +173,54 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 }
 
 
-export interface WithHistoryContextFunction {
-    (props: any): React.SFC<any>
-}
 
-export const WithHistoryContext: WithHistoryContextFunction = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {
-    return (props: any) => (
+//export type WithHistoryContextFunction<P = any> = (props: Pick<P, Exclude<keyof P, 'history'>>) => JSX.Element;
+
+//export type WithHistoryContextFunction<P = any> = (props: Pick<P, Exclude<keyof P, 'history'>>) => React.ReactElement<Pick<P, Exclude<keyof P, 'history'>>>;
+//React.SFC<Pick<P, Exclude<keyof P, 'history'>>>
+
+export function WithHistoryContext<P extends any>(Component: React.ComponentClass<P, any> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
+    return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
         <BrowserHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
         </BrowserHistoryContext.Consumer>
-    )
+    );
+
 }
 
 export interface BrowserRouteProps {
     history: BrowserHistory,
     path: string,
     exact: boolean,
-    component?: React.ComponentClass<any> | React.SFCFactory<any> | any,
+    component?: React.ComponentClass<any> | React.SFC<any> | string,
     children?: any
-
 }
 
-const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
+export const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
     //if route has children recurse and embedd them into the component prop
     if (props.children) {
         return _BrowserRoute({
             history: props.history,
             path: props.path,
             exact: props.exact,
-            component: (
+            component: () => (
                 <div>
                     {props.children}
                 </div>
             )
-        })
-    //if route has no children and has a component defined render the component with the props bootstrapped to it
+        });
+        //if route has no children and has a component defined render the component with the props bootstrapped to it
     } else if (props.component) {
-        return <props.component history={props.history} path={props.path} exact={props.exact} />;
-    //handle incorrect props input
-    }else{
+        const C = props.component;
+        return <C history={props.history} path={props.path} exact={props.exact} />;
+        //handle incorrect props input
+    } else {
         console.error('The browser route must be provided a component prop or children, else nothing will be rendered');
         return null;
     }
 }
-export const BrowserRoute = WithHistoryContext(_BrowserRoute);
+
+export const BrowserRoute = WithHistoryContext<BrowserRouteProps>(_BrowserRoute);
 
 export default BrowserRouter;
+
