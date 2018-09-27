@@ -1,10 +1,10 @@
 import React, { Provider, Consumer, ReactChild } from 'react';
 import Router, { RouterContext } from './router';
+//@ts-ignore
 import cloneDeep from 'lodash.clonedeep';
 
 
 export interface BrowserLinkProps {
-    children: React.ReactNode,
     to: string,
     text?: string
 }
@@ -21,7 +21,15 @@ export interface BrowserHistory {
 
 
 
-export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext(undefined);
+
+export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext({
+    back: () =>{},
+    forward: () =>{},
+    go: (delta:number) =>{},
+    pushState: (newNode: string) =>{},
+    location: ()=>{},
+    replaceState: (replacedNMode: string)=>{}
+});
 
 export class BrowserLink extends React.Component<BrowserLinkProps, any>{
     render() {
@@ -179,7 +187,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 //export type WithHistoryContextFunction<P = any> = (props: Pick<P, Exclude<keyof P, 'history'>>) => React.ReactElement<Pick<P, Exclude<keyof P, 'history'>>>;
 //React.SFC<Pick<P, Exclude<keyof P, 'history'>>>
 
-export function WithHistoryContext<P extends any>(Component: React.ComponentClass<P, any> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
+export function withHistoryContext<P extends any>(Component: React.ComponentClass<P, any> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
     return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
         <BrowserHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
@@ -192,7 +200,7 @@ export interface BrowserRouteProps {
     history: BrowserHistory,
     path: string,
     exact: boolean,
-    component?: React.ComponentClass<any> | React.SFC<any> | string,
+    component?: React.ComponentClass<any> | React.SFC<any> | string | any,
     children?: any
 }
 
@@ -220,7 +228,7 @@ export const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteP
     }
 }
 
-export const BrowserRoute = WithHistoryContext<BrowserRouteProps>(_BrowserRoute);
+export const BrowserRoute = withHistoryContext<BrowserRouteProps>(_BrowserRoute);
 
 export default BrowserRouter;
 
