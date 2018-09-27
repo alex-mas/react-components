@@ -9,7 +9,8 @@ export interface RouterProps {
     children?: any,
     strategy?(childProps: any, routerContext: RouterContext, index: number): boolean,
     activeRoute?: string,
-    className?: string
+    className?: string,
+    bootstrapProps?: boolean
 }
 
 export interface RouterContext {
@@ -20,6 +21,9 @@ export interface RouterContext {
 
 export class Router extends React.Component<RouterProps, RouterState>{
     state: RouterState
+    static defaultProps: Partial<RouterProps> = {
+        bootstrapProps: true
+    }
     constructor(props: RouterProps) {
         super(props);
     }
@@ -29,7 +33,11 @@ export class Router extends React.Component<RouterProps, RouterState>{
         }));
     }
     bootstrapProps = (elmnt: ReactElement<any>): ReactElement<any> => {
-        return React.cloneElement(elmnt, { changeRoute: this.changeRoute });
+        if(this.props.bootstrapProps){
+            return React.cloneElement(elmnt, { changeRoute: this.changeRoute });
+        }else{
+            return elmnt;
+        }
     }
     render() {
         console.log('route re-rendered');
@@ -45,6 +53,7 @@ export class Router extends React.Component<RouterProps, RouterState>{
                         } else if (this.props.activeRoute) {
                             if (!child.props || !child.props.match) {
                                 return this.bootstrapProps(child);
+                 
                             } else if (child.props.match === this.props.activeRoute) {
                                 return this.bootstrapProps(child);
                             }

@@ -158,6 +158,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
             <BrowserHistoryContext.Provider value={this.getBrowserHistory()}>
                 <Router
                     strategy={this.strategy}
+                    bootstrapProps={false}
                 >
                     {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
                         if (typeof child === 'object') {
@@ -179,7 +180,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 //export type WithHistoryContextFunction<P = any> = (props: Pick<P, Exclude<keyof P, 'history'>>) => React.ReactElement<Pick<P, Exclude<keyof P, 'history'>>>;
 //React.SFC<Pick<P, Exclude<keyof P, 'history'>>>
 
-export function WithHistoryContext<P extends any>(Component: React.ComponentClass<P, any> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
+export function WithHistoryContext<P extends any>(Component: React.ComponentClass<P> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
     return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
         <BrowserHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
