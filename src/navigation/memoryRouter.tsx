@@ -4,13 +4,13 @@ import Router, { RouterContext } from './router';
 import cloneDeep from 'lodash.clonedeep';
 
 
-export interface BrowserLinkProps {
+export interface MemoryLinkProps {
     to: string,
     text?: string
 }
 
 
-export interface BrowserHistory {
+export interface MemoryHistory {
     back(): void;
     forward(): void;
     go(delta: number): void;
@@ -22,7 +22,7 @@ export interface BrowserHistory {
 
 
 
-export const BrowserHistoryContext: React.Context<BrowserHistory> = React.createContext({
+export const MemoryHistoryContext: React.Context<MemoryHistory> = React.createContext({
     back: () =>{},
     forward: () =>{},
     go: (delta:number) =>{},
@@ -31,10 +31,10 @@ export const BrowserHistoryContext: React.Context<BrowserHistory> = React.create
     replaceState: (replacedNMode: string)=>{}
 });
 
-export class BrowserLink extends React.Component<BrowserLinkProps, any>{
+export class MemoryLink extends React.Component<MemoryLinkProps, any>{
     render() {
         return (
-            <BrowserHistoryContext.Consumer>
+            <MemoryHistoryContext.Consumer>
                 {history => (
                     <a
                         href=""
@@ -47,28 +47,28 @@ export class BrowserLink extends React.Component<BrowserLinkProps, any>{
                     </a>
                 )
                 }
-            </BrowserHistoryContext.Consumer>
+            </MemoryHistoryContext.Consumer>
         )
     }
 }
 
-export interface BrowserRouterProps {
+export interface MemoryRouterProps {
     history?: string[],
     startingRoute?: string
     children?: any
 }
 
-export interface BrowserRouterState {
+export interface MemoryRouterState {
     history: string[];
     currentPosition: number;
 }
 
 /**
- * Simple specialization of Router who's route management emulates HTML5 history api. Keep in mind that this router doesn't use or alter the browser history, instead it keeps it state separate from it.
+ * Simple specialization of Router who's route management emulates HTML5 history api. Keep in mind that this router doesn't use or alter the Memory history, instead it keeps it state separate from it.
  * 
  */
-export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRouterState>{
-    constructor(props: BrowserRouterProps) {
+export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRouterState>{
+    constructor(props: MemoryRouterProps) {
         super(props);
         let startingRoute = window.location.pathname;
         if (props.startingRoute) {
@@ -110,7 +110,7 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     }
     forward = () => {
         if (this.state.currentPosition < this.state.history.length - 1) {
-            this.setState((prevState: BrowserRouterState) => ({
+            this.setState((prevState: MemoryRouterState) => ({
                 currentPosition: prevState.currentPosition + 1
             }));
         }
@@ -128,14 +128,14 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     }
     _replaceState = (editedNode: string) => {
         if (editedNode !== this.location()) {
-            this.setState((prevState: BrowserRouterState) => {
+            this.setState((prevState: MemoryRouterState) => {
                 const newState = cloneDeep(prevState);
                 newState.history[prevState.currentPosition] = editedNode;
                 return newState;
             });
         }
     }
-    getBrowserHistory = (): BrowserHistory => {
+    getMemoryHistory = (): MemoryHistory => {
         return {
             back: this.back,
             forward: this.forward,
@@ -163,20 +163,20 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
     }
     render() {
         return (
-            <BrowserHistoryContext.Provider value={this.getBrowserHistory()}>
+            <MemoryHistoryContext.Provider value={this.getMemoryHistory()}>
                 <Router
                     strategy={this.strategy}
                     bootstrapProps={false}
                 >
                     {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
                         if (typeof child === 'object') {
-                            return React.cloneElement(child, { history: this.getBrowserHistory() });
+                            return React.cloneElement(child, { history: this.getMemoryHistory() });
                         } else {
                             return child;
                         }
                     })}
                 </Router>
-            </BrowserHistoryContext.Provider>
+            </MemoryHistoryContext.Provider>
         )
     }
 }
@@ -190,25 +190,25 @@ export class BrowserRouter extends React.Component<BrowserRouterProps, BrowserRo
 
 export function withHistoryContext<P extends any>(Component: React.ComponentClass<P> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
     return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
-        <BrowserHistoryContext.Consumer>
+        <MemoryHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}
-        </BrowserHistoryContext.Consumer>
+        </MemoryHistoryContext.Consumer>
     );
 
 }
 
-export interface BrowserRouteProps {
-    history: BrowserHistory,
+export interface MemoryRouteProps {
+    history: MemoryHistory,
     path: string,
     exact: boolean,
     component?: React.ComponentClass<any> | React.SFC<any> | string | any,
     children?: any
 }
 
-export const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteProps) => {
+export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProps) => {
     //if route has children recurse and embedd them into the component prop
     if (props.children) {
-        return _BrowserRoute({
+        return _MemoryRoute({
             history: props.history,
             path: props.path,
             exact: props.exact,
@@ -224,12 +224,12 @@ export const _BrowserRoute: React.SFC<BrowserRouteProps> = (props: BrowserRouteP
         return <C history={props.history} path={props.path} exact={props.exact} />;
         //handle incorrect props input
     } else {
-        console.error('The browser route must be provided a component prop or children, else nothing will be rendered');
+        console.error('The Memory route must be provided a component prop or children, else nothing will be rendered');
         return null;
     }
 }
 
-export const BrowserRoute = withHistoryContext<BrowserRouteProps>(_BrowserRoute);
+export const MemoryRoute = withHistoryContext<MemoryRouteProps>(_MemoryRoute);
 
-export default BrowserRouter;
+export default MemoryRouter;
 
