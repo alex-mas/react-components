@@ -23,12 +23,12 @@ export interface MemoryHistory {
 
 
 export const MemoryHistoryContext: React.Context<MemoryHistory> = React.createContext({
-    back: () =>{},
-    forward: () =>{},
-    go: (delta:number) =>{},
-    pushState: (newNode: string) =>{},
-    location: ()=>{},
-    replaceState: (replacedNMode: string)=>{}
+    back: () => { },
+    forward: () => { },
+    go: (delta: number) => { },
+    pushState: (newNode: string) => { },
+    location: () => { },
+    replaceState: (replacedNMode: string) => { }
 });
 
 export class MemoryLink extends React.Component<MemoryLinkProps, any>{
@@ -64,6 +64,7 @@ export interface MemoryRouterState {
 }
 
 /**
+ * 
  * Simple specialization of Router who's route management emulates HTML5 history api. Keep in mind that this router doesn't use or alter the Memory history, instead it keeps it state separate from it.
  * 
  */
@@ -145,21 +146,50 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             replaceState: this._replaceState
         }
     }
+    extractParams = (location: string) => {
+        const route = location.split('/').slice(-1)[0];
+        const params = route.split('&')
+    }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
-        const location = this.location();
+        let location = this.location();
+        let childPath = childProps.path;
+        let hasParams = false;
+        if (childProps.path.split(':').length > 1) {
+            //route has params defined
+            hasParams = true;
+            location = location.slice(0, location.lastIndexOf('/') + 1);
+            childPath = childProps.path.slice(0, childProps.path.lastIndexOf('/') + 1);
+        }
         if (childProps.exact) {
-            if (childProps.path === location) {
+            if (childPath === location) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (location.includes(childProps.path)) {
+            if (location.includes(childPath)) {
                 return true;
             } else {
                 return false;
             }
         }
+    }
+    bootstrapParams = (child: React.ReactElement<any>, routerContext: RouterContext, index: number) => {
+        let childPath = child.props.path;
+        if (childPath && childPath.split(':').length > 1) {
+            let routeParams = {};
+            let location = this.location();
+            let routeParamValues = location.slice(location.lastIndexOf('/') + 1).split('&');
+            let routeParamIndexes: string[] = child.props.path.slice(child.props.path.lastIndexOf('/') + 1).split(':');
+            routeParamIndexes.forEach((paramLabel: string, index: number) => {
+                routeParams[paramLabel] = routeParamValues[index];
+            })
+            childPath = child.props.path.slice(0, child.props.path.lastIndexOf('/') + 1);
+            return React.cloneElement(child, { routeParams });
+        } else {
+            return child;
+        }
+
     }
     render() {
         return (
@@ -167,6 +197,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
                 <Router
                     strategy={this.strategy}
                     bootstrapProps={false}
+                    bootstrap={this.bootstrapParams}
                 >
                     {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
                         if (typeof child === 'object') {
@@ -188,7 +219,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
 //export type WithHistoryContextFunction<P = any> = (props: Pick<P, Exclude<keyof P, 'history'>>) => React.ReactElement<Pick<P, Exclude<keyof P, 'history'>>>;
 //React.SFC<Pick<P, Exclude<keyof P, 'history'>>>
 
-export function withHistoryContext<P extends any>(Component: React.ComponentClass<P> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>>{
+export function withHistoryContext<P extends any>(Component: React.ComponentClass<P> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>> {
     return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
         <MemoryHistoryContext.Consumer>
             {history => <Component history={history} {...props} />}

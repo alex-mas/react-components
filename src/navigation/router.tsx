@@ -8,6 +8,7 @@ export interface RouterState {
 export interface RouterProps {
     children?: any,
     strategy?(childProps: any, routerContext: RouterContext, index: number): boolean,
+    bootstrap?(child: React.ReactElement<any>, routerContext: RouterContext, index: number): React.ReactElement<any>,
     activeRoute?: string,
     className?: string,
     bootstrapProps?: boolean
@@ -32,8 +33,8 @@ export class Router extends React.Component<RouterProps, RouterState>{
             activeRoute: newRoute
         }));
     }
-    bootstrapProps = (elmnt: ReactElement<any>): ReactElement<any> => {
-        if(this.props.bootstrapProps){
+    bootstrapProps = (elmnt: React.ReactElement<any>): React.ReactElement<any> => {
+        if(this.props.bootstrapProps && typeof elmnt === 'object'){
             return React.cloneElement(elmnt, { changeRoute: this.changeRoute });
         }else{
             return elmnt;
@@ -45,11 +46,15 @@ export class Router extends React.Component<RouterProps, RouterState>{
             <div className={this.props.className ? this.props.className : "axc-router__route"}>
                 {React.Children.map(this.props.children, (child: ReactChild, i: number) => {
                     if (typeof child === 'object') {
+                        const routertContext = {state: this.state, props: this.props};
+                        if(this.props.bootstrap){
+                            child = this.props.bootstrap(child, routertContext, i);
+                        }
                         if (this.props.strategy) {
-                            if (this.props.strategy(child.props, { state: this.state, props: this.props }, i)) {
+                            const strategyOutput = this.props.strategy(child.props, routertContext, i);
+                            if (strategyOutput) {
                                 return child;
                             }
-
                         } else if (this.props.activeRoute) {
                             if (!child.props || !child.props.match) {
                                 return this.bootstrapProps(child);
@@ -59,7 +64,7 @@ export class Router extends React.Component<RouterProps, RouterState>{
                             }
                         }
                         else {
-                            React.cloneElement(child, {});
+                            return child;
                         }
                     } else {
                         return child;
