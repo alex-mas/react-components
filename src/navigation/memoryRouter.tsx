@@ -152,10 +152,6 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             replaceState: this._replaceState
         }
     }
-    extractParams = (location: string) => {
-        const route = location.split('/').slice(-1)[0];
-        const params = route.split('&')
-    }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
         let location = this.location();
         let childPath = childProps.path;
@@ -186,7 +182,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             let routeParams = {};
             let location = this.location();
             let routeParamValues = location.slice(location.lastIndexOf('/') + 1).split('&');
-            let routeParamIndexes: string[] = child.props.path.slice(child.props.path.lastIndexOf('/') + 1).split(':');
+            let routeParamIndexes: string[] = child.props.path.slice(child.props.path.lastIndexOf('/') + 1).split(':').slice(1);
             routeParamIndexes.forEach((paramLabel: string, index: number) => {
                 routeParams[paramLabel] = routeParamValues[index];
             })
