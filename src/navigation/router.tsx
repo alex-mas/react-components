@@ -3,7 +3,6 @@ import React, { ReactChild, ReactElement, } from 'react';
 
 
 export interface RouterState {
-    renderedRoutes: number,
     activeRoute: string
 }
 
@@ -31,7 +30,6 @@ export class Router extends React.Component<RouterProps, RouterState>{
     constructor(props: RouterProps) {
         super(props);
         this.state = {
-            renderedRoutes: 0,
             activeRoute: this.props.activeRoute
         };
     }
@@ -47,47 +45,48 @@ export class Router extends React.Component<RouterProps, RouterState>{
             return elmnt;
         }
     }
-    renderChild = (child: any) => {
-        if (this.state.renderedRoutes >= 1 && this.props.singleRoute) {
-            return null;
-        } else {
-            this.setState((prevState) => ({
-                renderedRoutes: prevState.renderedRoutes + 1
-            }));
-            return child;
-        }
-    }
     render() {
         console.log('route re-rendered');
+        const matchingChildren = React.Children.map(this.props.children, (child: ReactChild, i: number) => {
+            if (typeof child === 'object') {
+                const routertContext = { state: this.state, props: this.props };
+                if (this.props.bootstrap) {
+                    child = this.props.bootstrap(child, routertContext, i);
+                }
+                if (this.props.strategy) {
+                    const strategyOutput = this.props.strategy(child.props, routertContext, i);
+                    if (strategyOutput) {
+                        return child;
+                    }
+                } else if (this.state.activeRoute) {
+                    if (!child.props || !child.props.match) {
+                        return this.bootstrapProps(child);
+
+                    } else if (child.props.match === this.state.activeRoute) {
+                        return this.bootstrapProps(child);
+                    }
+                }
+                else {
+                    return child;
+                }
+            } else {
+                return child;
+            }
+
+        });
         return (
             <div className={this.props.className ? this.props.className : "axc-router__route"}>
-                {React.Children.map(this.props.children, (child: ReactChild, i: number) => {
-                    if (typeof child === 'object') {
-                        const routertContext = { state: this.state, props: this.props };
-                        if (this.props.bootstrap) {
-                            child = this.props.bootstrap(child, routertContext, i);
+                {this.props.singleRoute ?
+                    React.Children.map(matchingChildren, (child: ReactChild, i: number) => {
+                        if (i === 0) {
+                            return child;
+                        } else {
+                            return null;
                         }
-                        if (this.props.strategy) {
-                            const strategyOutput = this.props.strategy(child.props, routertContext, i);
-                            if (strategyOutput) {
-                                return this.renderChild(child);
-                            }
-                        } else if (this.state.activeRoute) {
-                            if (!child.props || !child.props.match) {
-                                return this.bootstrapProps(child);
+                    })
+                    : matchingChildren
+                }
 
-                            } else if (child.props.match === this.state.activeRoute) {
-                                return this.bootstrapProps(child);
-                            }
-                        }
-                        else {
-                            return this.renderChild(child);
-                        }
-                    } else {
-                        return this.renderChild(child);
-                    }
-
-                })}
             </div>
         )
     }
