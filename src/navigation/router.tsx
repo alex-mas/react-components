@@ -30,6 +30,10 @@ export class Router extends React.Component<RouterProps, RouterState>{
     }
     constructor(props: RouterProps) {
         super(props);
+        this.state = {
+            renderedRoutes: 0,
+            activeRoute: this.props.activeRoute
+        };
     }
     changeRoute = (newRoute: string): void => {
         this.setState((prevState: RouterState) => ({
@@ -68,11 +72,11 @@ export class Router extends React.Component<RouterProps, RouterState>{
                             if (strategyOutput) {
                                 return this.renderChild(child);
                             }
-                        } else if (this.props.activeRoute) {
+                        } else if (this.state.activeRoute) {
                             if (!child.props || !child.props.match) {
                                 return this.bootstrapProps(child);
 
-                            } else if (child.props.match === this.props.activeRoute) {
+                            } else if (child.props.match === this.state.activeRoute) {
                                 return this.bootstrapProps(child);
                             }
                         }
