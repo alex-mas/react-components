@@ -58,6 +58,7 @@ export class MemoryLink extends React.Component<MemoryLinkProps, any>{
 }
 
 export interface MemoryRouterProps {
+    singleRoute?: boolean,
     history?: string[],
     startingRoute?: string
     children?: any
@@ -203,6 +204,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
                     strategy={this.strategy}
                     bootstrapProps={false}
                     bootstrap={this.bootstrapParams}
+                    singleRoute={this.props.singleRoute}
                 >
                     {React.Children.map(this.props.children, (child: ReactChild, index: number) => {
                         if (typeof child === 'object') {
