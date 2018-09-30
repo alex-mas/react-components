@@ -6,7 +6,8 @@ import cloneDeep from 'lodash.clonedeep';
 
 export interface MemoryLinkProps {
     to: string,
-    text?: string
+    text?: string,
+    children?: React.ReactNode
 }
 
 
@@ -43,7 +44,7 @@ export class MemoryLink extends React.Component<MemoryLinkProps, any>{
                             history.pushState(this.props.to);
                         }}
                     >
-                        {this.props.text}
+                        {this.props.text ? this.props.text : this.props.children}
                     </a>
                 )
                 }
@@ -228,10 +229,16 @@ export function withHistoryContext<P extends any>(Component: React.ComponentClas
 
 }
 
+
+export interface RouteParams {
+    [x: string]: string
+}
+
 export interface MemoryRouteProps {
     history: MemoryHistory,
     path: string,
     exact: boolean,
+    routeParams?: RouteParams
     component?: React.ComponentClass<any> | React.SFC<any> | string | any,
     children?: any
 }
@@ -243,6 +250,7 @@ export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProp
             history: props.history,
             path: props.path,
             exact: props.exact,
+            routeParams: props.routeParams,
             component: () => (
                 <div>
                     {props.children}
@@ -252,7 +260,7 @@ export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProp
         //if route has no children and has a component defined render the component with the props bootstrapped to it
     } else if (props.component) {
         const C = props.component;
-        return <C history={props.history} path={props.path} exact={props.exact} />;
+        return <C history={props.history} path={props.path} exact={props.exact} routeParams={props.routeParams} />;
         //handle incorrect props input
     } else {
         console.error('The Memory route must be provided a component prop or children, else nothing will be rendered');
