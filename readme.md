@@ -21,61 +21,18 @@ When open it renders the contents above an overlay, it has harcoded fade transit
 ### Router 
 Basic router to be extended, it implements a default strategy and the hooks for custom routing strategies.
 
-### BrowserRouter
+### MemoryRouter
 Router that implements a strategy based on a data structure similar to browser history(IMPORTANT: it doesn't edit or use the actual window location) and renders the children who's "path" prop matches partially/totally the active route.
 
-#### Example usage:
-```jsx
-    //Without parameters
-    const AppRouter = (
-        <BrowserRouter>
-            <div path='/notFound'>Content not found</div>
-        </BrowserRouter>
-    );
 
-    //With initial configuration
-    const AppRouterWithHistory = (
-        <BrowserRouter history={['/home','/cart', '/cart/yourItem']} startingRoute='/cart'>
-            <HomePage path='/home'>
-            <ShoppingCart path='/cart'>
-            <ItemDetail path='/cart/:item'>
-        </BrowserRouter>
+#### Auxiliary MemoryRouter components
+They are intended to be used inside a MemoryRouter, as they are history context consumers
 
-    )
-```
-
-
-- Uses react context api, to provide the browser history to children that require it.
-Usage of history context:
-Via HOC:
-```javascript
-
-    const Component = (props)=><div>You are here: {props.history.location()}</div>
-    const ConnectedComponent = WithHistoryContext(Component);
-    export default ConnectedComponent;
-```
-Via react api:
-```javascript
-    import {BrowserHistoryContext} from 'path/to/browserRouter.js';
-    const ConnectedComponent = (props)=>{
-        return(
-            <BrowserHistoryContext.Consumer>
-                {history => (
-                    //insert your component jsx here
-                )}
-            </BrowserHistoryContext.Consumer>
-        )
-    }
-```
-
-#### Auxiliary BrowserRouter components
-They are intended to be used inside a BrowserRouter, as they are history context consumers
-
-##### BrowserRoute
+##### MemoryRoute
 Renders the provided component/children and bootstraps history and route properties into it
 
-##### BrowserLink 
-On click pushes the provided location into BrowserRouter's history.
+##### MemoryLink 
+On click pushes the provided location into MemoryRouter's history.
 
 ### Carousel
 Renders a container with the provided children and with two buttons to switch the active child
