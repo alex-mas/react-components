@@ -153,14 +153,15 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         }
     }
     matchingParams = (desiredPath, givenPath) => {
+        if(desiredPath === givenPath){return true;}
         let desiredParams = []
         let givenParams = []
         if (desiredPath) {
-            console.log(desiredPath);
-            desiredParams = desiredPath.slice(desiredPath.lastIndexOf('/') + 1).split(':');
+            desiredParams = desiredPath.slice(desiredPath.lastIndexOf('/') + 1).split(':').slice(1);
         }
         if (givenPath) {
             givenParams = givenPath.slice(givenPath.lastIndexOf('/') + 1).split('&');
+            console.log(givenParams);
         }
         return desiredParams.length === givenParams.length;
 
@@ -178,7 +179,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         if (childProps.exact) {
             if (
                 childPath === location &&
-                this.matchingParams(childProps.path, location)
+                this.matchingParams(childProps.path, this.location())
             ) {
                 return true;
             } else {
