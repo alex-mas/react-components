@@ -8,6 +8,7 @@ export interface MemoryLinkProps {
     to: string,
     text?: string,
     children?: React.ReactNode
+    className?: string
 }
 
 
@@ -41,6 +42,7 @@ export class MemoryLink extends React.Component<MemoryLinkProps, any>{
             <MemoryHistoryContext.Consumer>
                 {history => (
                     <a
+                        className={this.props.className ? this.props.className : 'axc-memory-link'}
                         href=""
                         onClick={(e) => {
                             e.preventDefault();
@@ -177,13 +179,12 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             childPath = childProps.path.slice(0, childProps.path.lastIndexOf('/') + 1);
         }
         if (childProps.exact) {
-            if (
-                childPath === location &&
-                this.matchingParams(childProps.path, this.location())
-            ) {
-                return true;
-            } else {
-                return false;
+            const routeMatches = childPath === location;
+            const paramsMatch = this.matchingParams(childProps.path, this.location());
+            if(childProps.exactParams){
+                return routeMatches && paramsMatch;
+            }else{
+                return routeMatches;
             }
         } else {
             if (location.includes(childPath)) {
@@ -257,6 +258,7 @@ export interface MemoryRouteProps {
     history: MemoryHistory,
     path: string,
     exact?: boolean,
+    exactParams: boolean,
     routeParams?: RouteParams
     component?: React.ComponentClass<any> | React.SFC<any> | string | any,
     children?: any
@@ -269,6 +271,7 @@ export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProp
             history: props.history,
             path: props.path,
             exact: props.exact,
+            exactParams: props.exactParams,
             routeParams: props.routeParams,
             component: () => (
                 <div>

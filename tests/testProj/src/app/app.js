@@ -5,7 +5,7 @@ import AutoComplete from '../../../../dist/interactive/autoComplete';
 import Modal from '../../../../dist/layout/modal';
 import Carousel, { LinkedCarousel, CarouselImage } from '../../../../dist/navigation/carousel';
 import Router from '../../../../dist/navigation/router';
-import BrowserRouter, { BrowserLink, BrowserRoute } from '../../../../dist/navigation/browserRouter';
+import MemoryRouter, { MemoryLink, MemoryRoute } from '../../../../dist/navigation/memoryRouter';
 import { Tab, TabContainer } from '../../../../dist/navigation/tabContainer';
 import Dropdown from '../../../../dist/layout/dropdown';
 import Dialog from '../../../../dist/layout/dialog';
@@ -67,11 +67,11 @@ const _Notificator = (props) => {
 }
 const Notificator = WithNotifications(_Notificator);
 
-const TooltippedLink = withTooltip(BrowserLink);
+const TooltippedLink = withTooltip(MemoryLink);
 
 const MyRouter = (props) => {
     return (
-        <BrowserRouter
+        <MemoryRouter
             startingRoute='/'
         >
             <div path='/' exact={true}>
@@ -83,17 +83,17 @@ const MyRouter = (props) => {
                     tooltip='Opens the page with the carousel'
                     className='my-tooltip'
                 />
-                <BrowserLink
+                <MemoryLink
                     value='carousel'
                     to='/carousel'
                     text='Go to carousel'
                 />
-                <BrowserLink
+                <MemoryLink
                     value='tabs'
                     to='/tabs'
                     text='Go to tabs'
                 />
-                <BrowserLink
+                <MemoryLink
                     value='countdown'
                     to='/countdown'
                     text='Go to countdown'
@@ -108,7 +108,7 @@ const MyRouter = (props) => {
             </div>
             <div path='/notFound'>
                 Sorry, the content you asked for was not found
-                <BrowserLink
+                <MemoryLink
                     to='/'
                     text='Return to landing page'
                 />
@@ -147,7 +147,7 @@ const MyRouter = (props) => {
                         title='A lake'
                         subtitle='it looks cold'
                     />
-                    <BrowserLink
+                    <MemoryLink
                         to='/'
                         text='Return to landing page'
                     />
@@ -195,7 +195,7 @@ const MyRouter = (props) => {
                     start={0}
                 />
             </div>
-        </BrowserRouter>
+        </MemoryRouter>
     )
 
 }
