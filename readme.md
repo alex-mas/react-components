@@ -75,14 +75,14 @@ I might switch to css in js in the future to make it simpler to use the componen
 List of components that I will probably implement
 
 - Toggable icons (like google/facebook widgets)
-- Forms with less boilerplate
+- Formsabstraction
 - Animation components -> FadeIn/FadeOut/etc... 
 - Draggable/resizable containers
 - Parallax background
 - Image that on focus zooms in
-- Components to create/visualize a custom markup similar to bbcode for forums.
+- WYSIWYG editor / markup editor
 - Pagination
-- Component that sticks to the edge of the page when you scroll outside its original position
+- Component that sticks to the edge of the page when you its original position falls out of the page.
 - Some loaders/spinners
 - Data grid
 - Calendar
