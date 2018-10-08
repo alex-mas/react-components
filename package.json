@@ -38,7 +38,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-adapter-react-16": "^1.6.0",
     "enzyme-to-json": "^3.3.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.1.4",

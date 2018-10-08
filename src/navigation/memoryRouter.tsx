@@ -171,6 +171,9 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         let location = this.location();
         let childPath = childProps.path;
         let hasParams = false;
+        if(!childProps.path){
+            return true;
+        }
         if (childProps.path.split(':').length > 1) {
             //route has params defined
             hasParams = true;

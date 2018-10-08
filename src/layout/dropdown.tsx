@@ -41,7 +41,7 @@ let defaultStyles: DropdownStyles = {
         width: 'inherit'
     },
     dropdown__options: {
-        width: '100%',
+        //width: '100%',
         position: 'absolute',
         zIndex: 1,
         backgroundColor: 'white',

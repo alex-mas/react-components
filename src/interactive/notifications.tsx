@@ -11,11 +11,11 @@ export interface _Notification {
     id: string,
     message: string,
     className?: string,
-    component?: React.ComponentClass<CustomNotificationProps, any>
+    component?: React.ComponentClass<CustomNotificationProps>
 }
 
 export interface Notifications {
-    notify(message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps, any>): void
+    notify(message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps>): void
     removeNotification(id): (evt: React.SyntheticEvent<HTMLElement>)=>void
 }
 
@@ -72,7 +72,7 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
             });
         }
     }
-    onNotify = (message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps, any>):void =>{
+    onNotify = (message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps>):void =>{
         this.setState((prevState)=>{
             return{
                 currentNotifications: [...prevState.currentNotifications, {

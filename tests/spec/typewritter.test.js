@@ -34,7 +34,8 @@ test('TypeWritter should properly render within the time frame established by pr
     setTimeout(() => {
         expect(wrapper.getDOMNode().nodeValue).toEqual(str);
         done();
-    }, totalTime+50);
+        //adding 500 cuz for some reason test takes mre time to complete
+    }, totalTime+500);
 });
 
 

@@ -8,7 +8,7 @@ export interface TooltipProps {
     isVisible: boolean,
     component: Element | Text,
     className?: string,
-    onMouseLeave?: React.EventHandler<React.MouseEvent>
+    onMouseLeave?: React.EventHandler<React.MouseEvent<HTMLDivElement>>
 }
 
 export class Tooltip extends React.Component<TooltipProps, any> {
@@ -45,7 +45,7 @@ export class Tooltip extends React.Component<TooltipProps, any> {
             if (compDimensions.right + tooltipDimensions.width > window.innerWidth) {
                 if (compDimensions.left - tooltipDimensions.width < 0) {
                     styles.left = `-${compDimensions.left}px`;
-                }else{
+                } else {
                     styles.right = `${tooltipDimensions.width - compDimensions.width / 2 - 1}px`;
                 }
             } else {
@@ -90,12 +90,12 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
             this.component = React.createRef();
             this.tooltip = React.createRef();
         }
-        onMouseEnter = (event: React.MouseEvent | MouseEvent) => {
+        onMouseEnter = (event: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
             this.setState(() => ({
                 isTooltipVisible: true
             }));
         }
-        onMouseLeave = (event: React.MouseEvent | MouseEvent) => {
+        onMouseLeave = (event: React.MouseEvent<HTMLDivElement> | MouseEvent) => {
             if (this.tooltipDOM && typeof this.tooltipDOM === 'object') {
                 //@ts-ignore
                 const tooltipArea = this.tooltipDOM.getBoundingClientRect();
@@ -139,7 +139,12 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
             return (
                 <React.Fragment>
                     <div style={{ display: 'inlineBlock' }}>
-                        <Component ref={this.component} {...this.props} onMouseLeave={this.onMouseLeave} className={this.props.className} />
+                        <Component
+                            ref={this.component}
+                            {...this.props}
+                            onMouseLeave={this.onMouseLeave}
+                            className={this.props.className}
+                        />
                     </div>
                     <Tooltip
                         ref={this.tooltip}
