@@ -12,7 +12,6 @@ export interface RouterProps {
     bootstrap?(child: React.ReactElement<any>, routerContext: RouterContext, index: number): React.ReactElement<any>,
     activeRoute?: string,
     className?: string,
-    bootstrapProps?: boolean,
     singleRoute?: boolean
 }
 
@@ -24,9 +23,6 @@ export interface RouterContext {
 
 export class Router extends React.Component<RouterProps, RouterState>{
     state: RouterState
-    static defaultProps: Partial<RouterProps> = {
-        bootstrapProps: true
-    }
     constructor(props: RouterProps) {
         super(props);
         this.state = {
@@ -39,7 +35,7 @@ export class Router extends React.Component<RouterProps, RouterState>{
         }));
     }
     bootstrapProps = (elmnt: React.ReactElement<any>): React.ReactElement<any> => {
-        if (this.props.bootstrapProps && typeof elmnt === 'object') {
+        if (typeof elmnt === 'object') {
             return React.cloneElement(elmnt, { changeRoute: this.changeRoute });
         } else {
             return elmnt;

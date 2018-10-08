@@ -154,18 +154,17 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             replaceState: this._replaceState
         }
     }
-    matchingParams = (desiredPath, givenPath) => {
+    matchingParams = (desiredPath: string, givenPath: string) => {
         if (desiredPath === givenPath) { return true; }
-        let desiredParams = []
-        let givenParams = []
-        if (desiredPath) {
-            desiredParams = desiredPath.slice(desiredPath.lastIndexOf('/') + 1).split(':').slice(1);
-        }
-        if (givenPath) {
-            givenParams = givenPath.slice(givenPath.lastIndexOf('/') + 1).split('&');
-            console.log(givenParams);
-        }
-        return desiredParams.length === givenParams.length;
+        const firstParamIndex = desiredPath.indexOf(':');
+        let desiredParams: string[] = []
+        let givenParams: string[] = []
+        desiredParams = desiredPath.split(':').slice(1);
+        givenParams = givenPath.substr(firstParamIndex).split('&');
+        givenParams = givenParams.filter((param)=>{
+            return param.length > 0;
+        });
+        return givenParams.length === desiredParams.length;
 
     }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
@@ -216,7 +215,6 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             <MemoryHistoryContext.Provider value={this.getMemoryHistory()}>
                 <Router
                     strategy={this.strategy}
-                    bootstrapProps={false}
                     bootstrap={this.bootstrapParams}
                     singleRoute={this.props.singleRoute}
                 >
