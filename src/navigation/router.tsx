@@ -74,21 +74,17 @@ export class Router extends React.Component<RouterProps, RouterState>{
             }
 
         });
-        return (
-            <div className={this.props.className ? this.props.className : "axc-router__route"}>
-                {this.props.singleRoute ?
-                    React.Children.map(matchingChildren, (child: ReactChild, i: number) => {
-                        if (i === 0) {
-                            return child;
-                        } else {
-                            return null;
-                        }
-                    })
-                    : matchingChildren
+        if (this.props.singleRoute) {
+            return React.Children.map(matchingChildren, (child: ReactChild, i: number) => {
+                if (i === 0) {
+                    return child;
+                } else {
+                    return null;
                 }
-
-            </div>
-        )
+            });
+        }else{
+            return  matchingChildren;
+        }
     }
 }
 

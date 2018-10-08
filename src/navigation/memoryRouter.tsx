@@ -155,7 +155,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         }
     }
     matchingParams = (desiredPath, givenPath) => {
-        if(desiredPath === givenPath){return true;}
+        if (desiredPath === givenPath) { return true; }
         let desiredParams = []
         let givenParams = []
         if (desiredPath) {
@@ -181,9 +181,9 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         if (childProps.exact) {
             const routeMatches = childPath === location;
             const paramsMatch = this.matchingParams(childProps.path, this.location());
-            if(childProps.exactParams){
+            if (childProps.exactParams) {
                 return routeMatches && paramsMatch;
-            }else{
+            } else {
                 return routeMatches;
             }
         } else {
@@ -258,10 +258,11 @@ export interface MemoryRouteProps {
     history: MemoryHistory,
     path: string,
     exact?: boolean,
-    exactParams: boolean,
+    exactParams?: boolean,
     routeParams?: RouteParams
     component?: React.ComponentClass<any> | React.SFC<any> | string | any,
     children?: any
+    className?: string
 }
 
 export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProps) => {
@@ -274,7 +275,7 @@ export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProp
             exactParams: props.exactParams,
             routeParams: props.routeParams,
             component: () => (
-                <div>
+                <div className={props.className ? props.className : 'axc-router__route'}>
                     {props.children}
                 </div>
             )
@@ -282,8 +283,13 @@ export const _MemoryRoute: React.SFC<MemoryRouteProps> = (props: MemoryRouteProp
         //if route has no children and has a component defined render the component with the props bootstrapped to it
     } else if (props.component) {
         const C = props.component;
-        return <C history={props.history} path={props.path} exact={props.exact ? props.exact : false} routeParams={props.routeParams} />;
-        //handle incorrect props input
+        return <C
+            className={props.className ? props.className : ''}
+            history={props.history}
+            path={props.path}
+            exact={props.exact ? props.exact : false}
+            routeParams={props.routeParams}
+        />;
     } else {
         console.error('The Memory route must be provided a component prop or children, else nothing will be rendered');
         return null;
