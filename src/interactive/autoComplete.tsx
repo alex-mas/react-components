@@ -227,7 +227,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                     shouldRenderSuggestions: false
                 }));
             //tab key
-            } else if (event.keyCode === 9 && this.state.selectedSuggestion > -1) {
+            } else if (event.keyCode === 9 /*&& this.state.selectedSuggestion > -1*/ && this.state.shouldRenderSuggestions) {
                 event.preventDefault();
                 if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
                     this.setState((prevState) => ({
