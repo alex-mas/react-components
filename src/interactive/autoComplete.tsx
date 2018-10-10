@@ -23,6 +23,7 @@ export interface AutoCompleteState {
     selectedSuggestion: number,
     id: string,
     focused: boolean,
+    shouldRenderSuggestions: boolean,
     styles: AutoCompleteStyles
 }
 
@@ -103,6 +104,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
             suggestions: [],
             selectedSuggestion: -1,
             focused: false,
+            shouldRenderSuggestions: true,
             styles: {
                 autoComplete: {},
                 autoComplete__input: {},
@@ -202,20 +204,29 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
     onKeyDown(event: React.KeyboardEvent<any>): void {
         console.log('handling key down events', event);
         if (this.state.focused) {
+            //key down
             if (event.keyCode === 40 && this.state.selectedSuggestion < this.state.suggestions.length - 1) {
                 this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion + 1
                 }));
+            //key up
             } else if (event.keyCode === 38 && this.state.selectedSuggestion > -1) {
                 this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion - 1
                 }));
+            //enter key
             } else if (event.keyCode === 13 && this.state.selectedSuggestion > -1) {
                 this.onChange(this.state.suggestions[this.state.selectedSuggestion]);
+                this.setState((prevState)=>({
+                    shouldRenderSuggestions: false
+                }));
+            //esc key
             } else if (event.keyCode === 27) {
                 this.setState((prevState) => ({
-                    selectedSuggestion: -1
+                    selectedSuggestion: -1,
+                    shouldRenderSuggestions: false
                 }));
+            //tab key
             } else if (event.keyCode === 9 && this.state.selectedSuggestion > -1) {
                 event.preventDefault();
                 if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
@@ -227,6 +238,10 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                         selectedSuggestion: 0
                     }));
                 }
+            }else{
+                this.setState(()=>({
+                    shouldRenderSuggestions: true
+                }));
             }
         }
     }
@@ -262,7 +277,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                         onFocus={this.onFocus}
                         style={this.state.styles.autoComplete__input}
                     />
-                    {this.state.focused ?
+                    {this.state.focused && this.state.shouldRenderSuggestions ?
                         <div className='axc-auto-complete__suggestions' style={this.state.styles.autoComplete__suggestions}>
                             {this.state.suggestions.map((suggestion: string, index: number) => {
                                 const selected: boolean = index === this.state.selectedSuggestion
