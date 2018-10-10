@@ -7,6 +7,7 @@ const defaultPredictionData: string[] = [];
 export interface AutoCompleteProps {
     value: string,
     onChange(inputVal: string): any,
+    onSubmit?(value: string): any,
     predictionData?: string[],
     className?: string,
     placeholder?: string,
@@ -72,10 +73,10 @@ interface SuggestionProps {
 }
 
 class Suggestion extends React.PureComponent<SuggestionProps, any>{
-    onClick = (event: React.MouseEvent<any>)=>{
+    onClick = (event: React.MouseEvent<any>) => {
         this.props.onClick(this.props.index);
     }
-    onMouseEnter = (event: React.MouseEvent<any>)=>{
+    onMouseEnter = (event: React.MouseEvent<any>) => {
         this.props.onHover(this.props.index);
     }
     render() {
@@ -195,7 +196,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         console.log('clicked a suggestion, changing the value');
         this.onChange(this.state.suggestions[suggestionIndex]);
     }
-    onHoverSuggestion = (suggestionIndex: number)=>{
+    onHoverSuggestion = (suggestionIndex: number) => {
         console.log('hovered over a suggestion, changing the selected suggestion');
         this.setState((prevState) => ({
             selectedSuggestion: suggestionIndex
@@ -209,24 +210,34 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                 this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion + 1
                 }));
-            //key up
+                //key up
             } else if (event.keyCode === 38 && this.state.selectedSuggestion > -1) {
                 this.setState((prevState) => ({
                     selectedSuggestion: prevState.selectedSuggestion - 1
                 }));
-            //enter key
-            } else if (event.keyCode === 13 && this.state.selectedSuggestion > -1) {
-                this.onChange(this.state.suggestions[this.state.selectedSuggestion]);
-                this.setState((prevState)=>({
-                    shouldRenderSuggestions: false
-                }));
-            //esc key
+                //enter key
+            } else if (event.keyCode === 13) {
+                if (this.state.selectedSuggestion > -1) {
+                    this.onChange(this.state.suggestions[this.state.selectedSuggestion]);
+                    this.setState((prevState) => ({
+                        shouldRenderSuggestions: false
+                    }));
+                    if (this.props.onSubmit) {
+                        this.props.onSubmit(this.state.suggestions[this.state.selectedSuggestion]);
+                    }
+
+                } else {
+                    if (this.props.onSubmit) {
+                        this.props.onSubmit(this.props.value);
+                    }
+                }
+                //esc key
             } else if (event.keyCode === 27) {
                 this.setState((prevState) => ({
                     selectedSuggestion: -1,
                     shouldRenderSuggestions: false
                 }));
-            //tab key
+                //tab key
             } else if (event.keyCode === 9 /*&& this.state.selectedSuggestion > -1*/ && this.state.shouldRenderSuggestions) {
                 event.preventDefault();
                 if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
@@ -238,8 +249,8 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                         selectedSuggestion: 0
                     }));
                 }
-            }else{
-                this.setState(()=>({
+            } else {
+                this.setState(() => ({
                     shouldRenderSuggestions: true
                 }));
             }
