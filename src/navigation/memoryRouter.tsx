@@ -33,7 +33,51 @@ export const MemoryHistoryContext: React.Context<MemoryHistory> = React.createCo
     replaceState: (replacedNMode: string) => { }
 });
 
-
+export const createMemoryHistory: (initialHistory: string | string[] | undefined, initialPosition?: number) => MemoryHistory = (initialHistory, initialPosition) => {
+    let history: string[] = [];
+    if (initialHistory) {
+        if (Array.isArray(initialHistory)) {
+            history = history.concat(initialHistory);
+        } else {
+            history.push(initialHistory)
+        }
+    }
+    let currentPosition = initialPosition | 0;
+    return {
+        back: () => {
+            if (currentPosition > 0) {
+                currentPosition--;
+            } else {
+                currentPosition = 0;
+            }
+        },
+        forward: () => {
+            if (currentPosition < history.length - 1) {
+                currentPosition++;
+            } else {
+                currentPosition = history.length - 1;
+            }
+        },
+        go: (delta: number) => {
+            if (delta >= history.length) {
+                currentPosition = history.length - 1;
+            } else if (delta <= 0) {
+                currentPosition = 0;
+            } else {
+                currentPosition = delta;
+            }
+        },
+        pushState: (newNode: string) => {
+            history.push(newNode);
+        },
+        location: () => {
+            return history[currentPosition];
+        },
+        replaceState: (replacedNode: string) => {
+            history[history.length-1] = replacedNode;
+        }
+    }
+}
 
 
 export class MemoryLink extends React.Component<MemoryLinkProps, any>{
@@ -63,7 +107,8 @@ export interface MemoryRouterProps {
     singleRoute?: boolean,
     history?: string[],
     startingRoute?: string
-    children?: any
+    children?: any,
+    memoryHistory?: MemoryHistory
 }
 
 export interface MemoryRouterState {
@@ -79,6 +124,7 @@ export interface MemoryRouterState {
 export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRouterState>{
     constructor(props: MemoryRouterProps) {
         super(props);
+        if(!props.memoryHistory){return;}
         let startingRoute = window.location.pathname;
         if (props.startingRoute) {
             startingRoute = props.startingRoute;
@@ -161,7 +207,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         let givenParams: string[] = []
         desiredParams = desiredPath.split(':').slice(1);
         givenParams = givenPath.substr(firstParamIndex).split('&');
-        givenParams = givenParams.filter((param)=>{
+        givenParams = givenParams.filter((param) => {
             return param.length > 0;
         });
         return givenParams.length === desiredParams.length;
@@ -171,14 +217,14 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         let location = this.location();
         let childPath = childProps.path;
         let hasParams = false;
-        if(!childProps.path){
+        if (!childProps.path) {
             return true;
         }
         if (childProps.path.split(':').length > 1) {
             //route has params defined
             hasParams = true;
             //this might remove the last part of the route if it doesnt have params and it doesnt end with /
-            location = location.slice(0,childProps.path.indexOf(':')); //location.slice(0, location.lastIndexOf('/') + 1);
+            location = location.slice(0, childProps.path.indexOf(':')); //location.slice(0, location.lastIndexOf('/') + 1);
             childPath = childProps.path.split(':')[0];
         }
         if (childProps.exact) {
@@ -216,7 +262,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
     }
     render() {
         return (
-            <MemoryHistoryContext.Provider value={this.getMemoryHistory()}>
+            <MemoryHistoryContext.Provider value={this.props.memoryHistory ? this.props.memoryHistory :this.getMemoryHistory()}>
                 <Router
                     strategy={this.strategy}
                     bootstrap={this.bootstrapParams}
