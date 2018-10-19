@@ -17,7 +17,7 @@ import CountUp from '../../../../dist/animated/countUp';
 import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
 import PhoneNumber from '../../../../dist/display/phoneNumber';
 import withTooltip from '../../../../dist/interactive/tooltip';
-
+import ProgressBar from '../../../../dist/display/progressBar';
 
 
 const defaultPredictionData = [
@@ -209,8 +209,17 @@ class App extends React.Component {
                 surname: 'Jenkins'
             },
             isModalOpen: false,
-            myStringState: undefined
+            myStringState: undefined,
+            barProgress: 0
         };
+    }
+    componentDidMount(){
+        setInterval(this.advanceProgres,1500);
+    }
+    advanceProgres = () =>{
+        this.setState((prevState)=>{
+            barProgress: prevState.barProgress + 5
+        });
     }
     onNameChange = (name) => {
         this.setState((prevState) => ({
@@ -294,6 +303,7 @@ class App extends React.Component {
                 <div>
                     <PhoneNumber number={639999999} method='dashes' />
                 </div>
+                <ProgressBar progress={this.state.barProgress}/>
 
             </div>
         )

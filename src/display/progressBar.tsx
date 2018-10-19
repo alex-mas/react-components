@@ -14,6 +14,9 @@ export interface ProgressBarState {
 
 export class ProgressBar extends React.PureComponent<ProgressBarProps, ProgressBarState>{
     render() {
+        let progress = this.props.progress;
+        if(progress < 0){progress = 0;}
+        if(progress > 100){progress = 100;}
         return (
             <div
                 className={this.props.containerClass ?
@@ -28,7 +31,7 @@ export class ProgressBar extends React.PureComponent<ProgressBarProps, ProgressB
                         this.props.barClass : 
                         'axc-progress-bar'
                     }
-                    style={{width: `${this.props.progress}%`}}
+                    style={{width: `${progress}%`}}
                 >
                 </div>
                 {this.props.children}
