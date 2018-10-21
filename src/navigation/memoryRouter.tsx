@@ -124,7 +124,7 @@ export interface MemoryRouterState {
 export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRouterState>{
     constructor(props: MemoryRouterProps) {
         super(props);
-        if(!props.memoryHistory){return;}
+        if(props.memoryHistory){return;}
         let startingRoute = window.location.pathname;
         if (props.startingRoute) {
             startingRoute = props.startingRoute;
@@ -207,7 +207,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         let givenParams: string[] = []
         desiredParams = desiredPath.split(':').slice(1);
         givenParams = givenPath.substr(firstParamIndex).split('&');
-        givenParams = givenParams.filter((param) => {
+        givenParams = givenParams.filter((param)=>{
             return param.length > 0;
         });
         return givenParams.length === desiredParams.length;
@@ -217,14 +217,14 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
         let location = this.location();
         let childPath = childProps.path;
         let hasParams = false;
-        if (!childProps.path) {
+        if(!childProps.path){
             return true;
         }
         if (childProps.path.split(':').length > 1) {
             //route has params defined
             hasParams = true;
             //this might remove the last part of the route if it doesnt have params and it doesnt end with /
-            location = location.slice(0, childProps.path.indexOf(':')); //location.slice(0, location.lastIndexOf('/') + 1);
+            location = location.slice(0,childProps.path.indexOf(':')); //location.slice(0, location.lastIndexOf('/') + 1);
             childPath = childProps.path.split(':')[0];
         }
         if (childProps.exact) {
@@ -262,7 +262,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
     }
     render() {
         return (
-            <MemoryHistoryContext.Provider value={this.props.memoryHistory ? this.props.memoryHistory :this.getMemoryHistory()}>
+            <MemoryHistoryContext.Provider value={this.getMemoryHistory()}>
                 <Router
                     strategy={this.strategy}
                     bootstrap={this.bootstrapParams}
@@ -348,3 +348,4 @@ export const MemoryRoute = withHistoryContext<MemoryRouteProps>(_MemoryRoute);
 
 export default MemoryRouter;
 
+ 

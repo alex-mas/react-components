@@ -18,6 +18,7 @@ import { NotificationSystem, WithNotifications } from '../../../../dist/interact
 import PhoneNumber from '../../../../dist/display/phoneNumber';
 import withTooltip from '../../../../dist/interactive/tooltip';
 import ProgressBar from '../../../../dist/display/progressBar';
+import TimedProgressBar from '../../../../dist/display/timedProgressBar';
 
 
 const defaultPredictionData = [
@@ -209,17 +210,13 @@ class App extends React.Component {
                 surname: 'Jenkins'
             },
             isModalOpen: false,
-            myStringState: undefined,
-            barProgress: 0
+            myStringState: undefined
         };
     }
-    componentDidMount(){
-        setInterval(this.advanceProgres,1500);
-    }
     advanceProgres = () =>{
-        this.setState((prevState)=>{
-            barProgress: prevState.barProgress + 5
-        });
+        this.setState((prevState)=>({
+            barProgress: prevState.barProgress + 1
+        }));
     }
     onNameChange = (name) => {
         this.setState((prevState) => ({
@@ -303,8 +300,7 @@ class App extends React.Component {
                 <div>
                     <PhoneNumber number={639999999} method='dashes' />
                 </div>
-                <ProgressBar progress={this.state.barProgress}/>
-
+                <TimedProgressBar duration={5000}/>
             </div>
         )
     }

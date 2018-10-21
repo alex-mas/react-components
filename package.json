@@ -1,5 +1,5 @@
 {
-  "name": "axc",
+  "name": "@axc/react-components",
   "version": "0.0.1",
   "description": "react components created for personal use",
   "main": "dist/index.js",
@@ -12,11 +12,11 @@
     "preRelease": "npm run build && npm run test",
     "release": "npm run preRelease && npm run genDocs"
   },
-  "homepage": "https://github.com/alex-mas/axc",
+  "homepage": "https://github.com/alex-mas/react-components",
   "url": "TODO",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alex-mas/axc.git"
+    "url": "https://github.com/alex-mas/react-components.git"
   },
   "email": "alex.mas.dev@gmail.com",
   "engines": {
