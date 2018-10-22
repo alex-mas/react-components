@@ -6,6 +6,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 
+if(!fs.existsSync("../testProj/dist")){
+  fs.mkdirSync("../testProj/dist");
+}
+
 fs.copyFileSync('../../dist/styles/axc-styles.css','../testProj/dist/axc-styles.css');
 fs.copyFileSync('../testProj/src/app/app.html', '../testProj/dist/app.html');
 fs.copyFileSync('../testProj/src/app/testApp.css', '../testProj/dist/testApp.css');
