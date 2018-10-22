@@ -1,6 +1,6 @@
 {
   "name": "@axc/react-components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "react components created for personal use",
   "main": "dist/index.js",
   "scripts": {
@@ -22,6 +22,7 @@
   "engines": {
     "node": ">= 6.4.0"
   },
+  "files":["dist/*"],
   "author": "alex_mas",
   "license": "MIT",
   "devDependencies": {
