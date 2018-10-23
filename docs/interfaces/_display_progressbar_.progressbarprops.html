@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>WithHistoryContextFunction | axc</title>
+	<title>ProgressBarProps | @axc/react-components</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">axc</a>
+					<a href="../index.html" class="title">@axc/react-components</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_navigation_browserrouter_.html">&quot;navigation/browserRouter&quot;</a>
+					<a href="../modules/_display_progressbar_.html">&quot;display/progressBar&quot;</a>
 				</li>
 				<li>
-					<a href="_navigation_browserrouter_.withhistorycontextfunction.html">WithHistoryContextFunction</a>
+					<a href="_display_progressbar_.progressbarprops.html">ProgressBarProps</a>
 				</li>
 			</ul>
-			<h1>Interface WithHistoryContextFunction</h1>
+			<h1>Interface ProgressBarProps</h1>
 		</div>
 	</div>
 </header>
@@ -73,31 +73,57 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">WithHistoryContextFunction</span>
+						<span class="target">ProgressBarProps</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3 class="tsd-before-signature">Callable</h3>
-				<ul class="tsd-signatures tsd-kind-interface tsd-parent-kind-external-module">
-					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>props<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">React.SFC</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in navigation/browserRouter.tsx:175</li>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_display_progressbar_.progressbarprops.html#barclass" class="tsd-kind-icon">bar<wbr>Class</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_display_progressbar_.progressbarprops.html#containerclass" class="tsd-kind-icon">container<wbr>Class</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_display_progressbar_.progressbarprops.html#progress" class="tsd-kind-icon">progress</a></li>
 							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>props: <span class="tsd-signature-type">any</span></h5>
-							</li>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="barclass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> bar<wbr>Class</h3>
+					<div class="tsd-signature tsd-kind-icon">bar<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in display/progressBar.tsx:7</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">React.SFC</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="containerclass" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> container<wbr>Class</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in display/progressBar.tsx:6</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="progress" class="tsd-anchor"></a>
+					<h3>progress</h3>
+					<div class="tsd-signature tsd-kind-icon">progress<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in display/progressBar.tsx:8</li>
+						</ul>
+					</aside>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -118,8 +144,17 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_display_phonenumber_.html">"display/phone<wbr>Number"</a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_display_progressbar_.html">"display/progress<wbr>Bar"</a>
+					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_display_timeago_.html">"display/timeago"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_display_timedprogressbar_.html">"display/timed<wbr>Progress<wbr>Bar"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_autocomplete_.html">"interactive/auto<wbr>Complete"</a>
@@ -148,11 +183,11 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_layout_modal_.html">"layout/modal"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html">"navigation/browser<wbr>Router"</a>
-					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_navigation_carousel_.html">"navigation/carousel"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_navigation_memoryrouter_.html">"navigation/memory<wbr>Router"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_navigation_router_.html">"navigation/router"</a>
@@ -171,44 +206,28 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_navigation_browserrouter_.browserlink.html" class="tsd-kind-icon">Browser<wbr>Link</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_navigation_browserrouter_.browserrouter.html" class="tsd-kind-icon">Browser<wbr>Router</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserhistory.html" class="tsd-kind-icon">Browser<wbr>History</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserlinkprops.html" class="tsd-kind-icon">Browser<wbr>Link<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouteprops.html" class="tsd-kind-icon">Browser<wbr>Route<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouterprops.html" class="tsd-kind-icon">Browser<wbr>Router<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouterstate.html" class="tsd-kind-icon">Browser<wbr>Router<wbr>State</a>
+						<a href="../classes/_display_progressbar_.progressbar.html" class="tsd-kind-icon">Progress<wbr>Bar</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.withhistorycontextfunction.html" class="tsd-kind-icon">With<wbr>History<wbr>Context<wbr>Function</a>
+						<a href="_display_progressbar_.progressbarprops.html" class="tsd-kind-icon">Progress<wbr>Bar<wbr>Props</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_display_progressbar_.progressbarprops.html#barclass" class="tsd-kind-icon">bar<wbr>Class</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_display_progressbar_.progressbarprops.html#containerclass" class="tsd-kind-icon">container<wbr>Class</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_display_progressbar_.progressbarprops.html#progress" class="tsd-kind-icon">progress</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#browserhistorycontext" class="tsd-kind-icon">Browser<wbr>History<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#browserroute" class="tsd-kind-icon">Browser<wbr>Route</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#withhistorycontext" class="tsd-kind-icon">With<wbr>History<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_navigation_browserrouter_.html#_browserroute" class="tsd-kind-icon">_<wbr>Browser<wbr>Route</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_progressbar_.progressbarstate.html" class="tsd-kind-icon">Progress<wbr>Bar<wbr>State</a>
 					</li>
 				</ul>
 			</nav>

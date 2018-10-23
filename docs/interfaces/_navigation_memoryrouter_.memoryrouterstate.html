@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BrowserLinkProps | axc</title>
+	<title>MemoryRouterState | @axc/react-components</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">axc</a>
+					<a href="../index.html" class="title">@axc/react-components</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_navigation_browserrouter_.html">&quot;navigation/browserRouter&quot;</a>
+					<a href="../modules/_navigation_memoryrouter_.html">&quot;navigation/memoryRouter&quot;</a>
 				</li>
 				<li>
-					<a href="_navigation_browserrouter_.browserlinkprops.html">BrowserLinkProps</a>
+					<a href="_navigation_memoryrouter_.memoryrouterstate.html">MemoryRouterState</a>
 				</li>
 			</ul>
-			<h1>Interface BrowserLinkProps</h1>
+			<h1>Interface MemoryRouterState</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">BrowserLinkProps</span>
+						<span class="target">MemoryRouterState</span>
 					</li>
 				</ul>
 			</section>
@@ -84,9 +84,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_navigation_browserrouter_.browserlinkprops.html#children" class="tsd-kind-icon">children</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_navigation_browserrouter_.browserlinkprops.html#text" class="tsd-kind-icon">text</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_navigation_browserrouter_.browserlinkprops.html#to" class="tsd-kind-icon">to</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_navigation_memoryrouter_.memoryrouterstate.html#currentposition" class="tsd-kind-icon">current<wbr>Position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_navigation_memoryrouter_.memoryrouterstate.html#history" class="tsd-kind-icon">history</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,32 +94,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="children" class="tsd-anchor"></a>
-					<h3>children</h3>
-					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.ReactNode</span></div>
+					<a name="currentposition" class="tsd-anchor"></a>
+					<h3>current<wbr>Position</h3>
+					<div class="tsd-signature tsd-kind-icon">current<wbr>Position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in navigation/browserRouter.tsx:7</li>
+							<li>Defined in navigation/memoryRouter.tsx:116</li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="text" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> text</h3>
-					<div class="tsd-signature tsd-kind-icon">text<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="history" class="tsd-anchor"></a>
+					<h3>history</h3>
+					<div class="tsd-signature tsd-kind-icon">history<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in navigation/browserRouter.tsx:9</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="to" class="tsd-anchor"></a>
-					<h3>to</h3>
-					<div class="tsd-signature tsd-kind-icon">to<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in navigation/browserRouter.tsx:8</li>
+							<li>Defined in navigation/memoryRouter.tsx:115</li>
 						</ul>
 					</aside>
 				</section>
@@ -145,7 +134,16 @@
 						<a href="../modules/_display_phonenumber_.html">"display/phone<wbr>Number"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_display_progressbar_.html">"display/progress<wbr>Bar"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_display_timeago_.html">"display/timeago"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_display_timedprogressbar_.html">"display/timed<wbr>Progress<wbr>Bar"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/_index_.html">"index"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_autocomplete_.html">"interactive/auto<wbr>Complete"</a>
@@ -174,11 +172,11 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_layout_modal_.html">"layout/modal"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html">"navigation/browser<wbr>Router"</a>
-					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_navigation_carousel_.html">"navigation/carousel"</a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_navigation_memoryrouter_.html">"navigation/memory<wbr>Router"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_navigation_router_.html">"navigation/router"</a>
@@ -197,55 +195,55 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_navigation_browserrouter_.browserlink.html" class="tsd-kind-icon">Browser<wbr>Link</a>
+						<a href="../classes/_navigation_memoryrouter_.memorylink.html" class="tsd-kind-icon">Memory<wbr>Link</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_navigation_browserrouter_.browserrouter.html" class="tsd-kind-icon">Browser<wbr>Router</a>
+						<a href="../classes/_navigation_memoryrouter_.memoryrouter.html" class="tsd-kind-icon">Memory<wbr>Router</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserhistory.html" class="tsd-kind-icon">Browser<wbr>History</a>
+						<a href="_navigation_memoryrouter_.memoryhistory.html" class="tsd-kind-icon">Memory<wbr>History</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_navigation_memoryrouter_.memorylinkprops.html" class="tsd-kind-icon">Memory<wbr>Link<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_navigation_memoryrouter_.memoryrouteprops.html" class="tsd-kind-icon">Memory<wbr>Route<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_navigation_memoryrouter_.memoryrouterprops.html" class="tsd-kind-icon">Memory<wbr>Router<wbr>Props</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserlinkprops.html" class="tsd-kind-icon">Browser<wbr>Link<wbr>Props</a>
+						<a href="_navigation_memoryrouter_.memoryrouterstate.html" class="tsd-kind-icon">Memory<wbr>Router<wbr>State</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_navigation_browserrouter_.browserlinkprops.html#children" class="tsd-kind-icon">children</a>
+								<a href="_navigation_memoryrouter_.memoryrouterstate.html#currentposition" class="tsd-kind-icon">current<wbr>Position</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_navigation_browserrouter_.browserlinkprops.html#text" class="tsd-kind-icon">text</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_navigation_browserrouter_.browserlinkprops.html#to" class="tsd-kind-icon">to</a>
+								<a href="_navigation_memoryrouter_.memoryrouterstate.html#history" class="tsd-kind-icon">history</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouteprops.html" class="tsd-kind-icon">Browser<wbr>Route<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouterprops.html" class="tsd-kind-icon">Browser<wbr>Router<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.browserrouterstate.html" class="tsd-kind-icon">Browser<wbr>Router<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_navigation_browserrouter_.withhistorycontextfunction.html" class="tsd-kind-icon">With<wbr>History<wbr>Context<wbr>Function</a>
+						<a href="_navigation_memoryrouter_.routeparams.html" class="tsd-kind-icon">Route<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#browserhistorycontext" class="tsd-kind-icon">Browser<wbr>History<wbr>Context</a>
+						<a href="../modules/_navigation_memoryrouter_.html#memoryhistorycontext" class="tsd-kind-icon">Memory<wbr>History<wbr>Context</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#browserroute" class="tsd-kind-icon">Browser<wbr>Route</a>
+						<a href="../modules/_navigation_memoryrouter_.html#memoryroute" class="tsd-kind-icon">Memory<wbr>Route</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_navigation_browserrouter_.html#withhistorycontext" class="tsd-kind-icon">With<wbr>History<wbr>Context</a>
+						<a href="../modules/_navigation_memoryrouter_.html#_memoryroute" class="tsd-kind-icon">_<wbr>Memory<wbr>Route</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_navigation_browserrouter_.html#_browserroute" class="tsd-kind-icon">_<wbr>Browser<wbr>Route</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_navigation_memoryrouter_.html#creatememoryhistory" class="tsd-kind-icon">create<wbr>Memory<wbr>History</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_navigation_memoryrouter_.html#withhistorycontext" class="tsd-kind-icon">with<wbr>History<wbr>Context</a>
 					</li>
 				</ul>
 			</nav>

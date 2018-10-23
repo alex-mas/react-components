@@ -254,6 +254,8 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                     shouldRenderSuggestions: true
                 }));
             }
+        }else{
+            //event.preventDefault();
         }
     }
     onFocus(event: React.FocusEvent<any>) {
