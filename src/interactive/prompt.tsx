@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StatelessComponent } from 'react';
 
 
 export type PromptContext<T> = (component: any) => Promise<T>;
@@ -36,11 +36,16 @@ export class PromptSystem extends React.Component<any, any>{
         this._resolve(data);
     }
     renderPrompt = ()=>{
-        return(
-            <this.state.promptComponent
-                onSumbit={this.onSubmitPrompt}
-            />
-        ); 
+        if(this.state.promptComponent){
+            return(
+                <this.state.promptComponent
+                    onSumbit={this.onSubmitPrompt}
+                />
+            ); 
+        }else{
+            return null;
+        }
+
     }
     render() {
         return (
@@ -55,6 +60,17 @@ export class PromptSystem extends React.Component<any, any>{
 }
 
 
+
+
+
+
+export function withPrompt<T>(Component: React.ComponentClass<any> | React.SFCFactory<any>): React.SFC<Exclude<T,'prompt'>> {
+    return (props: Exclude<T,'prompt'>)=> (
+        <Prompt.Consumer>
+            {prompt => <Component prompt={prompt} {...props} />}
+        </Prompt.Consumer>
+    )
+}
 
 
 export default PromptSystem;
