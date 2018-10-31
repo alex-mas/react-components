@@ -1,6 +1,6 @@
 {
   "name": "@axc/react-components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "react components created for personal use",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,7 @@
     "genDocs": "node_modules/.bin/typedoc --out ./docs",
     "test": "jest --config=jest.config.json",
     "preRelease": "npm run build && npm run test",
-    "release": "npm run preRelease && npm run genDocs",
-    "publish": "node tasks/publish.js"
+    "release": "npm run preRelease && npm run genDocs"
   },
   "homepage": "https://github.com/alex-mas/react-components",
   "url": "TODO",
