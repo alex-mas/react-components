@@ -48,7 +48,7 @@ class DialogOption extends React.Component<DialogOptionProps, any>{
 
 }
 
-export class Dialog extends React.Component<DialogProps, {}> {
+export class Dialog extends React.Component<DialogProps,void> {
     render() {
         return (
             <Modal

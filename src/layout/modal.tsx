@@ -7,7 +7,7 @@ export interface ModalState {
 
 export interface ModalProps {
     isOpen: boolean,
-    onClose(): void,
+    onClose(...args: any[]): void,
     children?: any,
     delay?: boolean,
     className?: string,
