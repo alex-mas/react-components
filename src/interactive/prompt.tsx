@@ -26,9 +26,12 @@ interface PromptComponentState{
     value: string
 }
 class PromptComponent extends React.PureComponent<PromptComponentProps,PromptComponentState>{
-    static defaultProps: {
-        isOpen: false,
-        value: ''
+    constructor(props){
+        super(props);
+        this.state = {
+            isOpen: false,
+            value: ''
+        }
     }
     closeModal = ()=>{
         this.setState(()=>({
@@ -62,6 +65,7 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
         );
     }
 }
+
 
 
 export interface PromptSystemState{

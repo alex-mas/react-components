@@ -28,6 +28,66 @@ class TestForm extends React.Component{
     }
 }
 
+
+test('Prompt should successfully behave when a string is provided',()=>{
+    class _TestCaller extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                result:undefined
+            }
+        }
+        callPrompt = (e)=>{
+            e.preventDefault();
+            console.log('Calling prompt: ', TestForm);
+            this.props.prompt('are you ready?').then((result)=>{
+                console.log('obtaining prompt results: ',result)
+                this.setState(()=>{
+                    result
+                });
+            })
+        }
+        render(){
+            return(
+                <div>
+                    <button id='caller-btn'onClick={this.callPrompt}>
+                        click me
+                    </button>
+                    {this.state.result === '' ? 
+                        <div id='results'>
+                            {this.state.result}
+                        </div>
+                        :
+                        null
+                    }
+                </div>
+            )
+        }
+    }
+    const TestCaller = withPrompt(_TestCaller);
+    let wrapper = mount(
+        <div>
+            <PromptSystem>
+                <TestCaller/>
+            </PromptSystem>
+        </div>
+    );
+    wrapper.find('#caller-btn').simulate('click');
+    expect(wrapper.find('#results').exists()).toBe(false);
+    //expect value nt to be set yet
+    setTimeout(()=>{
+        wrapper.find('.axc-prompt__actions').childAt(0).simulate('click');
+        setTimeout(()=>{
+            expect(wrapper.find('#results').exists()).toBe(true);
+            expect(wrapper.find('#results')).toEqual((
+                <div id='results'>
+                    {''}
+                </div>
+            ));
+        }, DELAY_TRESHOLD);
+    },DELAY_TRESHOLD);
+});
+
 test('Prompt should succesfully return the state of the form to the .then handler ', () => {
 
     class _TestCaller extends React.Component{
