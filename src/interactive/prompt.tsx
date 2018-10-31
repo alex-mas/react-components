@@ -14,9 +14,11 @@ type ReactCallable = React.ComponentClass<any> | React.SFCFactory<any>;
 
 
 
+export type PromptFunction =  (data: any)=>void
+
 interface PromptComponentProps{
     title: string;
-    onSubmit: (data: any)=>void;
+    onSubmit: PromptFunction;
 }
 
 interface PromptComponentState{
@@ -129,8 +131,8 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
 
 
 
-
-export function withPrompt<T>(Component: React.ComponentClass<T> | React.SFCFactory<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
+export type WithPromptProps<T> = {prompt:PromptFunction} & T;
+export function withPrompt<T extends {prompt:any}>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
     return (props: Exclude<T,'prompt'>)=> (
         <Prompt.Consumer>
             {prompt => <Component prompt={prompt} {...props} />}
