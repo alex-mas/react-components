@@ -7,7 +7,7 @@ const exec = require('child_process').exec;
 
 fs.copyFileSync('./package.json','./dist/package.json');
 
-process.chdir('/dist');
+process.chdir('dist');
 
 var child = exec('npm publish',
   function(err, stdout, stderr) {
