@@ -2,7 +2,7 @@
   "name": "@axc/react-components",
   "version": "0.1.0",
   "description": "react components created for personal use",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "npm run preBuild && npm run compile",
     "preBuild": "node tasks/preBuild.js",
@@ -10,7 +10,8 @@
     "genDocs": "node_modules/.bin/typedoc --out ./docs",
     "test": "jest --config=jest.config.json",
     "preRelease": "npm run build && npm run test",
-    "release": "npm run preRelease && npm run genDocs"
+    "release": "npm run preRelease && npm run genDocs",
+    "publish": "node tasts/publish.js"
   },
   "homepage": "https://github.com/alex-mas/react-components",
   "url": "TODO",
@@ -22,9 +23,6 @@
   "engines": {
     "node": ">= 6.4.0"
   },
-  "files": [
-    "dist/*"
-  ],
   "author": "alex_mas",
   "license": "MIT",
   "devDependencies": {

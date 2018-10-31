@@ -12,6 +12,7 @@ import * as countdown from './interactive/countdown';
 import * as keyBinder from './interactive/keyBinder';
 import * as notifications from './interactive/notifications';
 import * as stopwatch from './interactive/stopwatch';
+import * as prompt from './interactive/prompt';
 
 import * as i18string from './display/i18string';
 import * as phoneNumber from './display/phoneNumber';
