@@ -25,7 +25,6 @@ import PromptSystem,{withPrompt} from '../../../../dist/interactive/prompt';
 
 class _PromptButton extends React.Component{
     onClick = ()=>{
-        debugger;
         this.props.prompt('are you ready?')
         .then((response)=>{
             console.log('Prompt response: ', response);

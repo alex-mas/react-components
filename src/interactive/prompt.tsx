@@ -93,7 +93,6 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
     }
     prompt = (component: ReactCallable | string) => {
         return new Promise((resolve, reject) => {
-            debugger;
             this._resolve = resolve;
             this._reject = reject;
             this.setState(()=>({
@@ -108,9 +107,6 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
         }));
     }
     renderPrompt = (props)=>{
-        console.log('rendering prompt: ', props);
-        console.log(this.onSubmitPrompt);
-        debugger;
         if(props.component){
             if(typeof props.component === 'string'){
                 return(
