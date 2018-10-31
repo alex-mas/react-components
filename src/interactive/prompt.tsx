@@ -24,7 +24,7 @@ interface PromptComponentState{
     value: string
 }
 class PromptComponent extends React.PureComponent<PromptComponentProps,PromptComponentState>{
-    static defaultProps={
+    static defaultProps: {
         isOpen: false,
         value: ''
     }
@@ -48,11 +48,11 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
                 delay
                 onClose={this.onCancel}
             >
-                <div className='axc-dialog__title'>
+                <div className='axc-prompt__title'>
                     {this.props.title}
                 </div>
                 <input value={this.state.value} />
-                <div className='axc-dialog__options'>
+                <div className='axc-prompt__options'>
                     <button type='button' onClick={this.onConfirm}>Confirm</button>
                     <button type='button' onClick={this.onCancel}>Cancel</button>
                 </div>
@@ -130,7 +130,7 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
 
 
 
-export function withPrompt<T>(Component: React.ComponentClass<any> | React.SFCFactory<any>): React.SFC<Exclude<T,'prompt'>> {
+export function withPrompt<T>(Component: React.ComponentClass<T> | React.SFCFactory<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
     return (props: Exclude<T,'prompt'>)=> (
         <Prompt.Consumer>
             {prompt => <Component prompt={prompt} {...props} />}
