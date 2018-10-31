@@ -29,7 +29,7 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
     constructor(props){
         super(props);
         this.state = {
-            isOpen: false,
+            isOpen: true,
             value: ''
         }
     }
@@ -46,6 +46,12 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
         this.closeModal();
         this.props.onSubmit(this.state.value);
     }
+    onChangeValue= (e: React.FormEvent<HTMLInputElement>)=>{
+        const value = e.currentTarget.value;
+        this.setState(()=>({
+            value
+        }));
+    }
     render(){
         return (
             <Modal
@@ -56,7 +62,7 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
                 <div className='axc-prompt__title'>
                     {this.props.title}
                 </div>
-                <input value={this.state.value} />
+                <input value={this.state.value} onChange={this.onChangeValue} />
                 <div className='axc-prompt__options'>
                     <button type='button' onClick={this.onConfirm}>Confirm</button>
                     <button type='button' onClick={this.onCancel}>Cancel</button>
@@ -87,6 +93,7 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
     }
     prompt = (component: ReactCallable | string) => {
         return new Promise((resolve, reject) => {
+            debugger;
             this._resolve = resolve;
             this._reject = reject;
             this.setState(()=>({
@@ -100,15 +107,18 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
             promptComponent: null
         }));
     }
-    renderPrompt = ()=>{
-        if(this.state.promptComponent){
-            if(typeof this.state.promptComponent === 'string'){
+    renderPrompt = (props)=>{
+        console.log('rendering prompt: ', props);
+        console.log(this.onSubmitPrompt);
+        debugger;
+        if(props.component){
+            if(typeof props.component === 'string'){
                 return(
-                    <PromptComponent title={this.state.promptComponent} onSubmit={this.onSubmitPrompt}/>
+                    <PromptComponent title={props.component} onSubmit={this.onSubmitPrompt}/>
                 )
             }else{
                 return(
-                    <this.state.promptComponent
+                    <props.component
                         onSumbit={this.onSubmitPrompt}
                     />
                 ); 
@@ -125,7 +135,7 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
                 <Prompt.Provider value={this.prompt}>
                     {this.props.children}
                 </Prompt.Provider>
-                <this.renderPrompt/>
+                <this.renderPrompt component={this.state.promptComponent}/>
             </React.Fragment>
         );
     }

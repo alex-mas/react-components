@@ -19,6 +19,25 @@ import PhoneNumber from '../../../../dist/display/phoneNumber';
 import withTooltip from '../../../../dist/interactive/tooltip';
 import ProgressBar from '../../../../dist/display/progressBar';
 import TimedProgressBar from '../../../../dist/display/timedProgressBar';
+import PromptSystem,{withPrompt} from '../../../../dist/interactive/prompt';
+
+
+
+class _PromptButton extends React.Component{
+    onClick = ()=>{
+        debugger;
+        this.props.prompt('are you ready?')
+        .then((response)=>{
+            console.log('Prompt response: ', response);
+        })
+    }
+    render(){
+        return(
+            <button onClick={this.onClick}>{this.props.children}</button>
+        )
+    }
+}
+const PromptButton = withPrompt(_PromptButton);
 
 
 const defaultPredictionData = [
@@ -213,8 +232,8 @@ class App extends React.Component {
             myStringState: undefined
         };
     }
-    advanceProgres = () =>{
-        this.setState((prevState)=>({
+    advanceProgres = () => {
+        this.setState((prevState) => ({
             barProgress: prevState.barProgress + 1
         }));
     }
@@ -300,7 +319,8 @@ class App extends React.Component {
                 <div>
                     <PhoneNumber number={639999999} method='dashes' />
                 </div>
-                <TimedProgressBar duration={5000}/>
+                <TimedProgressBar duration={5000} />
+                <PromptButton>toggle prompt</PromptButton>
             </div>
         )
     }
@@ -310,7 +330,9 @@ class App extends React.Component {
 //    
 const connectedApp = (
     <NotificationSystem>
-        <App />
+        <PromptSystem>
+            <App />
+        </PromptSystem>
     </NotificationSystem>
 )
 const appRoot = document.getElementById('app');
