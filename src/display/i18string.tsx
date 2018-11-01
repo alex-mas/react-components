@@ -2,6 +2,90 @@ import React, { SFC } from 'react';
 import { titleCase, capitalizeFirst } from '../utils/wordUtils';
 
 
+
+export interface I18nContextData {
+    locale: ISO639Locale,
+    locales: ISO639Locales
+}
+
+export const I18nContext = React.createContext<I18nContextData>(undefined);
+
+export interface I18nSystemProps{
+    localeData: I18nContextData
+}
+
+/**
+ * . . .
+ * @example
+ * I18nSystem provides context that allows I18String to fetch the traductions, it Must be placed wrapping all components that use I18String, 
+ * since useing I18String outside an I18nSystem will result in errors.
+ * 
+ * Example is assuming you use redux to store locales, however, this is not mandatory, you can manage your state in any way you want as long as 
+ * it 
+ * 
+ * ```javascript
+ * 
+ * const myLocaleData = store.getState().localeData;
+ * 
+ * const yourApp = ()=>{
+ *      return(
+ *          <I18nSystem value={myLocaleData}>
+ *             <AppRouter/>
+ *          </I18nSystem> 
+ *      )
+ * }
+ * 
+ * ```
+ * 
+ * Multiple I18n:
+ * 
+ * You might want to keep a separate set of traductions for a part of the app, if that is the case, you can instantiate a I18nSystem wrapping 
+ * the section of the app you want with another I18nSystem as follows:
+ * 
+ * 
+ * ```javascript
+ * 
+ * const myLocaleData = store.getState().localeData;
+ * 
+ * const myPluginLocale = store.getState().pluginLocales;
+ * 
+ * const yourApp = ()=>{
+ *      return(
+ *          <I18nSystem value={myLocaleData}>
+ *              <AppRoutes/>
+ *              <I18nSystem value={myPluginLocale}>
+ *                  <PluginRoutes/>
+ *              </I18nSystem
+ *          </I18nSystem> 
+ *      )
+ * }
+ * 
+ * ```
+ * . . .
+ */ 
+export class I18nSystem extends React.PureComponent<I18nSystemProps,any>{
+    render(){
+        return(
+            <I18nContext.Provider value={this.props.localeData}>
+                {this.props.children}
+            </I18nContext.Provider>
+        )
+    }
+}
+
+// from https://stackoverflow.com/questions/49564342/typescript-2-8-remove-properties-in-one-type-from-another
+type Diff<T, U> = T extends U ? never : T;
+type ObjectDiff<T, U> = Pick<T, Diff<keyof T, keyof U>>;
+
+
+export function withI18n<T extends I18nContextData>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<ObjectDiff<T,I18nContextData>> {
+    return (props: ObjectDiff<T,I18nContextData>)=> (
+        <I18nContext.Consumer>
+            {localeData => <Component {...localeData} {...props} />}
+        </I18nContext.Consumer>
+    )
+}
+
 export interface LocaleLayout {
     [prop: string]: string
 }
@@ -13,6 +97,13 @@ export enum I18StringFormat {
     TITLECASE = 'titlecase'
 }
 
+
+/**
+ * 
+ * check https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes for more information
+ * 
+ * 
+ */ 
 export interface ISO639Locales {
     aa?: LocaleLayout
     ab?: LocaleLayout
@@ -390,12 +481,16 @@ export enum ISO639Locale {
 }
 
 
-export interface I18StringProps {
+
+export interface I18StringOwnProps{
     text: string,
-    locale: ISO639Locale,
-    locales: ISO639Locales | any,
     format?: I18StringFormat
 }
+export interface I18StringContextProps{
+    locale: ISO639Locale,
+    locales: ISO639Locales | any,
+}
+export type I18StringProps = I18StringOwnProps & I18StringContextProps;
 
 export interface I18StringState {
     string: string
@@ -403,7 +498,7 @@ export interface I18StringState {
 
 
 
-export class I18String extends React.Component<I18StringProps, I18StringState> {
+export class _I18String extends React.Component<I18StringProps, I18StringState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -463,5 +558,52 @@ export class I18String extends React.Component<I18StringProps, I18StringState> {
 
 }
 
+/**
+ * . . . 
+ * @example
+ * Usage of I18String is simple, after you have wrapped your app in the I18nSystem you can use them in place of regular strings
+ * 
+ * Note: I18String assumes the values provided and the keys of the locales are in english.
+ * 
+ * 
+ * 
+ * 
+ * ```javascript
+ * import I18String, {I18nSystem} from '@axc/react-components/display/i18string'
+ * 
+ * 
+ * 
+ * 
+ * const MyComponent = ()=>{
+ *      return( 
+ *         <I18String text='hello'/>
+ *      )
+ * }
+ * 
+ * 
+ * const MyApp = ()=>{
+ *      return(
+ *          <I18nSystem localeData={locale: 'es', locales:{es:{hello:'hola'}}}>
+ *              <MyComponent/>
+ *          </I18nSystem>
+ *      )
+ * }
+ * 
+ * ReactDOM.render(<MyApp/>, document.getElementById('app'));
+ * 
+ * (locale): output:
+ *  -----------------
+ * 
+ * (en): 'hello'
+ * 
+ * (es): 'hola'
+ * 
+ * 
+ * ```
+ * 
+ * 
+ * . . . 
+ */
+export const I18String = withI18n(_I18String);
 
 export default I18String;

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PromptComponentState | @axc/react-components</title>
+	<title>I18StringContextProps | @axc/react-components</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_interactive_prompt_.html">&quot;interactive/prompt&quot;</a>
+					<a href="../modules/_display_i18string_.html">&quot;display/i18string&quot;</a>
 				</li>
 				<li>
-					<a href="_interactive_prompt_.promptcomponentstate.html">PromptComponentState</a>
+					<a href="_display_i18string_.i18stringcontextprops.html">I18StringContextProps</a>
 				</li>
 			</ul>
-			<h1>Interface PromptComponentState</h1>
+			<h1>Interface I18StringContextProps</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PromptComponentState</span>
+						<span class="target">I18StringContextProps</span>
 					</li>
 				</ul>
 			</section>
@@ -81,35 +81,35 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-not-exported">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_interactive_prompt_.promptcomponentstate.html#isopen" class="tsd-kind-icon">is<wbr>Open</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="_interactive_prompt_.promptcomponentstate.html#value" class="tsd-kind-icon">value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_display_i18string_.i18stringcontextprops.html#locale" class="tsd-kind-icon">locale</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_display_i18string_.i18stringcontextprops.html#locales" class="tsd-kind-icon">locales</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="isopen" class="tsd-anchor"></a>
-					<h3>is<wbr>Open</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Open<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="locale" class="tsd-anchor"></a>
+					<h3>locale</h3>
+					<div class="tsd-signature tsd-kind-icon">locale<span class="tsd-signature-symbol">:</span> <a href="../enums/_display_i18string_.iso639locale.html" class="tsd-signature-type">ISO639Locale</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interactive/prompt.tsx:25</li>
+							<li>Defined in display/i18string.tsx:490</li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-					<a name="value" class="tsd-anchor"></a>
-					<h3>value</h3>
-					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="locales" class="tsd-anchor"></a>
+					<h3>locales</h3>
+					<div class="tsd-signature tsd-kind-icon">locales<span class="tsd-signature-symbol">:</span> <a href="_display_i18string_.iso639locales.html" class="tsd-signature-type">ISO639Locales</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interactive/prompt.tsx:26</li>
+							<li>Defined in display/i18string.tsx:491</li>
 						</ul>
 					</aside>
 				</section>
@@ -127,7 +127,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_animated_typewriter_.html">"animated/type<wbr>Writer"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_display_i18string_.html">"display/i18string"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -157,7 +157,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_notifications_.html">"interactive/notifications"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_interactive_prompt_.html">"interactive/prompt"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -197,50 +197,68 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_interactive_prompt_.promptcomponent.html" class="tsd-kind-icon">Prompt<wbr>Component</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_display_i18string_.i18stringformat.html" class="tsd-kind-icon">I18<wbr>String<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_display_i18string_.iso639locale.html" class="tsd-kind-icon">ISO639<wbr>Locale</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_interactive_prompt_.promptsystem.html" class="tsd-kind-icon">Prompt<wbr>System</a>
+						<a href="../classes/_display_i18string_.i18nsystem.html" class="tsd-kind-icon">I18n<wbr>System</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_interactive_prompt_.promptcomponentprops.html" class="tsd-kind-icon">Prompt<wbr>Component<wbr>Props</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../classes/_display_i18string_._i18string.html" class="tsd-kind-icon">_<wbr>I18<wbr>String</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_interactive_prompt_.promptcomponentstate.html" class="tsd-kind-icon">Prompt<wbr>Component<wbr>State</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.i18stringcontextprops.html" class="tsd-kind-icon">I18<wbr>String<wbr>Context<wbr>Props</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_interactive_prompt_.promptcomponentstate.html#isopen" class="tsd-kind-icon">is<wbr>Open</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_display_i18string_.i18stringcontextprops.html#locale" class="tsd-kind-icon">locale</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
-								<a href="_interactive_prompt_.promptcomponentstate.html#value" class="tsd-kind-icon">value</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_display_i18string_.i18stringcontextprops.html#locales" class="tsd-kind-icon">locales</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_interactive_prompt_.promptsystemstate.html" class="tsd-kind-icon">Prompt<wbr>System<wbr>State</a>
+						<a href="_display_i18string_.i18stringownprops.html" class="tsd-kind-icon">I18<wbr>String<wbr>Own<wbr>Props</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_interactive_prompt_.html#promptcontext" class="tsd-kind-icon">Prompt<wbr>Context</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.i18stringstate.html" class="tsd-kind-icon">I18<wbr>String<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.i18ncontextdata.html" class="tsd-kind-icon">I18n<wbr>Context<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.i18nsystemprops.html" class="tsd-kind-icon">I18n<wbr>System<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.iso639locales.html" class="tsd-kind-icon">ISO639<wbr>Locales</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_display_i18string_.localelayout.html" class="tsd-kind-icon">Locale<wbr>Layout</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../modules/_display_i18string_.html#diff" class="tsd-kind-icon">Diff</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_interactive_prompt_.html#promptfunction" class="tsd-kind-icon">Prompt<wbr>Function</a>
+						<a href="../modules/_display_i18string_.html#i18stringprops" class="tsd-kind-icon">I18<wbr>String<wbr>Props</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_interactive_prompt_.html#reactcallable" class="tsd-kind-icon">React<wbr>Callable</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="../modules/_display_i18string_.html#objectdiff" class="tsd-kind-icon">Object<wbr>Diff</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/_interactive_prompt_.html#prompt" class="tsd-kind-icon">Prompt</a>
+						<a href="../modules/_display_i18string_.html#i18string" class="tsd-kind-icon">I18<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_display_i18string_.html#i18ncontext" class="tsd-kind-icon">I18n<wbr>Context</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_interactive_prompt_.html#getpromptcontext" class="tsd-kind-icon">get<wbr>Prompt<wbr>Context</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_interactive_prompt_.html#withprompt" class="tsd-kind-icon">with<wbr>Prompt</a>
+						<a href="../modules/_display_i18string_.html#withi18n" class="tsd-kind-icon">with<wbr>I18n</a>
 					</li>
 				</ul>
 			</nav>

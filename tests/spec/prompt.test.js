@@ -39,9 +39,7 @@ test('Prompt should successfully behave when a string is provided',()=>{
         }
         callPrompt = (e)=>{
             e.preventDefault();
-            console.log('Calling prompt: ', TestForm);
             this.props.prompt('are you ready?').then((result)=>{
-                console.log('obtaining prompt results: ',result)
                 this.setState(()=>{
                     result
                 });
@@ -99,9 +97,7 @@ test('Prompt should succesfully return the state of the form to the .then handle
         }
         callPrompt = (e)=>{
             e.preventDefault();
-            console.log('Calling prompt: ', TestForm);
             this.props.prompt(TestForm).then((result)=>{
-                console.log('obtaining prompt results: ',result)
                 this.setState(()=>{
                     result
                 });

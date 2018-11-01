@@ -58,6 +58,7 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
                 isOpen={this.state.isOpen}
                 delay
                 onClose={this.onCancel}
+                className='axc-prompt__modal'
             >
                 <div className='axc-prompt__title'>
                     {this.props.title}
@@ -141,8 +142,8 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
 
 
 
-export type WithPromptProps<T> = {prompt:PromptFunction} & T;
-export function withPrompt<T extends {prompt:any}>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
+
+export function withPrompt<T extends {prompt: PromptFunction}>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
     return (props: Exclude<T,'prompt'>)=> (
         <Prompt.Consumer>
             {prompt => <Component prompt={prompt} {...props} />}
