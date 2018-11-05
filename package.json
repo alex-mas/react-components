@@ -10,9 +10,10 @@
     "genDocs": "node_modules/.bin/typedoc --out ./docs",
     "test": "jest --config=jest.config.json",
     "preRelease": "npm run build && npm run test",
-    "release": "npm run preRelease && npm run genDocs && node tasks/release.js",
-    "release:patch": "$npm_scripts_release type=patch",
-    "release:minor": "$npm_scripts_release type=minor"
+    "release": "npm run preRelease && node tasks/release.js",
+    "release:patch": "npm run preRelease && node tasks/release.js type=patch",
+    "release:minor": "npm run preRelease && node tasks/release.js type=minor",
+    "release:major": "npm run preRelease && node tasks/release.js typ=major"
   },
   "homepage": "https://github.com/alex-mas/react-components",
   "url": "TODO",
