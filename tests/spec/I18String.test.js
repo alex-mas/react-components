@@ -6,21 +6,6 @@ import I18String, { I18nSystem } from '../../dist/display/i18string';
 
 
 
-test('I18String should throw if instantiated outside an I18nSystem',()=>{
-    const MyComponent = () => {
-        return (
-            <div id='traduction'>
-                <I18String text='hello' />
-            </div>
-        );
-    }
-
-    expect(()=>{
-        const wrapper = mount(<MyComponent/>);
-    }).toThrow();
-});
-
-
 test('I18String should properly traduce hello to spanish while instantiated inside a I18nSystem that provides that translation', () => {
     const MyComponent = () => {
         return (
@@ -31,35 +16,77 @@ test('I18String should properly traduce hello to spanish while instantiated insi
         )
     }
 
-    const languages = ['es','fr','de','ca']
-    const localeData = { 
-        locale: 'es', 
-        locales: { 
-            es: { 
-                hello: 'hola' 
+    const languages = ['es', 'fr', 'de', 'ca', 'ja'];
+    const allLocalesData = {
+            es: {
+                hello: 'hola'
             },
             fr: {
                 hello: 'bonjour'
             },
-            de: {hello:'Hallo'},
-            ca: {hello: 'hola'},
-            ja: {hello: 'こんにちは'}
-            
-        } 
-    }
+            de: { hello: 'Hallo' },
+            ca: { hello: 'hola' },
+            ja: { hello: 'こんにちは' }
+    };
 
-    const MyApp = () => {
+
+    const MyApp = (props) => {
         return (
-            <I18nSystem localeData={localeData}>
+            <I18nSystem context={{
+                ...props
+            }}>
                 <MyComponent />
             </I18nSystem >
         );
     }
 
-    for(let language of languages){
-        localeData.locale = language;
-        const wrapper = mount(<MyApp />);
-        expect(wrapper.find('#traduction').text()).toEqual(localeData.locales[language].hello);
+    for (let language of languages) {
+        const wrapper = mount(<MyApp locale={language} localeData={allLocalesData[language]}/>);
+        expect(wrapper.find('#traduction').text()).toEqual(allLocalesData[language].hello);
+    }
+});
+
+
+
+test('I18String should call the custom function provided to the I18nSystem', () => {
+    const MyComponent = () => {
+        return (
+            <div id='traduction'>
+                <I18String text='hello' />
+            </div>
+
+        )
+    }
+
+    const languages = ['es', 'fr', 'de', 'ca']
+    const allLocalesData = {
+            es: {
+                hello: 'hola'
+            },
+            fr: {
+                hello: 'bonjour'
+            },
+            de: { hello: 'Hallo' },
+            ca: { hello: 'hola' },
+            ja: { hello: 'こんにちは' }
+    };
+
+    const myTranslator = (text)=>'only Khlav Kalash';
+
+    const MyApp = (props) => {
+        return (
+            <I18nSystem context={{
+                ...props,
+                translator: myTranslator
+            }}>
+                <MyComponent />
+            </I18nSystem >
+        );
+    }
+
+    for (let language of languages) {
+        const wrapper = mount(<MyApp locale={language} localeData={allLocalesData[language]}/>);
+        expect(wrapper.find('#traduction').text()).toEqual(myTranslator());
     }
 });
 

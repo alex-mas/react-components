@@ -5,13 +5,14 @@ import { titleCase, capitalizeFirst } from '../utils/wordUtils';
 
 export interface I18nContextData {
     locale: ISO639Locale,
-    locales: ISO639Locales
+    localeData: LocaleLayout,
+    translator?: (text:string)=>string
 }
 
 export const I18nContext = React.createContext<I18nContextData>(undefined);
 
-export interface I18nSystemProps{
-    localeData: I18nContextData
+export interface I18nSystemProps {
+    context: I18nContextData
 }
 
 /**
@@ -62,11 +63,11 @@ export interface I18nSystemProps{
  * 
  * ```
  * . . .
- */ 
-export class I18nSystem extends React.PureComponent<I18nSystemProps,any>{
-    render(){
-        return(
-            <I18nContext.Provider value={this.props.localeData}>
+ */
+export class I18nSystem extends React.PureComponent<I18nSystemProps, any>{
+    render() {
+        return (
+            <I18nContext.Provider value={this.props.context}>
                 {this.props.children}
             </I18nContext.Provider>
         )
@@ -78,10 +79,10 @@ type Diff<T, U> = T extends U ? never : T;
 type ObjectDiff<T, U> = Pick<T, Diff<keyof T, keyof U>>;
 
 
-export function withI18n<T extends I18nContextData>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<ObjectDiff<T,I18nContextData>> {
-    return (props: ObjectDiff<T,I18nContextData>)=> (
+export function withI18n<T extends I18nContextData>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<ObjectDiff<T, I18nContextData>> {
+    return (props: ObjectDiff<T, I18nContextData>) => (
         <I18nContext.Consumer>
-            {localeData => <Component {...localeData} {...props} />}
+            {localeContext => <Component {...localeContext} {...props} />}
         </I18nContext.Consumer>
     )
 }
@@ -103,196 +104,7 @@ export enum I18StringFormat {
  * check https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes for more information
  * 
  * 
- */ 
-export interface ISO639Locales {
-    aa?: LocaleLayout
-    ab?: LocaleLayout
-    ae?: LocaleLayout
-    af?: LocaleLayout
-    ak?: LocaleLayout
-    am?: LocaleLayout
-    an?: LocaleLayout
-    ar?: LocaleLayout
-    as?: LocaleLayout
-    av?: LocaleLayout
-    ay?: LocaleLayout
-    az?: LocaleLayout
-    ba?: LocaleLayout
-    be?: LocaleLayout
-    bg?: LocaleLayout
-    bh?: LocaleLayout
-    bi?: LocaleLayout
-    bm?: LocaleLayout
-    bn?: LocaleLayout
-    bo?: LocaleLayout
-    br?: LocaleLayout
-    bs?: LocaleLayout
-    ca?: LocaleLayout
-    ce?: LocaleLayout
-    ch?: LocaleLayout
-    co?: LocaleLayout
-    cr?: LocaleLayout
-    cs?: LocaleLayout
-    cu?: LocaleLayout
-    cv?: LocaleLayout
-    cy?: LocaleLayout
-    da?: LocaleLayout
-    de?: LocaleLayout
-    dv?: LocaleLayout
-    dz?: LocaleLayout
-    ee?: LocaleLayout
-    el?: LocaleLayout
-    en?: LocaleLayout
-    eo?: LocaleLayout
-    es?: LocaleLayout
-    et?: LocaleLayout
-    eu?: LocaleLayout
-    fa?: LocaleLayout
-    ff?: LocaleLayout
-    fi?: LocaleLayout
-    fj?: LocaleLayout
-    fo?: LocaleLayout
-    fr?: LocaleLayout
-    fy?: LocaleLayout
-    ga?: LocaleLayout
-    gd?: LocaleLayout
-    gl?: LocaleLayout
-    gn?: LocaleLayout
-    gu?: LocaleLayout
-    gv?: LocaleLayout
-    ha?: LocaleLayout
-    he?: LocaleLayout
-    hi?: LocaleLayout
-    ho?: LocaleLayout
-    hr?: LocaleLayout
-    ht?: LocaleLayout
-    hu?: LocaleLayout
-    hy?: LocaleLayout
-    hz?: LocaleLayout
-    ia?: LocaleLayout
-    id?: LocaleLayout
-    ie?: LocaleLayout
-    ig?: LocaleLayout
-    ii?: LocaleLayout
-    ik?: LocaleLayout
-    io?: LocaleLayout
-    is?: LocaleLayout
-    it?: LocaleLayout
-    iu?: LocaleLayout
-    ja?: LocaleLayout
-    jv?: LocaleLayout
-    ka?: LocaleLayout
-    kg?: LocaleLayout
-    ki?: LocaleLayout
-    kj?: LocaleLayout
-    kk?: LocaleLayout
-    kl?: LocaleLayout
-    km?: LocaleLayout
-    kn?: LocaleLayout
-    ko?: LocaleLayout
-    kr?: LocaleLayout
-    ks?: LocaleLayout
-    ku?: LocaleLayout
-    kv?: LocaleLayout
-    kw?: LocaleLayout
-    ky?: LocaleLayout
-    la?: LocaleLayout
-    lb?: LocaleLayout
-    lg?: LocaleLayout
-    li?: LocaleLayout
-    ln?: LocaleLayout
-    lo?: LocaleLayout
-    lt?: LocaleLayout
-    lu?: LocaleLayout
-    lv?: LocaleLayout
-    mg?: LocaleLayout
-    mh?: LocaleLayout
-    mi?: LocaleLayout
-    mk?: LocaleLayout
-    ml?: LocaleLayout
-    mn?: LocaleLayout
-    mr?: LocaleLayout
-    ms?: LocaleLayout
-    mt?: LocaleLayout
-    my?: LocaleLayout
-    na?: LocaleLayout
-    nb?: LocaleLayout
-    nd?: LocaleLayout
-    ne?: LocaleLayout
-    ng?: LocaleLayout
-    nl?: LocaleLayout
-    nn?: LocaleLayout
-    no?: LocaleLayout
-    nr?: LocaleLayout
-    nv?: LocaleLayout
-    ny?: LocaleLayout
-    oc?: LocaleLayout
-    oj?: LocaleLayout
-    om?: LocaleLayout
-    or?: LocaleLayout
-    os?: LocaleLayout
-    pa?: LocaleLayout
-    pi?: LocaleLayout
-    pl?: LocaleLayout
-    ps?: LocaleLayout
-    pt?: LocaleLayout
-    qu?: LocaleLayout
-    rm?: LocaleLayout
-    rn?: LocaleLayout
-    ro?: LocaleLayout
-    ru?: LocaleLayout
-    rw?: LocaleLayout
-    sa?: LocaleLayout
-    sc?: LocaleLayout
-    sd?: LocaleLayout
-    se?: LocaleLayout
-    sg?: LocaleLayout
-    si?: LocaleLayout
-    sk?: LocaleLayout
-    sl?: LocaleLayout
-    sm?: LocaleLayout
-    sn?: LocaleLayout
-    so?: LocaleLayout
-    sq?: LocaleLayout
-    sr?: LocaleLayout
-    ss?: LocaleLayout
-    st?: LocaleLayout
-    su?: LocaleLayout
-    sv?: LocaleLayout
-    sw?: LocaleLayout
-    ta?: LocaleLayout
-    te?: LocaleLayout
-    tg?: LocaleLayout
-    th?: LocaleLayout
-    ti?: LocaleLayout
-    tk?: LocaleLayout
-    tl?: LocaleLayout
-    tn?: LocaleLayout
-    to?: LocaleLayout
-    tr?: LocaleLayout
-    ts?: LocaleLayout
-    tt?: LocaleLayout
-    tw?: LocaleLayout
-    ty?: LocaleLayout
-    ug?: LocaleLayout
-    uk?: LocaleLayout
-    ur?: LocaleLayout
-    uz?: LocaleLayout
-    ve?: LocaleLayout
-    vi?: LocaleLayout
-    vo?: LocaleLayout
-    wa?: LocaleLayout
-    wo?: LocaleLayout
-    xh?: LocaleLayout
-    yi?: LocaleLayout
-    yo?: LocaleLayout
-    za?: LocaleLayout
-    zh?: LocaleLayout
-    zu?: LocaleLayout
-}
-
-
-
+ */
 export enum ISO639Locale {
     aa = "aa",
     ab = "ab",
@@ -482,13 +294,11 @@ export enum ISO639Locale {
 
 
 
-export interface I18StringOwnProps{
+export interface I18StringOwnProps {
     text: string,
     format?: I18StringFormat
 }
-export interface I18StringContextProps{
-    locale: ISO639Locale,
-    locales: ISO639Locales | any,
+export interface I18StringContextProps  extends I18nContextData{
 }
 export type I18StringProps = I18StringOwnProps & I18StringContextProps;
 
@@ -505,16 +315,21 @@ export class _I18String extends React.Component<I18StringProps, I18StringState> 
             string: this.getString()
         };
     }
-    searchTraduction(text: string, locale: ISO639Locale, locales: ISO639Locales | any): string {
-        if (locales[locale] && locales[locale][text]) {
-            return locales[locale][text];
+    searchTraduction(text: string, locale: ISO639Locale, localeData?: LocaleLayout): string {
+        if(this.props.translator){ return this.props.translator(text);}
+        if (locale === 'en') { return text; }
+        if (
+            localeData && typeof localeData === 'object' &&
+            localeData[text] && typeof localeData[text] === 'string'
+        ) {
+            return localeData[text];
         } else {
             return text;
         }
     }
     getString() {
         let string = this.props.text.toLocaleLowerCase();
-        string = this.searchTraduction(this.props.text, this.props.locale, this.props.locales);
+        string = this.searchTraduction(this.props.text, this.props.locale, this.props.localeData);
         if (this.props.format) {
             switch (this.props.format) {
                 case 'capitalizeFirst':
@@ -522,7 +337,7 @@ export class _I18String extends React.Component<I18StringProps, I18StringState> 
                     break;
                 case 'uppercase':
                     string = string.toUpperCase();
-                    break;
+                    break; 
                 case 'lowercase':
                     string = string.toLowerCase();
                     break;
@@ -531,8 +346,6 @@ export class _I18String extends React.Component<I18StringProps, I18StringState> 
                     break;
                 default:
                     break;
-
-
             }
         }
         return string;
