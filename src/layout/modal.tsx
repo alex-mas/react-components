@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-
+import ReactDOM from 'react-dom';
 export interface ModalState {
     isOpen: boolean,
     isInTransition: boolean
@@ -11,9 +11,9 @@ export interface ModalProps {
     children?: any,
     delay?: boolean,
     className?: string,
-    onOpen?(): void
+    onOpen?(): void,
+    root?: Element
 }
-
 
 
 
@@ -55,28 +55,39 @@ export class Modal extends React.Component<ModalProps, ModalState>{
             }
         }
     }
+    renderModal = ()=>{
+        let overlayClassName = 'axc-modal__overlay';
+        if (this.state.isInTransition) {
+            if (this.props.isOpen) {
+                overlayClassName += '--opening';
+
+            } else {
+                overlayClassName += '--closing';
+            }
+        }
+        let bodyClassName = 'axc-modal__body';
+        if (this.props.className) {
+            bodyClassName = this.props.className;
+        }
+        return (
+            <div className={overlayClassName} onClick={this.handleClickOutsideModal}>
+                <div className={bodyClassName} onClick={this.handleClickInsideModal}>
+                    {this.props.children}
+                </div>
+            </div>
+        );
+    }
     render() {
         if (this.props.isOpen || this.state.isInTransition) {
-            let overlayClassName = 'axc-modal__overlay';
-            if (this.state.isInTransition) {
-                if (this.props.isOpen) {
-                    overlayClassName += '--opening';
+            if(this.props.root){
+                return ReactDOM.createPortal(
+                    this.renderModal(),
+                    this.props.root
+                )
+            }else{
+                return this.renderModal();
+            }
 
-                } else {
-                    overlayClassName += '--closing';
-                }
-            }
-            let bodyClassName = 'axc-modal__body';
-            if (this.props.className) {
-                bodyClassName = this.props.className;
-            }
-            return (
-                <div className={overlayClassName} onClick={this.handleClickOutsideModal}>
-                    <div className={bodyClassName} onClick={this.handleClickInsideModal}>
-                        {this.props.children}
-                    </div>
-                </div>
-            );
         } else {
             return null;
         }

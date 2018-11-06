@@ -1,34 +1,32 @@
 import React, {SyntheticEvent} from 'react';
+import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
 
+//TODO: fix this mess
 
 
-export interface CustomNotificationProps {
-    message: string,
-    className: string
-}
 export interface _Notification {
     id: string,
     message: string,
     className?: string,
-    component?: React.ComponentClass<CustomNotificationProps>
+    component?: React.ComponentClass<NotificationComponentProps> | React.SFCFactory<NotificationComponentProps>
 }
 
 export interface Notifications {
-    notify(message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps>): void
-    removeNotification(id): (evt: React.SyntheticEvent<HTMLElement>)=>void
+    notify(message: string, className?: string, component?: React.ComponentClass<NotificationComponentProps>): void
+    dismissNotification(id): void
 }
 
 
 
 export interface NotificationComponentProps{
     notification: _Notification,
-    dismiss(id: string): (evt: React.SyntheticEvent<HTMLElement>)=>void
+    dismissNotification(id): void
 
 }
 export const NotificationComponent = (props: NotificationComponentProps) => {
     if (props.notification.component) {
-        return <props.notification.component message={props.notification.message} className={props.notification.className} />;
+        return <props.notification.component {...props} />;
     } else {
         const baseClass = props.notification.className ? props.notification.className : 'axc__notification';
         return (
@@ -36,7 +34,7 @@ export const NotificationComponent = (props: NotificationComponentProps) => {
                 <div className={baseClass + '__message'}>
                     {props.notification.message}
                 </div>
-                <button className={baseClass +'__button'} onClick={props.dismiss(props.notification.id)}>dismiss</button>
+                <button className={baseClass +'__button'} onClick={props.dismissNotification.bind(undefined,props.notification.id)}>dismiss</button>
             </div>
         );
     }
@@ -48,7 +46,8 @@ export const Notification: React.Context<Notifications> = React.createContext(un
 
 
 export interface NotificationSystemProps {
-
+    root?: Element
+    notificationComponent?: React.ComponentClass<NotificationComponentProps> | React.SFCFactory<NotificationComponentProps>
 }
 export interface NotificationSystemState {
     currentNotifications: _Notification[];
@@ -61,18 +60,16 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
             currentNotifications: []
         };
     }
-    onDismissNotification = (id:string): (evt: any)=>void=> {
-        return (evt: SyntheticEvent<HTMLButtonElement>)=>{
-            this.setState((prevState)=>{
-                return{
-                    currentNotifications:prevState.currentNotifications.filter((notification: _Notification)=>{
-                        notification.id !== id;
-                    })
-                }
-            });
-        }
+    onDismissNotification = (id:string):void=> {
+        this.setState((prevState)=>{
+            return{
+                currentNotifications:prevState.currentNotifications.filter((notification: _Notification)=>{
+                    notification.id !== id;
+                })
+            }
+        });
     }
-    onNotify = (message: string, className?: string, component?: React.ComponentClass<CustomNotificationProps>):void =>{
+    onNotify = (message: string, className?: string, component?: React.ComponentClass<NotificationComponentProps>):void =>{
         this.setState((prevState)=>{
             return{
                 currentNotifications: [...prevState.currentNotifications, {
@@ -87,18 +84,37 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
     getNotificationContext():Notifications{
         return{
             notify: this.onNotify,
-            removeNotification: this.onDismissNotification
+            dismissNotification: this.onDismissNotification
         }
+    }
+    renderNotifications = () =>{
+        if(this.props.root && this.props.notificationComponent){
+            return ReactDOM.createPortal(
+                this.state.currentNotifications.map((notification: _Notification)=>{
+                    if(notification.component){
+                        return <notification.component notification={notification} dismissNotification={this.onDismissNotification}/>
+                    }else{
+                        return <this.props.notificationComponent notification={notification} dismissNotification={this.onDismissNotification}/>
+                    }
+                 
+                }),
+                this.props.root
+            );
+        }else{
+            return this.state.currentNotifications.map((notification: _Notification)=>{
+                return(
+                    <NotificationComponent notification={notification} dismissNotification={this.onDismissNotification}/>
+                );
+            })
+        }
+        
+
     }
     render() {
         return (
             <Notification.Provider value={this.getNotificationContext()}>
                 {this.props.children}
-                {this.state.currentNotifications.map((notification: _Notification)=>{
-                    return(
-                        <NotificationComponent notification={notification} dismiss={this.onDismissNotification}/>
-                    );
-                })}
+                {this.renderNotifications()}
             </Notification.Provider>
         )
     }
@@ -113,7 +129,7 @@ export interface WithNotificationsHOC {
 export const WithNotifications: WithNotificationsHOC = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {
     return (props: any) => (
         <Notification.Consumer>
-            {notification=> <Component notify={notification.notify} removeNotfication={notification.removeNotification} {...props} />}
+            {notification=> <Component notify={notification.notify} dismissNotification={notification.dismissNotification} {...props} />}
         </Notification.Consumer>
     )
 }
