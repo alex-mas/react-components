@@ -193,17 +193,14 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         return suggestions;
     }
     onClickSuggestion = (suggestionIndex: number) => {
-        console.log('clicked a suggestion, changing the value');
         this.onChange(this.state.suggestions[suggestionIndex]);
     }
     onHoverSuggestion = (suggestionIndex: number) => {
-        console.log('hovered over a suggestion, changing the selected suggestion');
         this.setState((prevState) => ({
             selectedSuggestion: suggestionIndex
         }));
     }
     onKeyDown(event: React.KeyboardEvent<any>): void {
-        console.log('handling key down events', event);
         if (this.state.focused) {
             //key down
             if (event.keyCode === 40 && this.state.selectedSuggestion < this.state.suggestions.length - 1) {

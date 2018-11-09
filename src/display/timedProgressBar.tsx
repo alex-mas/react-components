@@ -26,10 +26,8 @@ export class TimedProgressBar extends React.Component<TimedProgressBarProps, Tim
     updateProgressBar = ()=>{
 
         this.setState((prevState)=>{
-            console.log('updating bar progress');
             const now = Date.now();
             const dt = now -prevState.lastUpdated;
-            console.log('DT is: ', dt);
             if(prevState.currentProgress > 100){
                 clearInterval(prevState.intervalId);
                 return{

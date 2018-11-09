@@ -42,7 +42,6 @@ export class Router extends React.Component<RouterProps, RouterState>{
         }
     }
     render() {
-        console.log('routes re-rendered');
         const matchingChildren = React.Children.map(this.props.children, (child: ReactChild, i: number) => {
             if (typeof child === 'object') {
                 const routertContext = { state: this.state, props: this.props };

@@ -100,7 +100,6 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
                 //@ts-ignore
                 const tooltipArea = this.tooltipDOM.getBoundingClientRect();
                 //mouse is outside the tooltip
-                console.log('Event: ', { x: event.clientX, y: event.clientY }, tooltipArea);
                 if (
                     event.clientX < tooltipArea.left ||
                     event.clientX > tooltipArea.right ||

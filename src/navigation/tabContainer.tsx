@@ -65,7 +65,6 @@ export class TabContainer extends React.Component<TabContainerProps, TabContaine
         }
     }
     render() {
-        console.log('tab container re-rendered');
         return (
             <div className={'axc-tab-container'+ (this.props.className ? ' '+this.props.className : '')}>
                 <div className='axc-tab-container__links'>

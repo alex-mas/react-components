@@ -168,17 +168,14 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
         }
     }
     onClickOption = (optionIndex: number, optionValue: string) => {
-        console.log('clicked a option, changing the value');
         this.props.onSelect(optionIndex, optionValue);
     }
     onHoverOption = (optionIndex: number, optionValue: string) => {
-        console.log('hovered over a option, changing the selected option');
         this.setState((prevState) => ({
             selectedOption: optionIndex
         }));
     }
     onKeyDown(event: React.KeyboardEvent<any>): void {
-        console.log('handling key down events', event);
         if (this.state.focused) {
             if (event.keyCode === 40 && this.state.selectedOption < this.props.options.length - 1) {
                 this.setState((prevState) => ({

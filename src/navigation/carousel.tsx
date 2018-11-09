@@ -97,7 +97,6 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
         }
     }
     render() {
-        console.log('carousel re-rendedred');
         return (
             <div className="axc-carousel">
                 <button className="axc-carousel__previous" onClick={this.previous}>
@@ -206,7 +205,6 @@ export interface CarouselImageProps extends React.Attributes {
 
 
 export const CarouselImage: React.SFC<CarouselImageProps> = (props: CarouselImageProps)=> {
-    console.log('Carousel image props: ', props);
     return (<div className='carousel-image__container'>
         <img className='carousel-image__image' src={props.src} alt={props.alt} />
         <div className='carousel-image__text'>
