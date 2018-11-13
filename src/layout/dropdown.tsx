@@ -1,5 +1,4 @@
 import React, { CSSProperties, Children } from 'react';
-import uuid from 'uuid/v4';
 
 const defaultPredictionData: string[] = [];
 
