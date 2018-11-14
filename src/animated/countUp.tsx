@@ -15,7 +15,7 @@ export interface CountUpState {
     currentStep: number,
     stepInterval: any,
 }
-//TODO: Make the number increment non linear or atleast let it depend on a prop
+
 export class CountUp extends React.Component<CountUpProps, CountUpState>{
     constructor(props){
         super(props);
