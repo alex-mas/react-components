@@ -121,7 +121,7 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
             }else{
                 return(
                     <props.component
-                        onSumbit={this.onSubmitPrompt}
+                        onSubmit={this.onSubmitPrompt}
                         {...this.state.componentProps}
                     />
                 ); 
