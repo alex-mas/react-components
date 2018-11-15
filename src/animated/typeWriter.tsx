@@ -79,7 +79,6 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
             setTimeout(this.renderCharacter, this.getNextTimeDelay());
             this.setState((prevState) => {
                 const currentCharacter = prevState.currentCharacter+1;
-                console.log('Updating char: ',prevState.currentCharacter,currentCharacter);
                 return{
                     currentCharacter
                 }
@@ -94,7 +93,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         setTimeout(this.renderCharacter, this.getNextTimeDelay());
     }
     render() {
-        console.log('Currently displaying: ', this.getDisplayString(this.props.string, this.state.currentCharacter));
+
         return this.getDisplayString(this.props.string, this.state.currentCharacter);
     }
 }

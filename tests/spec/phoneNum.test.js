@@ -23,7 +23,7 @@ test('PhoneNumber should by default render with spaces between each sequence of 
     }
 });
 
-test('PhoneNumber should render with spaces between each sequence of three numbers if the method equals "spaces" ',()=>{
+test('PhoneNumber should render with spaces between each sequence of three numbers if the separator string is a white space ',()=>{
     const wrapper = mount(<PhoneNumber number={999999999} separator=' '/>);
     const separators = wrapper.find('.axc__phone-num__separator');
     expect(separators.length).toBe(2);
@@ -32,7 +32,7 @@ test('PhoneNumber should render with spaces between each sequence of three numbe
     }
 });
 
-test('PhoneNumber should render with dashes between each sequence of three numbers if the method equals "dashes" ',()=>{
+test('PhoneNumber should render with dashes between each sequence of three numbers if the separator string is a dash ',()=>{
     const wrapper = mount(<PhoneNumber number={999999999} separator='-'/>);
     const separators = wrapper.find('.axc__phone-num__separator');
     expect(separators.length).toBe(2);
