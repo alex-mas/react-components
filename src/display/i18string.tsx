@@ -303,17 +303,14 @@ export interface I18StringContextProps  extends I18nContextData{
 export type I18StringProps = I18StringOwnProps & I18StringContextProps;
 
 export interface I18StringState {
-    string: string
 }
 
 
 
-export class _I18String extends React.Component<I18StringProps, I18StringState> {
+export class _I18String extends React.PureComponent<I18StringProps, I18StringState> {
     constructor(props) {
         super(props);
-        this.state = {
-            string: this.getString()
-        };
+
     }
     searchTraduction(text: string, locale: ISO639Locale, localeData?: LocaleLayout): string {
         if(this.props.translator){ return this.props.translator(text);}
@@ -352,7 +349,7 @@ export class _I18String extends React.Component<I18StringProps, I18StringState> 
 
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.text === this.props.text && this.props.locale === nextProps.locale && this.state.string === nextState.string && this.props.format === nextProps.format) {
+        if (nextProps.text === this.props.text && this.props.locale === nextProps.locale && this.props.format === nextProps.format) {
             return false;
         } else {
             return true;
@@ -366,7 +363,7 @@ export class _I18String extends React.Component<I18StringProps, I18StringState> 
 
     }
     render() {
-        return this.state.string;
+        return this.getString();
     }
 
 }

@@ -26,7 +26,7 @@ interface PromptComponentState{
     value: string
 }
 class PromptComponent extends React.PureComponent<PromptComponentProps,PromptComponentState>{
-    constructor(props){
+    constructor(props: PromptComponentProps){
         super(props);
         this.state = {
             isOpen: true,
