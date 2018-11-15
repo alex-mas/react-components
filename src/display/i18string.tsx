@@ -348,24 +348,6 @@ export class _I18String extends React.PureComponent<I18StringProps, I18StringSta
         return string;
 
     }
-    shouldComponentUpdate(nextProps, nextState) {
-        if (
-            nextProps.text === this.props.text && 
-            this.props.locale === nextProps.locale && 
-            this.props.format === nextProps.format
-        ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const string = this.getString();
-        if (string !== prevState.string) {
-            this.setState(() => ({ string }));
-        }
-
-    }
     render() {
         return this.getString();
     }
