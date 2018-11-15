@@ -41,7 +41,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
     }
     shouldComponentUpdate(nextProps: TypeWriterProps, nextState: TypeWriterState) {
         if (
-            this.props.string !== nextProps.string
+            this.props.string !== nextProps.string || this.state.currentCharacter !== nextState.currentCharacter
         ) {
             return true;
         } else {
@@ -77,9 +77,13 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
     renderCharacter = () => {
         if (this.state.currentCharacter <= this.props.string.length - 1) {
             setTimeout(this.renderCharacter, this.getNextTimeDelay());
-            this.setState((prevState) => ({
-                currentCharacter: prevState.currentCharacter + 1
-            }));
+            this.setState((prevState) => {
+                const currentCharacter = prevState.currentCharacter+1;
+                console.log('Updating char: ',prevState.currentCharacter,currentCharacter);
+                return{
+                    currentCharacter
+                }
+            });
         }else{
             if(this.props.onFinishAnimation){
                 this.props.onFinishAnimation();
@@ -90,6 +94,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         setTimeout(this.renderCharacter, this.getNextTimeDelay());
     }
     render() {
+        console.log('Currently displaying: ', this.getDisplayString(this.props.string, this.state.currentCharacter));
         return this.getDisplayString(this.props.string, this.state.currentCharacter);
     }
 }
