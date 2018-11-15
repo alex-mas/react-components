@@ -90,5 +90,5 @@ sass.render({
 
 
 fs.copyFileSync('./package.json','./dist/package.json');
-fs.copyFileSync('./LICECNSE', './dist/LICECNSE');
+fs.copyFileSync('./LICENSE', './dist/LICENSE');
 fs.copyFileSync('./README.md','./dist/README.md');
