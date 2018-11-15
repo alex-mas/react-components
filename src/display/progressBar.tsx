@@ -12,6 +12,7 @@ export interface ProgressBarState {
 
 }
 
+//TODO: Fix bug that happens when width changes very fast and makes the progress bar glitch 
 export class ProgressBar extends React.PureComponent<ProgressBarProps, ProgressBarState>{
     render() {
         let progress = this.props.progress;

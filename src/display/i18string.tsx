@@ -6,7 +6,7 @@ import { titleCase, capitalizeFirst } from '../utils/wordUtils';
 export interface I18nContextData {
     locale: ISO639Locale,
     localeData: LocaleLayout,
-    translator?: (text:string)=>string
+    translator?: (text:string, locale: ISO639Locale)=>string
 }
 
 export const I18nContext = React.createContext<I18nContextData>(undefined);
@@ -313,7 +313,7 @@ export class _I18String extends React.PureComponent<I18StringProps, I18StringSta
 
     }
     searchTraduction(text: string, locale: ISO639Locale, localeData?: LocaleLayout): string {
-        if(this.props.translator){ return this.props.translator(text);}
+        if(this.props.translator){ return this.props.translator(text, locale);}
         if (locale === 'en') { return text; }
         if (
             localeData && typeof localeData === 'object' &&
@@ -349,7 +349,11 @@ export class _I18String extends React.PureComponent<I18StringProps, I18StringSta
 
     }
     shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.text === this.props.text && this.props.locale === nextProps.locale && this.props.format === nextProps.format) {
+        if (
+            nextProps.text === this.props.text && 
+            this.props.locale === nextProps.locale && 
+            this.props.format === nextProps.format
+        ) {
             return false;
         } else {
             return true;

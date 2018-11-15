@@ -11,7 +11,8 @@ export interface TimeAgoState {
     timeP: number
 };
 
-export class TimeAgo extends React.Component<TimeAgoProps, any> {
+//TODO: Get rid of getting derived state from props
+export class TimeAgo extends React.PureComponent<TimeAgoProps, any> {
     constructor(props){
         super(props);
         let timeP: TimeAgoPoint;

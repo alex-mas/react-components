@@ -11,7 +11,6 @@ export interface TypeWriterProps {
 }
 export interface TypeWriterState {
     currentCharacter: number
-    displayString: string
     timer?: NodeJS.Timer
 }
 
@@ -30,7 +29,6 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         } else {
             this.state = {
                 currentCharacter: 0,
-                displayString: '',
                 timer: undefined
             }
         }
@@ -43,8 +41,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
     }
     shouldComponentUpdate(nextProps: TypeWriterProps, nextState: TypeWriterState) {
         if (
-            this.props.string !== nextProps.string ||
-            this.state.displayString !== nextState.displayString
+            this.props.string !== nextProps.string
         ) {
             return true;
         } else {
@@ -53,8 +50,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
     }
     _resetState = () => {
         this.setState(() => ({
-            currentCharacter: 0,
-            displayString: ''
+            currentCharacter: 0
         }));
     }
     componentWillUnmount() {
@@ -74,11 +70,14 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
             return this.props.timePerCharacter + (this.props.variance * (Math.random() * 2 - 1));
         }
     }
+    getDisplayString(string: string, upTo: number){
+        if(!string){return null;}
+        return string.substring(0,upTo);
+    }
     renderCharacter = () => {
         if (this.state.currentCharacter <= this.props.string.length - 1) {
             setTimeout(this.renderCharacter, this.getNextTimeDelay());
             this.setState((prevState) => ({
-                displayString: prevState.displayString + this.props.string.charAt(this.state.currentCharacter),
                 currentCharacter: prevState.currentCharacter + 1
             }));
         }else{
@@ -91,7 +90,7 @@ export class TypeWriter extends React.Component<TypeWriterProps, TypeWriterState
         setTimeout(this.renderCharacter, this.getNextTimeDelay());
     }
     render() {
-        return this.state.displayString ? this.state.displayString : null;
+        return this.getDisplayString(this.props.string, this.state.currentCharacter);
     }
 }
 
