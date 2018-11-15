@@ -10,15 +10,15 @@ export function getPromptContext<T>(defualtContext?: T): React.Context<PromptCon
     return React.createContext(undefined);
 }
 
-type ReactCallable = React.ComponentClass<any> | React.SFCFactory<any>;
+type ReactCallable<T> = React.ComponentClass<T> | React.SFCFactory<T>;
 
 
 
 export type PromptFunction =  (data: any)=>void
 
-interface PromptComponentProps{
-    title: string;
+export interface PromptComponentProps{
     onSubmit: PromptFunction;
+    [x:string]: any;
 }
 
 interface PromptComponentState{
@@ -75,10 +75,13 @@ class PromptComponent extends React.PureComponent<PromptComponentProps,PromptCom
 
 
 
-export interface PromptSystemState{
-    promptComponent: ReactCallable | string;
-}
+export type PromptSystemCallable = ReactCallable<PromptComponentProps>;
 
+
+export interface PromptSystemState{
+    promptComponent: PromptSystemCallable | string;
+    componentProps?: any;
+}
 
 
 export class PromptSystem extends React.Component<any, PromptSystemState>{
@@ -92,22 +95,24 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
             promptComponent: null
         }
     }
-    prompt = (component: ReactCallable | string) => {
+    prompt = (component: PromptSystemCallable  | string, componentProps?: any) => {
         return new Promise((resolve, reject) => {
             this._resolve = resolve;
             this._reject = reject;
             this.setState(()=>({
-                promptComponent: component
+                promptComponent: component,
+                componentProps
             }));
         });
     }
     onSubmitPrompt = (data:any)=>{
         this._resolve(data);
         this.setState(()=>({
-            promptComponent: null
+            promptComponent: null,
+            componentProps: undefined
         }));
     }
-    renderPrompt = (props)=>{
+    renderPrompt = (props: {component: PromptSystemCallable | string})=>{
         if(props.component){
             if(typeof props.component === 'string'){
                 return(
@@ -117,6 +122,7 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
                 return(
                     <props.component
                         onSumbit={this.onSubmitPrompt}
+                        {...this.state.componentProps}
                     />
                 ); 
             }
