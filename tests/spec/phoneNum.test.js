@@ -16,7 +16,7 @@ test('PhoneNumber shouldn\'t render null if passed a number and no method', () =
 
 test('PhoneNumber should by default render with spaces between each sequence of three numbers',()=>{
     const wrapper = mount(<PhoneNumber number={999999999}/>);
-    const separators = wrapper.find('.axc__phone__separator');
+    const separators = wrapper.find('.axc__phone-num__separator');
     expect(separators.length).toBe(2);
     for(let i = 0; i < 2; i++){
         expect(separators.at(i).text()).toBe(' ');
@@ -24,8 +24,8 @@ test('PhoneNumber should by default render with spaces between each sequence of 
 });
 
 test('PhoneNumber should render with spaces between each sequence of three numbers if the method equals "spaces" ',()=>{
-    const wrapper = mount(<PhoneNumber number={999999999} method={'spaces'}/>);
-    const separators = wrapper.find('.axc__phone__separator');
+    const wrapper = mount(<PhoneNumber number={999999999} separator=' '/>);
+    const separators = wrapper.find('.axc__phone-num__separator');
     expect(separators.length).toBe(2);
     for(let i = 0; i < 2; i++){
         expect(separators.at(i).text()).toBe(' ');
@@ -33,19 +33,19 @@ test('PhoneNumber should render with spaces between each sequence of three numbe
 });
 
 test('PhoneNumber should render with dashes between each sequence of three numbers if the method equals "dashes" ',()=>{
-    const wrapper = mount(<PhoneNumber number={999999999} method={'dashes'}/>);
-    const separators = wrapper.find('.axc__phone__separator');
+    const wrapper = mount(<PhoneNumber number={999999999} separator='-'/>);
+    const separators = wrapper.find('.axc__phone-num__separator');
     expect(separators.length).toBe(2);
     for(let i = 0; i < 2; i++){
         expect(separators.at(i).text()).toBe('-');
     }
 });
 
-test('PhoneNumber should render empty spans with the custom provided class if method is neither "spaces" or "dashes"',()=>{
-    const wrapper = mount(<PhoneNumber number={999999999} method={'myCustomSeparator'}/>);
+test('PhoneNumber should render white space spans with the custom provided class if spearatorClass is provided and separator is not',()=>{
+    const wrapper = mount(<PhoneNumber number={999999999} separatorClass='myCustomSeparator'/>);
     const separators = wrapper.find('.myCustomSeparator');
     expect(separators.length).toBe(2);
     for(let i = 0; i < 2; i++){
-        expect(separators.at(i).children().length).toBe(0);
+        expect(separators.at(i).text()).toBe(' ');
     }
 });

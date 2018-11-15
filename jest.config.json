@@ -7,6 +7,7 @@
         "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
-    "^.+\\.css$": "identity-obj-proxy"
-  }
+        "^.+\\.css$": "identity-obj-proxy"
+    },
+    "testURL": "http://localhost/"
 }
