@@ -1,5 +1,5 @@
 import React, { StatelessComponent, ReactNode } from 'react';
-import Modal from '../layout/modal';
+import Modal from './modal';
 
 
 export type PromptContext<T> = (component: ReactNode) => Promise<T>;

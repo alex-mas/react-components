@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
-import {getTimeValues, TimePoint} from  '../utils/time';
+import {getTimeValues, TimePoint} from  './utils/time';
 
 export enum CountdownStatus {
     ACTIVE = 'ACTIVE',

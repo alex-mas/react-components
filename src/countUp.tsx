@@ -1,5 +1,5 @@
 import React from 'react';
-import EasingFunctions from '../utils/easing';
+import EasingFunctions from './utils/easing';
 
 
 

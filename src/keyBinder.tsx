@@ -35,7 +35,7 @@ export class KeyBinder extends React.Component<KeyBinderProps, KeyBinderState> {
     }
     onKeyUp: EventListener = (event: any): any => {
         for (let i = 0; i < this.props.keys.length; i++) {
-            if (this.props.keys.includes(event.key)) {
+            if (this.props.keys[i].includes(event.key)) {
                 return this.props.onTrigger();
             }
         }

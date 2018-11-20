@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import { titleCase, capitalizeFirst } from '../utils/wordUtils';
+import { titleCase, capitalizeFirst } from './utils/wordUtils';
 
 
 

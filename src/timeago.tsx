@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTimeValues, TimePoint, getTimeAgo, TimeAgoPoint } from '../utils/time';
+import { getTimeValues, TimePoint, getTimeAgo, TimeAgoPoint } from './utils/time';
 
 export interface TimeAgoProps {
     time: number,
