@@ -2,3 +2,4 @@ node_modules/
 testProj/dist/
 dist/
 __snapshots__/
+*.log
