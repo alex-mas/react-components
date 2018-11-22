@@ -2,8 +2,6 @@ import React, {SyntheticEvent} from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
 
-//TODO: fix this mess
-
 
 export interface _Notification {
     id: string,
@@ -48,6 +46,7 @@ export const Notification: React.Context<Notifications> = React.createContext(un
 export interface NotificationSystemProps {
     root?: Element
     notificationComponent?: React.ComponentClass<NotificationComponentProps> | React.SFCFactory<NotificationComponentProps>
+
 }
 export interface NotificationSystemState {
     currentNotifications: _Notification[];

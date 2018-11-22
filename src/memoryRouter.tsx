@@ -254,7 +254,11 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
                 routeParams[paramLabel] = routeParamValues[index];
             })
             childPath = child.props.path.slice(0, child.props.path.lastIndexOf('/') + 1);
-            return React.cloneElement(child, { routeParams });
+
+            return React.cloneElement(child, { 
+                routeParams,
+                history: this.getMemoryHistory()
+            });
         } else {
             return child;
         }

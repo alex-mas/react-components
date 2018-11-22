@@ -1,4 +1,5 @@
 import React, { StatelessComponent, ReactNode } from 'react';
+import ReactDOM from 'react-dom';
 import Modal from './modal';
 
 
@@ -83,8 +84,12 @@ export interface PromptSystemState{
     componentProps?: any;
 }
 
+export interface PromptSystemProps{
+    root?: Element
+}
 
-export class PromptSystem extends React.Component<any, PromptSystemState>{
+
+export class PromptSystem extends React.Component<PromptSystemProps, PromptSystemState>{
     _resolve: Function;
     _reject: Function
     constructor(props: any) {
@@ -138,7 +143,16 @@ export class PromptSystem extends React.Component<any, PromptSystemState>{
                 <Prompt.Provider value={this.prompt}>
                     {this.props.children}
                 </Prompt.Provider>
-                <this.renderPrompt component={this.state.promptComponent}/>
+                {
+                    this.props.root ? 
+                    ReactDOM.createPortal(
+                        <this.renderPrompt component={this.state.promptComponent}/>,
+                        this.props.root
+                    )
+                    :
+                    <this.renderPrompt component={this.state.promptComponent}/>
+                }
+               
             </React.Fragment>
         );
     }

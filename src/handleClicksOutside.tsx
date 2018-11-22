@@ -7,7 +7,7 @@ interface P {
 
 
 export class HandleClicksOutside extends React.PureComponent<P, any> {
-    childrenRefs: React.Ref<HTMLElement>[];
+    childrenRefs: React.Ref<HTMLElement>[] = [];
     componentDidMount(){
         window.addEventListener("click",this.handleClicksOutside);
        
@@ -29,8 +29,11 @@ export class HandleClicksOutside extends React.PureComponent<P, any> {
         }
     }
     render(){
+        this.childrenRefs = [];
         //get the refs of the children components
         return React.Children.map(this.props.children,(child,index)=>{
+            //@ts-ignore
+            this.childrenRefs.push(child.ref);
             return child;
         })
     }
