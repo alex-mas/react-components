@@ -8,7 +8,8 @@ export interface CountUpProps {
     end: number
     timeSteps: number,
     timeStepDuration:number,
-    easingFunction: string
+    easingFunction: string,
+    decimalPlaces?: number
 }
 
 export interface CountUpState {
@@ -38,9 +39,19 @@ export class CountUp extends React.Component<CountUpProps, CountUpState>{
             currentStep: 0,
         }));
     }
-    getEasingValue = (current, steps)=>{
-        const progress = EasingFunctions[this.props.easingFunction](current/steps);
-        return this.props.start + (this.props.end-this.props.end)*progress;
+    getEasingValue = (current: number, steps: number, decimals?: number)=>{
+        let progress;
+        if(!EasingFunctions[this.props.easingFunction]){
+            progress = EasingFunctions.linear(current/steps);
+        }else{
+            progress = EasingFunctions[this.props.easingFunction](current/steps);
+        }
+        const value = this.props.start + Math.abs((this.props.end-this.props.start))*progress;
+        if(decimals && decimals >=0){
+            return value.toFixed(decimals);
+        }else{
+            return value.toFixed(2);
+        }
     }
     timeStep = ()=>{
         if(this.state.currentStep< this.props.timeSteps){
@@ -56,7 +67,7 @@ export class CountUp extends React.Component<CountUpProps, CountUpState>{
 
     }
     render(){
-        return this.getEasingValue( this.state.currentStep, this.props.timeSteps);
+        return this.getEasingValue( this.state.currentStep, this.props.timeSteps, this.props.decimalPlaces);
     }
 }
 

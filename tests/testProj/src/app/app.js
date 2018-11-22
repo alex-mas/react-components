@@ -1,37 +1,38 @@
 
 import React, { Children } from 'react';
 import ReactDOM from 'react-dom';
-import AutoComplete from '../../../../dist/interactive/autoComplete';
-import Modal from '../../../../dist/layout/modal';
-import Carousel, { LinkedCarousel, CarouselImage } from '../../../../dist/navigation/carousel';
-import Router from '../../../../dist/navigation/router';
-import MemoryRouter, { MemoryLink, MemoryRoute } from '../../../../dist/navigation/memoryRouter';
-import { Tab, TabContainer } from '../../../../dist/navigation/tabContainer';
-import Dropdown from '../../../../dist/layout/dropdown';
-import Dialog from '../../../../dist/layout/dialog';
-import Countdown from '../../../../dist/interactive/countdown';
-import Stopwatch from '../../../../dist/interactive/stopwatch';
-import TimeAgo from '../../../../dist/display/timeago';
-import TypeWriter from '../../../../dist/animated/typeWriter';
-import CountUp from '../../../../dist/animated/countUp';
-import { NotificationSystem, WithNotifications } from '../../../../dist/interactive/notifications';
-import PhoneNumber from '../../../../dist/display/phoneNumber';
-import withTooltip from '../../../../dist/interactive/tooltip';
-import ProgressBar from '../../../../dist/display/progressBar';
-import TimedProgressBar from '../../../../dist/display/timedProgressBar';
-import PromptSystem,{withPrompt} from '../../../../dist/interactive/prompt';
+import AutoComplete from '../../../../dist/autoComplete';
+import Modal from '../../../../dist/modal';
+import Carousel, { LinkedCarousel, CarouselImage } from '../../../../dist/carousel';
+import Router from '../../../../dist/router';
+import MemoryRouter, { MemoryLink, MemoryRoute } from '../../../../dist/memoryRouter';
+import { Tab, TabContainer } from '../../../../dist/tabContainer';
+import Dropdown from '../../../../dist/dropdown';
+import Dialog from '../../../../dist/dialog';
+import Countdown from '../../../../dist/countdown';
+import Stopwatch from '../../../../dist/stopwatch';
+import TimeAgo from '../../../../dist/timeago';
+import TypeWriter from '../../../../dist/typeWriter';
+import CountUp from '../../../../dist/countUp';
+import { NotificationSystem, WithNotifications } from '../../../../dist/notifications';
+import PhoneNumber from '../../../../dist/phoneNumber';
+import withTooltip from '../../../../dist/tooltip';
+import ProgressBar from '../../../../dist/progressBar';
+import TimedProgressBar from '../../../../dist/timedProgressBar';
+import PromptSystem, { withPrompt } from '../../../../dist/prompt';
+import {HandleClicksOutside} from '../../../../dist/handleClicksOutside';
 
 
 
-class _PromptButton extends React.Component{
-    onClick = ()=>{
+class _PromptButton extends React.Component {
+    onClick = () => {
         this.props.prompt('are you ready?')
-        .then((response)=>{
-            console.log('Prompt response: ', response);
-        })
+            .then((response) => {
+                console.log('Prompt response: ', response);
+            })
     }
-    render(){
-        return(
+    render() {
+        return (
             <button onClick={this.onClick}>{this.props.children}</button>
         )
     }
@@ -311,13 +312,18 @@ class App extends React.Component {
                     This page was rendered <TimeAgo time={Date.now()} ms={true} isTimePoint={true} />
                 </div>
                 <Notificator />
-                <CountUp start={0} end={2000} timeSteps={2000} timeStepDuration={1} />
-                <div>
-                    <PhoneNumber number={639999999} method='spaces' />
-                </div>
-                <div>
-                    <PhoneNumber number={639999999} method='dashes' />
-                </div>
+                <CountUp start={0} end={2000} timeSteps={2000} timeStepDuration={1} easingFunction='easeOutQuint'/>
+                <HandleClicksOutside
+                    onClickOutside={()=>console.log('clicked outside the phone numbers')}
+                >
+                    <div>
+                        <PhoneNumber number={639999999} method='spaces' />
+                    </div>
+                    <div>
+                        <PhoneNumber number={639999999} method='dashes' />
+                    </div>
+                    {'test'}
+                </HandleClicksOutside>
                 <TimedProgressBar duration={5000} />
                 <PromptButton>toggle prompt</PromptButton>
             </div>

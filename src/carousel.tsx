@@ -9,6 +9,9 @@ import circleSolid from '@fortawesome/fontawesome-free-solid/faCircle';
 import circleRegular from '@fortawesome/fontawesome-free-regular/faCircle';
 import Router, { RouterContext } from './router';
 
+
+//TODO: Make Linked carousel be composed of carousel instead of extending it, and remake carousel
+
 export interface CarouselState {
     activeElement: number,
     intervalHandle?: NodeJS.Timer
@@ -96,6 +99,20 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
             clearInterval(this.state.intervalHandle);
         }
     }
+    routingStrategy =(childProps: any, routerContext: RouterContext, index: number) => {
+        if (index === this.state.activeElement) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    routerBoostrap = (child: React.ReactElement<any>, routerContext: RouterContext, index: number) =>{
+        if(typeof child === 'object'){
+            return React.cloneElement(child, {className:'axc-carousel__element-container'})
+        }else{
+            return child;
+        }
+    }
     render() {
         return (
             <div className="axc-carousel">
@@ -109,14 +126,8 @@ export class Carousel extends React.Component<CarouselProps, CarouselState>{
                     :
                     null}
                 <Router
-                    strategy={(childProps: any, routerContext: RouterContext, index: number) => {
-                        if (index === this.state.activeElement) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }}
-                    className='axc-carousel__element-container'
+                    strategy={this.routingStrategy}
+                    bootstrap={this.routerBoostrap}
                 >
                     {this.props.children}
                 </Router>
@@ -139,6 +150,13 @@ export class LinkedCarousel extends Carousel {
             }, () => {
                 this.onElementChange();
             });
+        }
+    }
+    routerBoostrap = (child: React.ReactElement<any>, routerContext: RouterContext, index: number)=>{
+        if(typeof child === 'object'){
+            return React.cloneElement(child, {className:'axc-linked-carousel__element-container'})
+        }else{
+            return child;
         }
     }
     render() {
@@ -175,14 +193,8 @@ export class LinkedCarousel extends Carousel {
 
                 </div>
                 <Router
-                    strategy={(childProps: any, routerContext: RouterContext, index: number) => {
-                        if (index === this.state.activeElement) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }}
-                    className='axc-linked-carousel__element-container'
+                    strategy={this.routingStrategy}
+                    bootstrap={this.routerBoostrap}
                 >
                     {this.props.children}
                 </Router>

@@ -12,7 +12,13 @@ export interface RouterProps {
 export interface RouterContext extends RouterProps {
 };
 
-
+/**
+ * This class:
+ * 1- conditionally renders children based on the output of strategy prop function and singleRoute prop
+ * 2- if boostrap is provided it is called for each children, allowing the user of router to derive children 
+ * 
+ * 
+ */
 export class Router extends React.PureComponent<RouterProps, any>{
     constructor(props: RouterProps) {
         super(props);
@@ -23,12 +29,14 @@ export class Router extends React.PureComponent<RouterProps, any>{
                 return child;
             }
             const routertContext = { ...this.props };
-            if (this.props.bootstrap) {
-                child = this.props.bootstrap(child, routertContext, i);
-            }
             const isMatch = this.props.strategy(child.props, routertContext, i);
             if (isMatch) {
-                return child;
+                if (this.props.bootstrap) {
+                    return this.props.bootstrap(child, routertContext, i);
+                }else{
+                    return child;
+                }
+               
             }
         });
         if (this.props.singleRoute) {
