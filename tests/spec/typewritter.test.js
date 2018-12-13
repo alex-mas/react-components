@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import TypeWriter from '../../dist/animated/typeWriter';
+import TypeWriter from '../../dist/typeWriter';
 
 
 test('Typewritter shouldn\'t throw an error if passed no props', () => {

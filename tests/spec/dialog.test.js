@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import Dialog from '../../dist/layout/dialog'
+import Dialog from '../../dist/dialog'
 
 
 test('Dialog shouldn\'t throw an error if passed no options', () => {

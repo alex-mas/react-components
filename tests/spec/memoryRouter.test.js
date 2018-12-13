@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import MemoryRouter, { MemoryRoute, MemoryLink } from '../../dist/navigation/memoryRouter';
+import MemoryRouter, { MemoryRoute, MemoryLink } from '../../dist/memoryRouter';
 
 
 

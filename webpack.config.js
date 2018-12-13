@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const fs = require('fs');
 const path = require('path');
 const entries = {}
@@ -13,26 +14,26 @@ module.exports = (env) => {
         output: {
             library: 'AXCReactComponents',
             libraryTarget: 'umd',
-            path: path.join(__dirname,'dist'),
+            path: path.join(__dirname, 'dist'),
             filename: '[name].js'
         },
         resolve: {
-            extensions: ['.ts','.tsx', '.js', '.json']
+            extensions: ['.ts', '.tsx', '.js', '.json']
         },
-        externals: {      
+        externals: {
             // Don't bundle react or react-dom      
-            react: {          
-                commonjs: "react",          
-                commonjs2: "react",          
-                amd: "React",          
-                root: "React"      
-            },      
-            "react-dom": {          
-                commonjs: "react-dom",          
-                commonjs2: "react-dom",          
-                amd: "ReactDOM",          
-                root: "ReactDOM"      
-            }  
+            react: {
+                commonjs: "react",
+                commonjs2: "react",
+                amd: "React",
+                root: "React"
+            },
+            "react-dom": {
+                commonjs: "react-dom",
+                commonjs2: "react-dom",
+                amd: "ReactDOM",
+                root: "ReactDOM"
+            }
         },
         module: {
             rules: [
@@ -42,6 +43,11 @@ module.exports = (env) => {
                 }
             ]
         },
+        plugins: [
+            new webpack.BannerPlugin({
+                banner: 'Copyright (c) 2018-present Àlex Mas- MIT License '
+            })
+        ]
 
     }
 }

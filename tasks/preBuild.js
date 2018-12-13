@@ -55,13 +55,18 @@ const deleteFolderContents = function (path) {
 }
 
 
+if(fs.existsSync('./dist')){
+    deleteFolderContents('./dist');
+}else{
+    fs.mkdirSync('./dist');
+}
 
+fs.mkdirSync('./dist/styles');
 
-deleteFolderContents('./dist');
 //TODO: Compile the partials individually so that users don't have to include the style for the whole library
 //copyFolderRecursively('./src/styles', './dist/styles');
 
-fs.mkdirSync('./dist/styles');
+
 
 sass.render({
     file: './src/styles/index.scss',

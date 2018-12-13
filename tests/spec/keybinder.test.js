@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme';
-import KeyBinder from '../../dist/interactive/keyBinder';
+import KeyBinder from '../../dist/keyBinder';
 
 
 test('Keybinder should render anything if not passed children', () => {

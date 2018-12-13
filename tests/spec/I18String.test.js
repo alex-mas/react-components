@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import I18String, { I18nSystem } from '../../dist/display/i18string';
+import I18String, { I18nSystem } from '../../dist/i18string';
 
 
 

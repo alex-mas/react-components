@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import Stopwatch from '../../dist/interactive/stopwatch';
+import Stopwatch from '../../dist/stopwatch';
 
 
 test('Constructing it should render a timer with zeroed values if no start prop is provided', () => {

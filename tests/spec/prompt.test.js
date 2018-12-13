@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, render, mount } from 'enzyme';
-import PromptSystem,{withPrompt} from '../../dist/interactive/prompt';
+import PromptSystem,{withPrompt} from '../../dist/prompt';
 
 const DELAY_TRESHOLD = 1500;
 

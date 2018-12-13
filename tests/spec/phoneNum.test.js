@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import PhoneNumber from '../../dist/display/phoneNumber';
+import PhoneNumber from '../../dist/phoneNumber';
 
 
 test('PhoneNumber should render null if no number is passed', () => {

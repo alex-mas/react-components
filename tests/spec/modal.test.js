@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import Modal from '../../dist/layout/modal'
+import Modal from '../../dist/modal'
 
 
 test('Modal shouldn\'t render anything when passed false to isOpen prop', () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, render, mount } from 'enzyme'
-import TimeAgo from '../../dist/display/timeago';
+import TimeAgo from '../../dist/timeago';
 
 
 test('TimeAgo should properly render 1 second', () => {
