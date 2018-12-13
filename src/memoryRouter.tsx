@@ -108,7 +108,7 @@ export interface MemoryRouterProps {
     history?: string[],
     startingRoute?: string
     children?: any,
-    memoryHistory?: MemoryHistory
+    outHistory?: MemoryHistory
 }
 
 export interface MemoryRouterState {
@@ -124,7 +124,6 @@ export interface MemoryRouterState {
 export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRouterState>{
     constructor(props: MemoryRouterProps) {
         super(props);
-        if(props.memoryHistory){return;}
         let startingRoute = window.location.pathname;
         if (props.startingRoute) {
             startingRoute = props.startingRoute;
@@ -144,6 +143,7 @@ export class MemoryRouter extends React.Component<MemoryRouterProps, MemoryRoute
             history,
             currentPosition
         };
+        if(props.outHistory){props.outHistory = this.getMemoryHistory()}
     }
     go = (delta: number) => {
         if (delta > 0) {

@@ -48,7 +48,7 @@ export class Router extends React.PureComponent<RouterProps, any>{
                 }
             });
         }else{
-            return  matchingChildren;
+            return matchingChildren;
         }
     }
 }
