@@ -55,13 +55,18 @@ const deleteFolderContents = function (path) {
 }
 
 
+console.log("does dist folder exist? ",fs.existsSync('./dist'));
 if(fs.existsSync('./dist')){
     deleteFolderContents('./dist');
 }else{
     fs.mkdirSync('./dist');
 }
 
+console.log("does dist folder exist? ",fs.existsSync('./dist'));
+
 fs.mkdirSync('./dist/styles');
+
+console.log("does dist/styles folder exist? ",fs.existsSync('./dist/styles'));
 
 //TODO: Compile the partials individually so that users don't have to include the style for the whole library
 //copyFolderRecursively('./src/styles', './dist/styles');
