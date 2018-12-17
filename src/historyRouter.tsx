@@ -15,9 +15,9 @@ export interface History {
     back(): void;
     forward(): void;
     go(delta: number): void;
-    pushState(newState: any, newTitle: string, newNode: string): void;
+    pushState(newState: any, newTitle: string, newUrl?: string): void;
     location(): HistoryNode;
-    replaceState(newState: any, newTitle: string, replacedNode: string): void;
+    replaceState(newState: any, newTitle: string, newUrl?: string): void;
 }
 
 export interface HistoryRouterProps {

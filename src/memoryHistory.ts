@@ -40,28 +40,22 @@ export class MemoryHistory implements History{
             this.currentPosition = delta;
         }
     }
-    pushState = (newNode: string| HistoryNode) => {
-        if(typeof newNode === "string"){
-            newNode = {
-                url: newNode,
-                title: undefined,
-                state: undefined
-            }
-        }
-        this.history.push(newNode);
+    pushState = (state: any, title: string, url?: string) => {
+        this.history.push({
+            state,
+            title,
+            url
+        });
     }
     location = () => {
         return this.history[this.currentPosition];
     }
-    replaceState = (replacedNode: string | HistoryNode) => {
-        if(typeof replacedNode === "string"){
-            this.history[this.history.length-1] = {
-                title: undefined,
-                url: replacedNode,
-                state: undefined
-            }
-        }else{
-            this.history[this.history.length-1] = replacedNode;
+    replaceState = (state: any, title: string, url?: string) => {
+        const newNode = {
+            state,
+            title,
+            url
         }
+        this.history[this.history.length-1] = newNode;
     }
 }

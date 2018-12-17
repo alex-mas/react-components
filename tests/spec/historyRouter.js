@@ -55,7 +55,7 @@ test('HistoryRouter should render the correct route once a component inside its 
                 <div path="/first" id="t1">
                     Test
                     <button
-                        onClick={() => props.history.pushState({ url: "/second" })}
+                        onClick={() => props.history.pushState(undefined,undefined,"/second")}
                         id="btn"
                     >
                         clickme
@@ -83,7 +83,7 @@ test('React should react to changes to history that come from outside react\'s s
                 <div path="/first" id="t1">
                     Test
                     <button
-                        onClick={() => props.history.pushState({ url: "/second" })}
+                        onClick={() => props.history.pushState(undefined,undefined,"/second")}
                         id="btn"
                     >
                         clickme
