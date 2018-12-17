@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog should render the dialog properly if isOpen equals to true 1`] = `[Function]`;
+
+exports[`Dialog shouldn't render anything if isOpen is false 1`] = `[Function]`;

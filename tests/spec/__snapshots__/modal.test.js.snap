@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal should render properly when passed true to isOpen prop 1`] = `
+<div
+  className="axc-modal__overlay"
+  onClick={[Function]}
+>
+  <div
+    className="axc-modal__body"
+    onClick={[Function]}
+  >
+    <div>
+      this should not render at all
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal shouldn't render anything when passed false to isOpen prop 1`] = `""`;
