@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/alex-mas/react-components.svg?branch=master)](https://travis-ci.com/alex-mas/react-components)
+[![Coverage Status](https://coveralls.io/repos/github/alex-mas/react-components/badge.svg?branch=master)](https://coveralls.io/github/alex-mas/react-components?branch=master)
+
 # axc
 A library that offers a variety of react components written in typescript.
 

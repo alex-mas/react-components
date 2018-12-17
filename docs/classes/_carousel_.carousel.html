@@ -112,6 +112,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_carousel_.carousel.html#props" class="tsd-kind-icon">props</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="_carousel_.carousel.html#refs" class="tsd-kind-icon">refs</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="_carousel_.carousel.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_carousel_.carousel.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -157,7 +158,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L29">carousel.tsx:29</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L29">carousel.tsx:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -180,12 +181,21 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.context</p>
 						<ul>
-							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:314</li>
+							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:387</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If using the new style context, re-declare this in your class to be the
+							<code>React.ContextType</code> of your <code>static contextType</code>.</p>
+						</div>
+						<pre><code class="language-ts"><span class="hljs-keyword">static</span> contextType = MyContext
+context!: React.ContextType&lt;<span class="hljs-keyword">typeof</span> MyContext&gt;</code></pre>
 						<dl class="tsd-comment-tags">
 							<dt>deprecated</dt>
+							<dd><p>if used without a type annotation, or without static contextType</p>
+							</dd>
+							<dt>see</dt>
 							<dd><p><a href="https://reactjs.org/docs/legacy-context.html">https://reactjs.org/docs/legacy-context.html</a></p>
 							</dd>
 						</dl>
@@ -198,7 +208,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.props</p>
 						<ul>
-							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:308</li>
+							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:412</li>
 						</ul>
 					</aside>
 				</section>
@@ -209,7 +219,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from Component.refs</p>
 						<ul>
-							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:319</li>
+							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:418</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -235,9 +245,41 @@
 					<aside class="tsd-sources">
 						<p>Overrides Component.state</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L29">carousel.tsx:29</a></li>
+							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L29">carousel.tsx:29</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="contexttype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> context<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">context<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Context</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Component.contextType</p>
+						<ul>
+							<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:372</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If set, <code>this.context</code> will be set at runtime to the current value of the given Context.</p>
+						</div>
+						<p>Usage:</p>
+						<pre><code class="language-ts">type MyContext = number
+const Ctx = React.createContext&lt;MyContext&gt;(0)
+
+class Foo extends React.Component {
+  static contextType = Ctx
+  context!: React.ContextType&lt;typeof Ctx&gt;
+  render () {
+    return &lt;&gt;My context's value: {this.context}&lt;/&gt;;
+  }
+}</code></pre>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="https://reactjs.org/docs/context.html#classcontexttype">https://reactjs.org/docs/context.html#classcontexttype</a></p>
+							</dd>
+						</dl>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -253,7 +295,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillMount</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:474</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:601</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,7 +333,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:506</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:633</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -340,7 +382,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.UNSAFE_componentWillUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:534</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:661</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -389,7 +431,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L69">carousel.tsx:69</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L69">carousel.tsx:69</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -413,7 +455,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidCatch</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:413</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:530</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -446,7 +488,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentDidMount</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:392</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:509</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -469,7 +511,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.componentDidUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:445</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:572</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -505,7 +547,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillMount</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:460</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:587</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -542,7 +584,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillReceiveProps</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:489</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:616</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,7 +632,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.componentWillUnmount</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:408</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:525</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -614,7 +656,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from DeprecatedLifecycle.componentWillUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:519</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:646</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -663,7 +705,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.forceUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:300</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:404</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -699,7 +741,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from NewLifecycle.getSnapshotBeforeUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:439</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:566</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -737,7 +779,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L77">carousel.tsx:77</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L77">carousel.tsx:77</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -754,7 +796,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L64">carousel.tsx:64</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L64">carousel.tsx:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -771,7 +813,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L87">carousel.tsx:87</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L87">carousel.tsx:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -789,7 +831,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Component.render</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L116">carousel.tsx:116</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L116">carousel.tsx:116</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Element</span></h4>
@@ -806,7 +848,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L109">carousel.tsx:109</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L109">carousel.tsx:109</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -835,7 +877,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L102">carousel.tsx:102</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L102">carousel.tsx:102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -865,7 +907,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from Component.setState</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:295</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:399</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -910,7 +952,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from ComponentLifecycle.shouldComponentUpdate</p>
 								<ul>
-									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:403</li>
+									<li>Defined in C:/dev/projects/javascript/react-components/node_modules/@types/react/index.d.ts:520</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -949,7 +991,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/e326c8e/src/carousel.tsx#L97">carousel.tsx:97</a></li>
+									<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/462abfe/src/carousel.tsx#L97">carousel.tsx:97</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -990,6 +1032,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_carousel_.carousel.html#state" class="tsd-kind-icon">state</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_carousel_.carousel.html#contexttype" class="tsd-kind-icon">context<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="_carousel_.carousel.html#unsafe_componentwillmount" class="tsd-kind-icon">UNSAFE_<wbr>component<wbr>Will<wbr>Mount</a>
