@@ -1,6 +1,6 @@
 {
   "name": "@axc/react-components",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "react components created for personal use",
   "main": "index.js",
   "scripts": {
