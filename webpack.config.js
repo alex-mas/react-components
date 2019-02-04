@@ -45,7 +45,7 @@ module.exports = (env) => {
         },
         plugins: [
             new webpack.BannerPlugin({
-                banner: 'Copyright (c) 2018-present Àlex Mas- MIT License '
+                banner: 'Copyright (c) 2019-present Àlex Mas- MIT License '
             })
         ]
 

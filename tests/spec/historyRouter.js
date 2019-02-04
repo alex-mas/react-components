@@ -95,7 +95,7 @@ test('React should react to changes to history that come from outside react\'s s
     );
     expect(wrapper.find("#t1").exists()).toEqual(true);
     expect(wrapper.find("#t2").exists()).toEqual(false);
-    myHistory.pushState({ url: "/second" });
+    myHistory.pushState(undefined,undefined, "/second");
     expect(wrapper.find("#t2").exists()).toEqual(true);
     expect(wrapper.find("#t1").exists()).toEqual(false);
 });

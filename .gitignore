@@ -3,3 +3,4 @@ testProj/dist/
 dist/
 *.log
 coverage/
+.vscode/
