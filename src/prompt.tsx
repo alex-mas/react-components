@@ -11,7 +11,7 @@ export function getPromptContext<T>(defualtContext?: T): React.Context<PromptCon
     return React.createContext(undefined);
 }
 
-type ReactCallable<T> = React.ComponentClass<T> | React.SFCFactory<T>;
+type ReactCallable<T> = React.ComponentClass<T,any> | React.FunctionComponent<T>;
 
 
 
@@ -163,7 +163,7 @@ export class PromptSystem extends React.Component<PromptSystemProps, PromptSyste
 
 
 
-export function withPrompt<T extends {prompt: PromptFunction}>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<Exclude<T,'prompt'>> {
+export function withPrompt<T extends {prompt: PromptFunction}>(Component: React.ComponentType<T>): React.SFC<Exclude<T,'prompt'>> {
     return (props: Exclude<T,'prompt'>)=> (
         <Prompt.Consumer>
             {prompt => <Component prompt={prompt} {...props} />}

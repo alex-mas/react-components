@@ -10,7 +10,7 @@ export interface DropdownProps {
     useInlineStyles?: boolean,
     options?: string[],
     onSelect(index: number, value: string): any,
-    component?: React.ComponentClass<any> | React.SFCFactory<any>
+    component?: React.ComponentClass<any> | React.SFC<any>
     value?: any
 }
 

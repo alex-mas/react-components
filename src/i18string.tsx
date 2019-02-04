@@ -79,10 +79,10 @@ type Diff<T, U> = T extends U ? never : T;
 type ObjectDiff<T, U> = Pick<T, Diff<keyof T, keyof U>>;
 
 
-export function withI18n<T extends I18nContextData>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<ObjectDiff<T, I18nContextData>> {
+export function withI18n<T extends I18nContextData = any>(Component: React.ComponentClass<T> | React.StatelessComponent<T>): React.SFC<ObjectDiff<T, I18nContextData>> {
     return (props: ObjectDiff<T, I18nContextData>) => (
         <I18nContext.Consumer>
-            {localeContext => <Component {...localeContext} {...props} />}
+            {localeContext => <Component {...localeContext} {...props as any} />}
         </I18nContext.Consumer>
     )
 }

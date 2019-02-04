@@ -18,12 +18,12 @@ import * as timeago from './timeago';
 import * as timedProgressBar from './timedProgressBar';
 import * as countUp from './countUp';
 import * as typeWriter from './typeWriter';
-import * as handleClicksOutside from "./handleClicksOutside";
+import * as handleClickOutside from "./handleClickOutside";
 import * as memoryHistory from "./memoryHistory";
 
 
 export default {
-    handleClicksOutside,
+    handleClickOutside,
     memoryHistory,
     carousel,
     historyRouter,

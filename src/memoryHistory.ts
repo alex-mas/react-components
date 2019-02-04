@@ -1,12 +1,14 @@
 import { History, HistoryNode } from "./historyRouter";
+import { Observable } from "./utils/observable";
 
 
 
 
-export class MemoryHistory implements History{
+export class MemoryHistory extends Observable implements History{
     history: HistoryNode[];
     currentPosition: number;
     constructor(initialHistory: HistoryNode | HistoryNode[] | undefined, initialPosition?: number){
+        super();
         this.history = [];
         if (initialHistory) {
             if (Array.isArray(initialHistory)) {

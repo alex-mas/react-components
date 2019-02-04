@@ -1,66 +1,26 @@
 import React, { CSSProperties } from 'react';
 import uuid from 'uuid/v4';
 
-const defaultPredictionData: string[] = [];
-
-
 export interface AutoCompleteProps {
     value: string,
     onChange(inputVal: string): any,
     onSubmit?(value: string): any,
-    predictionData?: string[],
+    suggestions?: string[],
     className?: string,
     placeholder?: string,
     id?: string,
-    getSuggestions?(inputVal: string): string[],
-    styles?: AutoCompleteStyles,
-    useInlineStyles?: boolean
+    getSuggestions?(inputVal: string): string[]
 }
 
 
 export interface AutoCompleteState {
-    predictionData: string[],
     suggestions: string[],
     selectedSuggestion: number,
-    id: string,
     focused: boolean,
     shouldRenderSuggestions: boolean,
-    styles: AutoCompleteStyles
 }
 
-export interface AutoCompleteStyles {
-    [key: string]: CSSProperties | undefined,
-    autoComplete?: CSSProperties,
-    autoComplete__input?: CSSProperties,
-    autoComplete__suggestions?: CSSProperties,
-    autoComplete__suggestion?: CSSProperties,
-    autoComplete__suggestion_selected?: CSSProperties
-}
 
-let defaultStyles: AutoCompleteStyles = {
-    autoComplete: {
-        position: 'relative',
-        width: '173px'
-    },
-    autoComplete__input: {
-        maxWidth: 'inherit',
-        width: 'inherit'
-    },
-    autoComplete__suggestions: {
-        width: '100%',
-        position: 'absolute',
-        zIndex: 1,
-        backgroundColor: 'white',
-        border: '0.5px solid black'
-    },
-    autoComplete__suggestion: {
-        border: '0.25px solid grey'
-    },
-    autoComplete__suggestion_selected: {
-        border: '0.5px solid black',
-        fontWeight: 'bold'
-    }
-}
 
 
 interface SuggestionProps {
@@ -97,44 +57,17 @@ class Suggestion extends React.PureComponent<SuggestionProps, any>{
 
 
 export class AutoComplete extends React.Component<AutoCompleteProps, AutoCompleteState>{
+    static defaultProps: Partial<AutoCompleteProps> = {
+        suggestions: []
+    };
     constructor(props: AutoCompleteProps) {
         super(props);
         this.state = {
-            id: this.props.id ? this.props.id : uuid(),
-            predictionData: props.predictionData ? props.predictionData : defaultPredictionData,
             suggestions: [],
             selectedSuggestion: -1,
             focused: false,
-            shouldRenderSuggestions: true,
-            styles: {
-                autoComplete: {},
-                autoComplete__input: {},
-                autoComplete__suggestions: {},
-                autoComplete__suggestion: {},
-                autoComplete__suggestion_selected: {}
-            }
+            shouldRenderSuggestions: true
         };
-        //style initialization 
-        if (props.useInlineStyles) {
-            if (props.styles) {
-                for (let key in this.state.styles) {
-                    if (this.state.styles.hasOwnProperty(key)) {
-                        this.state.styles[key] = {
-                            ...defaultStyles[key],
-                            ...props.styles[key]
-                        };
-                    }
-                }
-            } else {
-                for (let key in this.state.styles) {
-                    if (this.state.styles.hasOwnProperty(key)) {
-                        this.state.styles[key] = {
-                            ...defaultStyles[key]
-                        };
-                    }
-                }
-            }
-        }
         this.onChange = this.onChange.bind(this);
         this.computeSuggestions = this.computeSuggestions.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -178,19 +111,20 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
     }
     shouldAddSuggestion(value: string, suggestion: string, suggestions: string[]): boolean {
         return (
+            value && value.length &&
             suggestion.substring(0, value.length) === value &&
             suggestions.indexOf(suggestion) === -1 &&
             value !== suggestion
         );
     }
     computeSuggestions(value: string): string[] {
-        const suggestions: string[] = [];
-        for (let i = 0; i < this.state.predictionData.length; i++) {
-            if (this.shouldAddSuggestion(value, this.state.predictionData[i], suggestions)) {
-                suggestions.push(this.state.predictionData[i]);
+        const matchingSuggestions: string[] = [];
+        for (let i = 0; i < this.props.suggestions.length; i++) {
+            if (this.shouldAddSuggestion(value, this.props.suggestions[i], matchingSuggestions)) {
+                matchingSuggestions.push(this.props.suggestions[i]);
             }
         }
-        return suggestions;
+        return matchingSuggestions;
     }
     onClickSuggestion = (suggestionIndex: number) => {
         this.onChange(this.state.suggestions[suggestionIndex]);
@@ -275,9 +209,9 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                 className={this.props.className ? this.props.className : undefined}
                 onKeyDown={this.onKeyDown}
             >
-                <div className='axc-auto-complete' style={this.state.styles.autoComplete}>
+                <div className='axc-auto-complete'>
                     <input
-                        id={this.state.id}
+                        id={this.props.id}
                         className='axc-auto-complete__input'
                         placeholder={this.props.placeholder}
                         type='text'
@@ -285,10 +219,9 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                         onChange={this.onChange}
                         onBlur={this.onBlur}
                         onFocus={this.onFocus}
-                        style={this.state.styles.autoComplete__input}
                     />
                     {this.state.focused && this.state.shouldRenderSuggestions ?
-                        <div className='axc-auto-complete__suggestions' style={this.state.styles.autoComplete__suggestions}>
+                        <div className='axc-auto-complete__suggestions'>
                             {this.state.suggestions.map((suggestion: string, index: number) => {
                                 const selected: boolean = index === this.state.selectedSuggestion
                                 let className: string = 'axc-auto-complete__suggestion';
@@ -301,11 +234,6 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                                         value={suggestion}
                                         className={className}
                                         index={index}
-                                        style={selected ?
-                                            this.state.styles.autoComplete__suggestion_selected
-                                            :
-                                            this.state.styles.autoComplete__suggestion
-                                        }
                                         onClick={this.onClickSuggestion}
                                         onHover={this.onHoverSuggestion}
                                     />

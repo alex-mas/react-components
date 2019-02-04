@@ -3,6 +3,7 @@ import Router, { RouterContext } from './router';
 import { doParamsMatch } from './utils/url';
 import { MemoryHistory } from './memoryHistory';
 import "./utils/configureEnv";
+import { string } from 'prop-types';
 
 
 export interface HistoryNode {
@@ -73,7 +74,7 @@ export class HistoryRouter extends React.Component<HistoryRouterProps, any>{
         }
     }
     strategy = (childProps: any, routerContext: RouterContext, index: number) => {
-        let { url, state } = this.history.location();
+        let { url } = this.history.location();
         let childPath: string = childProps.path;
         let hasParams = false;
         if (!childProps.path) {
@@ -104,15 +105,16 @@ export class HistoryRouter extends React.Component<HistoryRouterProps, any>{
     }
     render() {
         return (
-            <HistoryContext.Provider value={this.history}>
-                <Router
-                    strategy={this.strategy}
-                    singleRoute={this.props.singleRoute}
-                    bootstrap={this.bootstrap}
-                >
+
+            <Router
+                strategy={this.strategy}
+                singleRoute={this.props.singleRoute}
+                bootstrap={this.bootstrap}
+            >
+                <HistoryContext.Provider value={this.history}>
                     {this.props.children}
-                </Router>
-            </HistoryContext.Provider>
+                </HistoryContext.Provider>
+            </Router>
 
         )
     }
@@ -134,13 +136,13 @@ export interface LinkProps {
  * if both are provided text will have preference
  */
 export class Link extends React.Component<LinkProps, any>{
-    onClick = (e: React.MouseEvent<HTMLAnchorElement>)=>{
+    onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
-        history.pushState(this.props.state, this.props.title,this.props.to);
+        history.pushState(this.props.state, this.props.title, this.props.to);
     }
     render() {
-        if(process.env.NODE_ENV === "development"){
-            if(this.props.text && this.props.children){
+        if (process.env.NODE_ENV === "development") {
+            if (this.props.text && this.props.children) {
                 console.warn(new Error("Link should onl be passed children or text, not both"));
             }
         }
@@ -162,15 +164,51 @@ export class Link extends React.Component<LinkProps, any>{
 }
 
 
+// Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+type P = {
+    test: 1,
+    test2: 2,
+    test3: 3,
+    history: 4
+}
+
+type C = Omit<P, 'history'>;
+
+type A = {
+    history: 4
+}
+
+const t = (param: P)=>{
+    return param;
+}
+
+const myA: A = {
+    history: 4
+};
+const myC: C ={
+    test: 1,
+    test2: 2,
+    test3: 3
+}
+
+
+t({
+    ...myA,
+    ...myC
+});
+
 /**
  * 
  * Converts the provided component into a consumer of History context, the component will be passed a history prop.
  * 
  */
-export function withHistory<P extends any>(Component: React.ComponentClass<P> | React.SFC<P>): React.SFC<Pick<P, Exclude<keyof P, 'history'>>> {
-    return (props: Pick<P, Exclude<keyof P, 'history'>>) => (
+export function withHistory<P extends {history: History}>(Component: React.ComponentType<P>): React.SFC<Omit<P, 'history'>> {
+    return (props: Omit<P, 'history'>) => (
         <HistoryContext.Consumer>
-            {history => <Component history={history} {...props} />}
+            {history => <Component {...props as any
+            } history={history} />}
         </HistoryContext.Consumer>
     );
 
@@ -220,7 +258,7 @@ const _Route: React.SFC<RouteProps> = (props: RouteProps) => {
             routeParams={props.routeParams}
         />;
     } else {
-        if(process.env.NODE_ENV === "development"){
+        if (process.env.NODE_ENV === "development") {
             console.warn('The route must be provided a component prop or children, else nothing will be rendered', new Error());
         }
         return null;

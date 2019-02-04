@@ -1,13 +1,14 @@
 import React, {SyntheticEvent} from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid/v4';
+import { Omit } from './historyRouter';
 
 
 export interface _Notification {
     id: string,
     message: string,
     className?: string,
-    component?: React.ComponentClass<NotificationComponentProps> | React.SFCFactory<NotificationComponentProps>
+    component?: React.ComponentType<NotificationComponentProps>
 }
 
 export interface Notifications {
@@ -45,7 +46,7 @@ export const Notification: React.Context<Notifications> = React.createContext(un
 
 export interface NotificationSystemProps {
     root?: Element
-    notificationComponent?: React.ComponentClass<NotificationComponentProps> | React.SFCFactory<NotificationComponentProps>
+    notificationComponent?: React.ComponentType<NotificationComponentProps>
 
 }
 export interface NotificationSystemState {
@@ -119,18 +120,24 @@ export class NotificationSystem extends React.Component<NotificationSystemProps,
     }
 }   
 
+type Diff<T, U> = T extends U ? never : T;
+type ObjectDiff<T, U> = Pick<T, Diff<keyof T, keyof U>>;
 
-export interface WithNotificationsHOC {
-    (props: any): React.SFC<any>
+
+export interface WithNotificationsHOC<T extends Notifications> {
+    (props: ObjectDiff<T, Notifications>): React.SFC<T>
 }
 
 
-export const WithNotifications: WithNotificationsHOC = (Component: React.ComponentClass<any> | React.SFCFactory<any>) => {
-    return (props: any) => (
+export const WithNotifications =<T extends Notifications>(Component: React.ComponentType<T>) => {
+    return (props: ObjectDiff<T, Notifications>) => (
         <Notification.Consumer>
-            {notification=> <Component notify={notification.notify} dismissNotification={notification.dismissNotification} {...props} />}
+            {notification=> <Component {...notification}{...props} />}
         </Notification.Consumer>
     )
 }
+
+
+
 
 export default NotificationSystem;

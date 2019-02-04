@@ -11,12 +11,17 @@
     position: absolute;
     z-index: 1;
     background-color: white;
-    border: 0.5px solid black;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .axc-auto-complete__suggestion {
-    border: 0.25px solid grey;
+    padding: 0.25em 0.5rem;
 }
 .axc-auto-complete__suggestion--selected {
-    border: 0.5px solid black;
-    font-weight: bold;
+    @extend .axc-auto-complete__suggestion;
+    background-color: #f2f2f2;
+}
+
+.axc-auto-complete__suggestion--selected:active {
+    @extend .axc-auto-complete__suggestion;
+    background-color: #d9d9d9;
 }

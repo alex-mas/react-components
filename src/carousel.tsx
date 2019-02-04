@@ -22,7 +22,7 @@ export interface CarouselProps {
     startingElement?: number,
     autoPlay?: number,
     onElementChange?(currentElement: number): any,
-    captions?: React.ComponentClass | React.SFCFactory<any>
+    captions?: React.ComponentClass | React.SFC<any>
 }
 
 export class Carousel extends React.Component<CarouselProps, CarouselState>{
