@@ -9,7 +9,7 @@
     "compile": "node_modules/.bin/tsc",
     "genDocs": "node_modules/.bin/typedoc --out ./docs",
     "test:locally": "npm run compile && jest --config=jest.config.json --coverage",
-    "test": "npm run build && jest --config=jest.config.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test": "npm run compile && jest --config=jest.config.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "preRelease": "npm run build && npm run test:locally",
     "release": "npm run preRelease && node tasks/release.js",
     "release:patch": "npm run preRelease && node tasks/release.js type=patch",
