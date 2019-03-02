@@ -13,19 +13,6 @@ The scope of this project is not to provide something like bootstrap, but to cre
     npm install @axc/react-components --save
 ```
 
-## Usage
-
-```javascript
-    // with webpack
-    import I18String from '@axc/react-components/display/i18string';
-    import MemoryRouter from '@axc/react-components/navigation/memoryRouter';
-    const Component = ()=>{
-        return(
-            <MemoryRouter></MemoryRouter>
-        )
-    }
-```
-
 ## Examples
 
 You can see the components in action in the [Storybook](https://alex-mas.github.io/react-components/storybook)
