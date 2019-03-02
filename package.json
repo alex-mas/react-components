@@ -7,7 +7,7 @@
     "build": "npm run preBuild && npm run compile",
     "preBuild": "node tasks/preBuild.js",
     "compile": "node_modules/.bin/tsc",
-    "genDocs": "node_modules/.bin/typedoc --out ./docs && npm run build-storybook",
+    "genDocs": "node_modules/.bin/typedoc --out ./docs && npm run build-storybook && node tasks/genDocs.js",
     "test:locally": "npm run compile && jest --config=jest.config.json --coverage",
     "test": "npm run compile && jest --config=jest.config.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "preRelease": "npm run build && npm run test:locally",

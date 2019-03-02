@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AutoCompleteStyles | @axc/react-components</title>
+	<title>TooltippedComponentProps | @axc/react-components</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_autocomplete_.html">&quot;autoComplete&quot;</a>
+					<a href="../modules/_tooltip_.html">&quot;tooltip&quot;</a>
 				</li>
 				<li>
-					<a href="_autocomplete_.autocompletestyles.html">AutoCompleteStyles</a>
+					<a href="_tooltip_.tooltippedcomponentprops.html">TooltippedComponentProps</a>
 				</li>
 			</ul>
-			<h1>Interface AutoCompleteStyles</h1>
+			<h1>Interface TooltippedComponentProps</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +73,9 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">AutoCompleteStyles</span>
+						<span class="target">TooltippedComponentProps</span>
 					</li>
 				</ul>
-			</section>
-			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module">
-				<h3 class="tsd-before-signature">Indexable</h3>
-				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">CSSProperties</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
@@ -88,11 +84,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_autocomplete_.autocompletestyles.html#autocomplete" class="tsd-kind-icon">auto<wbr>Complete</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_autocomplete_.autocompletestyles.html#autocomplete__input" class="tsd-kind-icon">auto<wbr>Complete__input</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestion" class="tsd-kind-icon">auto<wbr>Complete__suggestion</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestion_selected" class="tsd-kind-icon">auto<wbr>Complete__suggestion_<wbr>selected</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestions" class="tsd-kind-icon">auto<wbr>Complete__suggestions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_tooltip_.tooltippedcomponentprops.html#containerref" class="tsd-kind-icon">container<wbr>Ref</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_tooltip_.tooltippedcomponentprops.html#tooltip" class="tsd-kind-icon">tooltip</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_tooltip_.tooltippedcomponentprops.html#tooltipclass" class="tsd-kind-icon">tooltip<wbr>Class</a></li>
 							</ul>
 						</section>
 					</div>
@@ -101,52 +95,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autocomplete" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Complete</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Complete<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
+					<a name="containerref" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> container<wbr>Ref</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Ref<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">React.Ref</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/398b0ca/src/autoComplete.tsx#L33">autoComplete.tsx:33</a></li>
+							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/a3ccb63/src/tooltip.tsx#L82">tooltip.tsx:82</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autocomplete__input" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Complete__input</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Complete__input<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
+					<a name="tooltip" class="tsd-anchor"></a>
+					<h3>tooltip</h3>
+					<div class="tsd-signature tsd-kind-icon">tooltip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/398b0ca/src/autoComplete.tsx#L34">autoComplete.tsx:34</a></li>
+							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/a3ccb63/src/tooltip.tsx#L80">tooltip.tsx:80</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autocomplete__suggestion" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Complete__suggestion</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Complete__suggestion<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
+					<a name="tooltipclass" class="tsd-anchor"></a>
+					<h3>tooltip<wbr>Class</h3>
+					<div class="tsd-signature tsd-kind-icon">tooltip<wbr>Class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/398b0ca/src/autoComplete.tsx#L36">autoComplete.tsx:36</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autocomplete__suggestion_selected" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Complete__suggestion_<wbr>selected</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Complete__suggestion_<wbr>selected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/398b0ca/src/autoComplete.tsx#L37">autoComplete.tsx:37</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="autocomplete__suggestions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> auto<wbr>Complete__suggestions</h3>
-					<div class="tsd-signature tsd-kind-icon">auto<wbr>Complete__suggestions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CSSProperties</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/398b0ca/src/autoComplete.tsx#L35">autoComplete.tsx:35</a></li>
+							<li>Defined in <a href="https://github.com/alex-mas/react-components/blob/a3ccb63/src/tooltip.tsx#L81">tooltip.tsx:81</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,56 +133,41 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_autocomplete_.html">"auto<wbr>Complete"</a>
+						<a href="../modules/_tooltip_.html">"tooltip"</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/_autocomplete_.autocomplete.html" class="tsd-kind-icon">Auto<wbr>Complete</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-not-exported">
-						<a href="../classes/_autocomplete_.suggestion.html" class="tsd-kind-icon">Suggestion</a>
+						<a href="../classes/_tooltip_.tooltip.html" class="tsd-kind-icon">Tooltip</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_autocomplete_.autocompleteprops.html" class="tsd-kind-icon">Auto<wbr>Complete<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_autocomplete_.autocompletestate.html" class="tsd-kind-icon">Auto<wbr>Complete<wbr>State</a>
+						<a href="_tooltip_.tooltipprops.html" class="tsd-kind-icon">Tooltip<wbr>Props</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_autocomplete_.autocompletestyles.html" class="tsd-kind-icon">Auto<wbr>Complete<wbr>Styles</a>
+						<a href="_tooltip_.tooltippedcomponentprops.html" class="tsd-kind-icon">Tooltipped<wbr>Component<wbr>Props</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_autocomplete_.autocompletestyles.html#autocomplete" class="tsd-kind-icon">auto<wbr>Complete</a>
+								<a href="_tooltip_.tooltippedcomponentprops.html#containerref" class="tsd-kind-icon">container<wbr>Ref</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_autocomplete_.autocompletestyles.html#autocomplete__input" class="tsd-kind-icon">auto<wbr>Complete__input</a>
+								<a href="_tooltip_.tooltippedcomponentprops.html#tooltip" class="tsd-kind-icon">tooltip</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestion" class="tsd-kind-icon">auto<wbr>Complete__suggestion</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestion_selected" class="tsd-kind-icon">auto<wbr>Complete__suggestion_<wbr>selected</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_autocomplete_.autocompletestyles.html#autocomplete__suggestions" class="tsd-kind-icon">auto<wbr>Complete__suggestions</a>
+								<a href="_tooltip_.tooltippedcomponentprops.html#tooltipclass" class="tsd-kind-icon">tooltip<wbr>Class</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_autocomplete_.suggestionprops.html" class="tsd-kind-icon">Suggestion<wbr>Props</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_tooltip_.tooltippedcomponentstate.html" class="tsd-kind-icon">Tooltipped<wbr>Component<wbr>State</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_autocomplete_.html#defaultpredictiondata" class="tsd-kind-icon">default<wbr>Prediction<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_autocomplete_.html#defaultstyles" class="tsd-kind-icon">default<wbr>Styles</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_tooltip_.html#withtooltip" class="tsd-kind-icon">with<wbr>Tooltip</a>
 					</li>
 				</ul>
 			</nav>
