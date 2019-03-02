@@ -15,6 +15,9 @@
 }
 .axc-auto-complete__suggestion {
     padding: 0.25em 0.5rem;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    overflow: wrap;
 }
 .axc-auto-complete__suggestion--selected {
     @extend .axc-auto-complete__suggestion;

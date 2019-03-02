@@ -12,27 +12,19 @@ class ClickOutsideExample extends React.Component<any,any>{
     constructor(props:any){
         super(props);
         this.state = {
-            messages: []
+            message: ''
         }
     }
-    addMessage = (message)=>{
+    setMessage = (message)=>{
         this.setState((prevState)=>({
-            messages: [...prevState.messages, message]
+            message
         }));     
     }
     onClickInside = ()=>{
-        this.addMessage("Clicked inside!");
+        this.setMessage("Clicked inside!");
     }
     onClickOutside = ()=>{
-        this.addMessage("Clicked outside!");
-    }
-    resetMessages = (e)=>{
-        console.log("executing button handler");
-        e.preventDefault();
-        e.stopPropagation();
-        this.setState(()=>({
-            messages: []
-        }));
+        this.setMessage("Clicked outside!");
     }
     render(){
         return(
@@ -57,22 +49,13 @@ class ClickOutsideExample extends React.Component<any,any>{
                 </HandleClickOutside>
                 <div 
                     style={{
-                        backgroundColor: "#cccccc",
-                        paddingTop: "2rem", 
-                        width:'200px',
-                        maxHeight: '300px',
-                        overflowY: 'scroll'
+                        backgroundColor: "#f0f0f0f0",
+                        width:'150px', 
                     }}
                 >
-                    {this.state.messages.map((message)=>{
-                    return(
-                        <div style={{fontWeight:'bold', color: message.includes('outside') ? "#ff1919" : '#19ff19', padding: "0.5rem"}}>
-                            {message}
-                        </div>
-                        );
-                    })}
+                    {this.state.message}
+                    {this.state.message.includes('inside') ? '😃' : '😰'}
                 </div>
-                <button onClick={this.resetMessages} style={{color: "white", backgroundColor: "black", padding: "0.5rem"}}>remove messages</button>
             </div>
         )
 
@@ -118,7 +101,7 @@ class HideOnClickOutside extends React.Component<any,any>{
                                 alignItems: 'center'
                             }}
                         >
-                            click outside to hide me
+                            Click outside to hide me
                         </div>
                     </HandleClickOutside>
                     :

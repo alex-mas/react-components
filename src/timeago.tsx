@@ -25,13 +25,20 @@ export class TimeAgo extends React.PureComponent<TimeAgoProps, any> {
             timeP
         };
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if(this.props.time !== prevProps.time){
+            this.updateTime();
+        }
+    }
+    updateTime = ()=>{
+        this.setState(()=>({
+            timeP: getTimeAgo(Date.now() - this.props.time, true)
+        }));
+    }
     componentDidMount (){
         if(this.props.isTimePoint){
-            const interval = setInterval(()=>{
-                this.setState(()=>({
-                    timeP: getTimeAgo(Date.now() - this.props.time, true)
-                }));
-            }, 1000);
+            const interval = setInterval(this.updateTime, 1000);
             this.setState(()=>({
                 interval
             }));

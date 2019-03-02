@@ -17,7 +17,7 @@ export interface AutoCompleteState {
     suggestions: string[],
     selectedSuggestion: number,
     focused: boolean,
-    shouldRenderSuggestions: boolean,
+    shouldRenderSuggestions: boolean
 }
 
 
@@ -60,6 +60,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
     static defaultProps: Partial<AutoCompleteProps> = {
         suggestions: []
     };
+    private id: string;
     constructor(props: AutoCompleteProps) {
         super(props);
         this.state = {
@@ -73,6 +74,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onBlur = this.onBlur.bind(this);
         this.onFocus = this.onFocus.bind(this);
+        this.id = uuid();
     }
 
     shouldComponentUpdate(nextProps: AutoCompleteProps, nextState: AutoCompleteState) {
@@ -112,7 +114,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
     shouldAddSuggestion(value: string, suggestion: string, suggestions: string[]): boolean {
         return (
             value && value.length &&
-            suggestion.substring(0, value.length) === value &&
+            suggestion.substring(0, value.length).toLocaleLowerCase() === value.toLocaleLowerCase() &&
             suggestions.indexOf(suggestion) === -1 &&
             value !== suggestion
         );
@@ -170,22 +172,24 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                 }));
                 //tab key
             } else if (event.keyCode === 9 /*&& this.state.selectedSuggestion > -1*/ && this.state.shouldRenderSuggestions) {
-                event.preventDefault();
-                if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
-                    this.setState((prevState) => ({
-                        selectedSuggestion: prevState.selectedSuggestion + 1
-                    }));
-                } else {
-                    this.setState(() => ({
-                        selectedSuggestion: 0
-                    }));
+                if (this.state.suggestions.length > 0) {
+                    event.preventDefault();
+                    if (this.state.selectedSuggestion < this.state.suggestions.length - 1) {
+                        this.setState((prevState) => ({
+                            selectedSuggestion: prevState.selectedSuggestion + 1
+                        }));
+                    } else {
+                        this.setState(() => ({
+                            selectedSuggestion: 0
+                        }));
+                    }
                 }
             } else {
                 this.setState(() => ({
                     shouldRenderSuggestions: true
                 }));
             }
-        }else{
+        } else {
             //event.preventDefault();
         }
     }
@@ -200,6 +204,7 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
         }))
     }
     render() {
+        let id = this.props.id ? this.props.id : this.id;
         let value: string = this.props.value;
         if (this.state.selectedSuggestion > -1) {
             value = this.state.suggestions[this.state.selectedSuggestion];
@@ -209,9 +214,11 @@ export class AutoComplete extends React.Component<AutoCompleteProps, AutoComplet
                 className={this.props.className ? this.props.className : undefined}
                 onKeyDown={this.onKeyDown}
             >
-                <div className='axc-auto-complete'>
+                <div
+                    id={id}
+                    className='axc-auto-complete'
+                >
                     <input
-                        id={this.props.id}
                         className='axc-auto-complete__input'
                         placeholder={this.props.placeholder}
                         type='text'

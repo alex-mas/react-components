@@ -1,9 +1,11 @@
 import React, { CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import { isUndefined } from 'util';
+import { type } from 'os';
 
 
 export interface TooltipProps {
+    container: Element,
     text: string,
     isVisible: boolean,
     component: Element | Text,
@@ -37,12 +39,14 @@ export class Tooltip extends React.Component<TooltipProps, any> {
             //@ts-ignore
             const compDimensions = this.props.component.getBoundingClientRect();
             const tooltipDimensions = this.tooltip.current.getBoundingClientRect();
-            if (compDimensions.bottom + tooltipDimensions.height > window.innerHeight) {
+            const top = this.props.container ? this.props.container.getBoundingClientRect().top : window.innerHeight;
+            const right = this.props.container ? this.props.container.getBoundingClientRect().right : window.innerWidth;
+            if (compDimensions.bottom + tooltipDimensions.height > top) {
                 styles.bottom = `${compDimensions.height - 1}px`;
             } else {
                 styles.top = `-1px`;
             }
-            if (compDimensions.right + tooltipDimensions.width > window.innerWidth) {
+            if (compDimensions.right + tooltipDimensions.width > right) {
                 if (compDimensions.left - tooltipDimensions.width < 0) {
                     styles.left = `-${compDimensions.left}px`;
                 } else {
@@ -72,17 +76,24 @@ export class Tooltip extends React.Component<TooltipProps, any> {
     }
 }
 
+export interface TooltippedComponentProps{
+    tooltip: string,
+    tooltipClass: string,
+    containerRef?: React.Ref<HTMLElement>
+}
+
 export interface TooltippedComponentState {
     isTooltipVisible: boolean
 }
 
-export const withTooltip = (Component: React.ComponentType<any>) => {
-    return class TooltippedComponent extends React.Component<any, TooltippedComponentState>{
+export const withTooltip = <T extends any>(Component: React.ComponentType<T>, ) => {
+    return class TooltippedComponent extends React.Component<T & TooltippedComponentProps, TooltippedComponentState>{
         component: React.Ref<HTMLElement>;
         componentDOM: Element | Text;
         tooltip: React.Ref<Tooltip>;
         tooltipDOM: Element | Text;
-        constructor(props) {
+        containerDOM: Element;
+        constructor(props: T & TooltippedComponentProps) {
             super(props);
             this.state = {
                 isTooltipVisible: false
@@ -125,6 +136,9 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
             if (typeof this.tooltip === 'object' && this.tooltip.current) {
                 this.tooltipDOM = ReactDOM.findDOMNode(this.tooltip.current);
             }
+            if(typeof this.props.containerRef === 'object' && this.props.containerRef.current){
+                this.containerDOM =  ReactDOM.findDOMNode(this.props.containerRef.current) as Element;
+            }
         }
         componentWillUnmount() {
             if (typeof this.component === 'object' && this.component.current) {
@@ -142,10 +156,10 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
                             ref={this.component}
                             {...this.props}
                             onMouseLeave={this.onMouseLeave}
-                            className={this.props.className}
                         />
                     </div>
                     <Tooltip
+                        container={this.containerDOM}
                         ref={this.tooltip}
                         component={this.componentDOM}
                         text={this.props.tooltip}
@@ -154,7 +168,6 @@ export const withTooltip = (Component: React.ComponentType<any>) => {
                         className={this.props.tooltipClass}
                     />
                 </React.Fragment>
-
             )
         }
     }

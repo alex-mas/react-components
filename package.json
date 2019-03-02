@@ -7,7 +7,7 @@
     "build": "npm run preBuild && npm run compile",
     "preBuild": "node tasks/preBuild.js",
     "compile": "node_modules/.bin/tsc",
-    "genDocs": "node_modules/.bin/typedoc --out ./docs",
+    "genDocs": "node_modules/.bin/typedoc --out ./docs && npm run build-storybook",
     "test:locally": "npm run compile && jest --config=jest.config.json --coverage",
     "test": "npm run compile && jest --config=jest.config.json --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "preRelease": "npm run build && npm run test:locally",
@@ -16,7 +16,7 @@
     "release:minor": "npm run preRelease && node tasks/release.js type=minor",
     "release:major": "npm run preRelease && node tasks/release.js typ=major",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -c .storybook -o  docs/storybook"
   },
   "homepage": "https://github.com/alex-mas/react-components",
   "url": "TODO",

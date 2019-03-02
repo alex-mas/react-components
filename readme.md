@@ -26,7 +26,9 @@ The scope of this project is not to provide something like bootstrap, but to cre
     }
 ```
 
+## Examples
 
+You can see the components in action in the [Storybook](https://alex-mas.github.io/react-components/storybook)
 
 ## Documentation
 
