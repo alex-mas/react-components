@@ -1508,6 +1508,14 @@
     "@types/glob" "*"
     "@types/node" "*"
 
+"@types/storybook__react@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/storybook__react/-/storybook__react-4.0.1.tgz#b6320c9d027b8ee7ef1445fef8b4cba196d48ace"
+  integrity sha512-knkZErqv8Iy2QbebqBa5tsy2itIMKdO6bcQ7C19nmgTc+j1pnQhXCGcVyARzAQ1/NAuSYudSWQAKG+plgK7hyQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/webpack-env" "*"
+
 "@types/unist@*", "@types/unist@^2.0.0":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.2.tgz#5dc0a7f76809b7518c0df58689cd16a19bd751c6"
@@ -1535,6 +1543,11 @@
     "@types/node" "*"
     "@types/unist" "*"
     "@types/vfile-message" "*"
+
+"@types/webpack-env@*":
+  version "1.13.8"
+  resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.8.tgz#859e35ab1811eccd35e6b8d692a622b0fa7b31ec"
+  integrity sha512-PWkdsHTGMQHbiZwCJrFRhookFnOBw5gboW7cLcx+QyTMpwCVEr3SxzVO3L52krDnuoq50S02IiMLGIt6AmhFug==
 
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"

@@ -24,6 +24,32 @@ export class Tooltip extends React.Component<TooltipProps, any> {
         if (!this.props.isVisible) {
             tooltip += '--hidden';
         }
+        if (
+            typeof this.props.component === 'object' &&
+            typeof this.tooltip === 'object' &&
+            this.tooltip.current &&
+            this.props.isVisible
+        ) {
+            //@ts-ignore
+            const compDimensions = this.props.component.getBoundingClientRect();
+            const tooltipDimensions = this.tooltip.current.getBoundingClientRect();
+            const top = this.props.container ? this.props.container.getBoundingClientRect().top : window.innerHeight;
+            const right = this.props.container ? this.props.container.getBoundingClientRect().right : window.innerWidth;
+            if (compDimensions.bottom + tooltipDimensions.height > top) {
+                tooltip += ' ' + tooltip +'--bottom';
+            } else {
+                tooltip += ' ' + tooltip +'--top';
+            }
+            if (compDimensions.right + tooltipDimensions.width > right) {
+                if (compDimensions.left - tooltipDimensions.width < 0) {
+                    tooltip += '--left';
+                } else {
+                    tooltip += '--right';
+                }
+            } else {
+                tooltip += '--centered';
+            }
+        }
         if (this.props.className) {
             tooltip += ' ' + this.props.className;
         }
@@ -37,7 +63,7 @@ export class Tooltip extends React.Component<TooltipProps, any> {
             this.tooltip.current
         ) {
             //@ts-ignore
-            const compDimensions = this.props.component.getBoundingClientRect();
+            const compDimensions: ClientRect | DOMRect = this.props.component.getBoundingClientRect();
             const tooltipDimensions = this.tooltip.current.getBoundingClientRect();
             const top = this.props.container ? this.props.container.getBoundingClientRect().top : window.innerHeight;
             const right = this.props.container ? this.props.container.getBoundingClientRect().right : window.innerWidth;
@@ -48,12 +74,14 @@ export class Tooltip extends React.Component<TooltipProps, any> {
             }
             if (compDimensions.right + tooltipDimensions.width > right) {
                 if (compDimensions.left - tooltipDimensions.width < 0) {
-                    styles.left = `-${compDimensions.left}px`;
+                    styles.left = `-${tooltipDimensions.width}px`;
+                    styles.maxWidth = `${compDimensions.left}`;
                 } else {
                     styles.right = `${tooltipDimensions.width - compDimensions.width / 2 - 1}px`;
                 }
             } else {
                 styles.left = `${compDimensions.width / 2 - 1}px`;
+    
             }
         }
         return styles;

@@ -6,9 +6,9 @@ const defaultPredictionData: string[] = [];
 export interface DropdownProps {
     children?: any
     className?: string,
-    styles?: DropdownStyles,
     useInlineStyles?: boolean,
     options?: string[],
+    default: string,
     onSelect(index: number, value: string): any,
     component?: React.ComponentClass<any> | React.SFC<any>
     value?: any
@@ -17,42 +17,7 @@ export interface DropdownProps {
 
 export interface DropdownState {
     selectedOption: number,
-    focused: boolean,
-    styles: DropdownStyles
-}
-
-export interface DropdownStyles {
-    [key: string]: CSSProperties | undefined,
-    dropdown?: CSSProperties,
-    dropdown_element?: CSSProperties,
-    dropdown__options?: CSSProperties,
-    dropdown__option?: CSSProperties,
-    dropdown__option_selected?: CSSProperties
-}
-
-let defaultStyles: DropdownStyles = {
-    dropdown: {
-        position: 'relative',
-        width: '173px'
-    },
-    dropdown__element: {
-        maxWidth: 'inherit',
-        width: 'inherit'
-    },
-    dropdown__options: {
-        //width: '100%',
-        position: 'absolute',
-        zIndex: 1,
-        backgroundColor: 'white',
-        border: '0.5px solid black'
-    },
-    dropdown__option: {
-        border: '0.25px solid grey'
-    },
-    dropdown__option_selected: {
-        border: '0.5px solid black',
-        fontWeight: 'bold'
-    }
+    focused: boolean
 }
 
 //TODO: right now the element vanishes once the user attempts to select the options, need to detect that the focus is in fact not leaving the element
@@ -61,7 +26,6 @@ interface DropdownOptionProps {
     value?: string,
     component?: any
     index: number,
-    style?: CSSProperties,
     onClick(optionIndex: number, optionValue: string): any,
     onHover(optionIndex: number, optionValue: string): any,
     onFocus(optionIndex: number): any,
@@ -90,7 +54,6 @@ class DropdownOption extends React.PureComponent<DropdownOptionProps, any>{
         return (
             <div
                 className={this.props.className}
-                style={this.props.style}
                 onClick={this.onClick}
                 onMouseEnter={this.onMouseEnter}
                 onMouseLeave={this.onMouseLeave}
@@ -111,41 +74,8 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
         super(props);
         this.state = {
             selectedOption: -1,
-            focused: false,
-            styles: {
-                dropdown: {
-                },
-                dropdown__element: {
-                },
-                dropdown__options: {
-                },
-                dropdown__option: {
-                },
-                dropdown__option_selected: {
-                }
-            }
+            focused: false
         };
-        //style initialization 
-        if (props.useInlineStyles) {
-            if (props.styles) {
-                for (let key in this.state.styles) {
-                    if (this.state.styles.hasOwnProperty(key)) {
-                        this.state.styles[key] = {
-                            ...defaultStyles[key],
-                            ...props.styles[key]
-                        };
-                    }
-                }
-            } else {
-                for (let key in this.state.styles) {
-                    if (this.state.styles.hasOwnProperty(key)) {
-                        this.state.styles[key] = {
-                            ...defaultStyles[key]
-                        };
-                    }
-                }
-            }
-        }
         this.onHover = this.onHover.bind(this);
         this.onHoverEnd = this.onHoverEnd.bind(this);
         this.onKeyDown = this.onKeyDown.bind(this);
@@ -250,7 +180,7 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
             >
-                <div className='axc-dropdown' style={this.state.styles.dropdown}>
+                <div className='axc-dropdown'>
                     <div className='axc-dropdown__component'
                         onMouseEnter={this.onHover}
                         onMouseLeave={this.onHoverEnd}
@@ -258,11 +188,11 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
                         {this.props.component ?
                             <this.props.component />
                             :
-                            this.props.value
+                            this.props.value ? this.props.value : this.props.default
                         }
                     </div>
                     {this.isFocused() ?
-                        <div className='axc-dropdown__options' style={this.state.styles.dropdown__options}>
+                        <div className='axc-dropdown__options'>
                             {this.props.children ?
                                 React.Children.map(this.props.children, (child: any, index: any) => {
                                     const selected: boolean = index === this.state.selectedOption
@@ -275,11 +205,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
                                         key={child.value}
                                         className={className}
                                         index={index}
-                                        style={selected ?
-                                            this.state.styles.dropdown__option_selected
-                                            :
-                                            this.state.styles.dropdown__option
-                                        }
                                         onFocus={this.onFocusOption}
                                         onClick={this.onClickOption}
                                         onHover={this.onHoverOption}
@@ -298,11 +223,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState>{
                                             value={option}
                                             className={className}
                                             index={index}
-                                            style={selected ?
-                                                this.state.styles.dropdown__option_selected
-                                                :
-                                                this.state.styles.dropdown__option
-                                            }
                                             onClick={this.onClickOption}
                                             onHover={this.onHoverOption}
                                             onFocus={this.onFocusOption}

@@ -53,12 +53,14 @@ export const getTimeAgo =(num: number, ms: boolean): TimeAgoPoint=>{
         }
         
     }else{
+        console.log(givenTime);
         time = givenTime.seconds;
         if(givenTime.seconds > 1){
             text = 'seconds';
         }else{
             text = 'second';
         }
+        console.log(text);
     }
     time = Math.floor(time);
     return  {

@@ -1,4 +1,5 @@
 import React, { KeyboardEvent, EventHandler } from 'react';
+import { canUseDOM } from './utils/env';
 
 
 
@@ -28,10 +29,15 @@ export class KeyBinder extends React.Component<KeyBinderProps, KeyBinderState> {
         super(props);
     }
     componentDidMount() {
-        window.addEventListener('keyup', this.onKeyUp, false);
+        if(canUseDOM){
+            window.addEventListener('keyup', this.onKeyUp, false);
+        }
+
     }
     componentWillUnmount() {
-        window.removeEventListener('keyup', this.onKeyUp);
+        if(canUseDOM){
+            window.removeEventListener('keyup', this.onKeyUp);
+        }
     }
     onKeyUp: EventListener = (event: any): any => {
         for (let i = 0; i < this.props.keys.length; i++) {

@@ -1,4 +1,5 @@
 import React from "react";
+import { canUseDOM } from "./utils/env";
 
 interface P {
     onClickOutside: (event: MouseEvent) => void;
@@ -6,21 +7,24 @@ interface P {
 
 
 export class HandleClickOutside extends React.PureComponent<P, any> {
-    ref: React.Ref<HTMLDivElement>;
+    ref: React.RefObject<HTMLDivElement>;
     constructor(props: P) {
         super(props);
         this.ref = React.createRef();
     }
     componentDidMount() {
-        window.addEventListener("click", this.handleClicksOutside);
+        if(canUseDOM){
+            window.addEventListener("click", this.handleClicksOutside);
+        }
     }
     componentWillUnmount() {
-        window.removeEventListener("click", this.handleClicksOutside);
+        if(canUseDOM){
+            window.removeEventListener("click", this.handleClicksOutside);
+        }
     }
     handleClicksOutside = (event: MouseEvent) => {
-        if (this.ref) {
-            //@ts-ignore
-            const isOutsideClick = !this.ref.current.contains(event.target);
+        if (this.ref && this.ref.current) {
+            const isOutsideClick = !this.ref.current.contains(event.target as Node);
             if (isOutsideClick) {
                 this.props.onClickOutside(event);
             }

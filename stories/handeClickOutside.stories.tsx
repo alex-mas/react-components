@@ -1,9 +1,7 @@
 import React from 'react';
 import "../src/styles/index.scss";
 
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import {storiesOf} from '@storybook/react';
 
 import HandleClickOutside from "../src/handleClickOutside";
 
@@ -85,7 +83,7 @@ class HideOnClickOutside extends React.Component<any,any>{
     render(){
         return(
             <div>
-                <button onClick={this.showBox} style={{color: "white", backgroundColor: "black", padding: "0.5rem"}}>Show</button>
+                <button onClick={this.showBox} style={{color: "white", backgroundColor: "black", padding: "0.5rem", border: 'none'}}>Show</button>
                 {this.state.isBoxActive ? 
                     <HandleClickOutside onClickOutside={this.hideBox}>
                         <div 

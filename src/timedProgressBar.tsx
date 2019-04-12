@@ -24,7 +24,6 @@ export class TimedProgressBar extends React.Component<TimedProgressBarProps, Tim
         };
     }
     updateProgressBar = ()=>{
-
         this.setState((prevState)=>{
             const now = Date.now();
             const dt = now -prevState.lastUpdated;
@@ -58,7 +57,7 @@ export class TimedProgressBar extends React.Component<TimedProgressBarProps, Tim
                 barClass={this.props.barClass}
                 progress={this.state.currentProgress}
             />
-        )
+        );
     }
 }
 

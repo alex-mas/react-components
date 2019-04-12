@@ -1,0 +1,28 @@
+
+
+.axc-dropdown{
+    position: relative;
+    width: 173px;
+}
+
+.axc-dropdown__element{
+    max-width: inherit;
+    width: inherit;
+}
+
+.axc-dropdown__options{
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border: 0.5px solid black;
+}
+
+.axc-dropdown__option{
+    font-weight: bold;
+    border: 0.5px solid black;
+}
+
+.axc-dropdown__option--selected{
+    font-weight: bold;
+    border: 0.5px solid black;
+}

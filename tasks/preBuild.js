@@ -98,6 +98,7 @@ sass.render({
     }
 });
 
+copyFolderRecursively('./src/styles', './dist/styles/sass');
 
 fs.copyFileSync('./package.json','./dist/package.json');
 fs.copyFileSync('./LICENSE', './dist/LICENSE');

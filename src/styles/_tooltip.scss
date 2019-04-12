@@ -5,7 +5,15 @@
 .axc-tooltip{
     position: absolute;
     visibility: initial;
+    background: black;
+    width: fit-content;
+    height: fit-content;
+    max-height: 3rem;
+    color: white;
+    margin: 5px;
 }
+
+
 
 .axc-tooltip--hidden{
     @extend .axc-tooltip;
