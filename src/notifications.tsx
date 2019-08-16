@@ -130,7 +130,7 @@ export interface WithNotificationsHOC<T extends Notifications> {
 
 
 export const WithNotifications =<T extends Notifications>(Component: React.ComponentType<T>) => {
-    return (props: ObjectDiff<T, Notifications>) => (
+    return (props: Exclude<T, 'notify' |'dismissNotification'>) => (
         <Notification.Consumer>
             {notification=> <Component {...notification}{...props} />}
         </Notification.Consumer>

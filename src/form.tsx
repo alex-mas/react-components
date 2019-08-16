@@ -7,7 +7,7 @@ export enum FieldType{
 
 export interface FieldDefinition{
     type: FieldType,
-    customElement: React.ReactElement<any>
+    renderer: React.ReactElement<any>
 }
 
 export interface FormProps<T>{

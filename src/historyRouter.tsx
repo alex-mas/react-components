@@ -167,37 +167,6 @@ export class Link extends React.Component<LinkProps, any>{
 // Omit taken from https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-type P = {
-    test: 1,
-    test2: 2,
-    test3: 3,
-    history: 4
-}
-
-type C = Omit<P, 'history'>;
-
-type A = {
-    history: 4
-}
-
-const t = (param: P)=>{
-    return param;
-}
-
-const myA: A = {
-    history: 4
-};
-const myC: C ={
-    test: 1,
-    test2: 2,
-    test3: 3
-}
-
-
-t({
-    ...myA,
-    ...myC
-});
 
 /**
  * 
@@ -249,8 +218,8 @@ const _Route: React.SFC<RouteProps> = (props: RouteProps) => {
         });
         //if route has no children and has a component defined render the component with the props bootstrapped to it
     } else if (props.component) {
-        const C = props.component;
-        return <C
+        const Component = props.component;
+        return <Component
             className={props.className ? props.className : ''}
             history={props.history}
             path={props.path}
@@ -259,7 +228,7 @@ const _Route: React.SFC<RouteProps> = (props: RouteProps) => {
         />;
     } else {
         if (process.env.NODE_ENV === "development") {
-            console.warn('The route must be provided a component prop or children, else nothing will be rendered', new Error());
+            console.error('The route must be provided a component prop or children, else nothing will be rendered');
         }
         return null;
     }

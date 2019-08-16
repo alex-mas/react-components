@@ -9,11 +9,10 @@ import * as autoComplete from './autoComplete';
 import * as countdown from './countdown';
 import * as keyBinder from './keyBinder';
 import * as notifications from './notifications';
-import * as stopwatch from './stopwatch';
 import * as prompt from './prompt';
 import * as i18string from './i18string';
 import * as phoneNumber from './phoneNumber';
-import * as progressBar from './progressBar';
+import * as progressBar from './ui/progressBar';
 import * as timeago from './timeago';
 import * as timedProgressBar from './timedProgressBar';
 import * as countUp from './countUp';
@@ -36,7 +35,6 @@ export default {
     countdown,
     keyBinder,
     notifications,
-    stopwatch,
     i18string,
     phoneNumber,
     progressBar,

@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, EventHandler } from 'react';
+import React, { KeyboardEvent, EventHandler, RefObject } from 'react';
 import { canUseDOM } from './utils/env';
 
 
@@ -6,9 +6,11 @@ import { canUseDOM } from './utils/env';
 
 
 export interface KeyBinderProps {
-    keys: string[],
+    keyToListen?: string,
+    keys?: string[],
     onTrigger: Function;
-    className?: string
+    className?: string;
+    localBinder?: boolean;
 }
 
 export interface KeyBinderState {
@@ -25,38 +27,66 @@ export interface KeyBinderState {
  * 
  */
 export class KeyBinder extends React.Component<KeyBinderProps, KeyBinderState> {
+    static defaultProps = {
+        localBinder: false
+    };
+    rootRef: RefObject<HTMLDivElement> = React.createRef();
     constructor(props) {
         super(props);
     }
     componentDidMount() {
         if(canUseDOM){
-            window.addEventListener('keyup', this.onKeyUp, false);
+            if(this.props.localBinder){
+                this.rootRef.current.addEventListener('keyup', this.onKeyUp, false);
+            }else{
+                window.addEventListener('keyup', this.onKeyUp, false);
+            }
+           
         }
 
     }
     componentWillUnmount() {
         if(canUseDOM){
-            window.removeEventListener('keyup', this.onKeyUp);
+            if(this.props.localBinder){
+                this.rootRef.current.removeEventListener('keyup', this.onKeyUp);
+            }else{
+                window.removeEventListener('keyup', this.onKeyUp);
+            }
+          
         }
     }
     onKeyUp: EventListener = (event: any): any => {
+        if(!this.props.keys && !this.props.keyToListen){
+            return;
+        }
+        if(this.props.keyToListen){
+            if(this.props.keyToListen === event.key){
+                return this.props.onTrigger();
+            }
+            return;
+        }
         for (let i = 0; i < this.props.keys.length; i++) {
             if (this.props.keys[i].includes(event.key)) {
                 return this.props.onTrigger();
             }
         }
-
     }
     render() {
-        if (!this.props.children) {
-            return null;
-        } else {
-            return (
-                <React.Fragment>
+        if(this.props.localBinder){
+            return(
+                <div ref={this.rootRef}> 
                     {this.props.children}
-                </React.Fragment>
+                </div>
             );
         }
+        if(!this.props.children) {
+            return null;
+        }
+        return (
+            <React.Fragment>
+                {this.props.children}
+            </React.Fragment>
+        );
 
     }
 }

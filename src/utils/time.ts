@@ -39,14 +39,14 @@ export const getTimeAgo =(num: number, ms: boolean): TimeAgoPoint=>{
     let text: string;
     if(givenTime.hours > 0){
         time = givenTime.hours;
-        if(givenTime.hours > 1){
+        if(givenTime.hours >= 2){
             text = 'hours';
         }else{
             text = 'hour';
         }
     }else if(givenTime.minutes > 0){
         time = givenTime.minutes;
-        if(givenTime.minutes > 1){
+        if(givenTime.minutes >= 2){
             text = 'minutes';
         }else{
             text = 'minute';
@@ -55,7 +55,7 @@ export const getTimeAgo =(num: number, ms: boolean): TimeAgoPoint=>{
     }else{
         console.log(givenTime);
         time = givenTime.seconds;
-        if(givenTime.seconds > 1){
+        if(givenTime.seconds >= 2){
             text = 'seconds';
         }else{
             text = 'second';

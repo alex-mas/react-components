@@ -2,9 +2,9 @@ import React from 'react';
 import Router, {RouterContext} from './router';
 
 export interface TabProps {
-    title: string
+    tab: string
     children?: any,
-    titleComponent?: React.ComponentClass<any> | React.SFCFactory<any>
+    tabComponent?: React.ComponentClass<any> | React.SFCFactory<any>
 
 }
 
@@ -58,7 +58,7 @@ export class TabContainer extends React.Component<TabContainerProps, TabContaine
         }));
     }
     shouldRenderTab = (childProps: TabProps, routerContext: RouterContext, index: number) =>{
-        if(childProps.title === this.state.activeTab){
+        if(childProps.tab === this.state.activeTab){
             return true;
         }else{
             return false;
@@ -70,13 +70,13 @@ export class TabContainer extends React.Component<TabContainerProps, TabContaine
                 <div className='axc-tab-container__links'>
                     {React.Children.map(this.props.children, (child: any, index: number) => {
                         let className: string = 'axc-tab-link';    
-                        if(child.props.title === this.state.activeTab){
+                        if(child.props.tab === this.state.activeTab){
                             className = 'axc-tab-link--active'
                         }
                         return (
                             <TabLink
-                                title={child.props.title}
-                                component={child.props.titleComponent}
+                                title={child.props.tab}
+                                component={child.props.tabComponent}
                                 onClick={this.onTabLinkClick}
                                 className={className}
                             />

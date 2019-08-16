@@ -55,7 +55,7 @@ export class Modal extends React.Component<ModalProps, ModalState>{
             }
         }
     }
-    renderModal = ()=>{
+    getOverlayClassName = ()=>{
         let overlayClassName = 'axc-modal__overlay';
         if (this.state.isInTransition) {
             if (this.props.isOpen) {
@@ -65,13 +65,19 @@ export class Modal extends React.Component<ModalProps, ModalState>{
                 overlayClassName += '--closing';
             }
         }
+        return overlayClassName;
+    }
+    getBodyClassName = ()=>{
         let bodyClassName = 'axc-modal__body';
         if (this.props.className) {
             bodyClassName = this.props.className;
         }
+        return bodyClassName;
+    }
+    renderModal = ()=>{
         return (
-            <div className={overlayClassName} onClick={this.handleClickOutsideModal}>
-                <div className={bodyClassName} onClick={this.handleClickInsideModal}>
+            <div className={this.getOverlayClassName()} onClick={this.handleClickOutsideModal}>
+                <div className={this.getBodyClassName()} onClick={this.handleClickInsideModal}>
                     {this.props.children}
                 </div>
             </div>
