@@ -1,7 +1,7 @@
 //TODO: BOOTSTRAP STYLE FILES INTO THE APPROPIATE DIRECTORY TO BE IMPORTED BY USERS
 const fs = require('fs');
 const path = require('path');
-const sass = require('node-sass');
+const sass = require('sass');
 
 
 const copyFolderRecursively = function (from, to) {
